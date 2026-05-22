@@ -329,10 +329,10 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 /* ═══════════════ MORPHING LOGO (big → small) ═══════════════ */
 #morphLogo {
   position: fixed;
-  top: clamp(70px, 8vw, 92px);
+  top: clamp(80px, 7vw, 92px);
   left: clamp(1.25rem, 3vw, 3rem);
-  width: clamp(110px, 13vw, 220px);
-  height: clamp(110px, 13vw, 220px);
+  width: clamp(130px, 11.5vw, 220px);
+  height: clamp(130px, 11.5vw, 220px);
   z-index: 999999;
   display: block;
   line-height: 0;
@@ -880,7 +880,7 @@ footer {
 
 /* ═══════════════ AUTO-SHRINK LOGO ON NARROW VIEWPORTS ═══════════════ */
 /* Below 700px wide, the logo auto-shrinks to nav-bar size (same as scrolled state) */
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   #morphLogo {
     top: 14px !important;
     left: 1.25rem !important;
