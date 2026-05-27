@@ -64,7 +64,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99999;display:flex;align-items:c
   background:rgba(8,8,8,0.6);
 }
 .hero-body{position:relative;z-index:2;}
-
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -76,18 +75,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99999;display:flex;align-items:c
   color: #E8581A;
   margin-bottom: 1.5rem;
   white-space: nowrap;
-  width: 200px; /* overridden by JS */
+  width: 200px;
 }
-.eb-text {
-  flex-shrink: 0;
-}
-.eb-line {
-  display: block;
-  height: 1px;
-  background: #E8581A;
-  flex-shrink: 0;
-  width: 200px; /* default, overridden by JS */
-}
+.eb-text { flex-shrink: 0; }
+.eb-line { display: block; height: 1px; background: #E8581A; flex-shrink: 0; width: 40px; }
 .hero-eyebrow .dash { display: none; }
 .hero-eyebrow::before{content:'';display:block;width:36px;height:1px;background:var(--orange)}
 .hero h1{font-size:clamp(5rem,11vw,9.5rem);font-weight:700;line-height:0.92;letter-spacing:-0.01em;max-width:860px}
@@ -299,9 +290,33 @@ body.scrolled #mainNav {
 }
 
 /* ═══════════════ MOBILE RESPONSIVE ═══════════════ */
+@media (max-width: 768px) {
+  #mainNav { padding: 0 1rem; height: 64px; }
+  body.scrolled #navLinks { display: none; }
+  #navCta { padding: 8px 14px; font-size: 0.62rem; letter-spacing: 0.1em; }
 
+  .hero { padding: 90px 1.25rem 2.5rem !important; min-height: 90vh !important; }
+  .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem) !important; line-height: 0.95 !important; }
+  .hero-eyebrow { font-size: 0.55rem !important; letter-spacing: 0.15em !important; }
+  .hero-sub { flex-direction: column !important; gap: 1.5rem !important; align-items: flex-start !important; }
+  .hero-desc { max-width: 100% !important; font-size: 0.95rem !important; }
+  .hero-actions { flex-direction: column !important; width: 100%; gap: 0.75rem !important; }
+  .hero-actions > * { width: 100% !important; justify-content: center !important; text-align: center !important; box-sizing: border-box; }
 
+  section { padding: 3.5rem 1.25rem !important; }
+  .stitle { font-size: clamp(2rem, 9vw, 3.5rem) !important; }
 
+  .work-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+  .proc-steps, .team-grid, .why-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+
+  footer { flex-direction: column !important; gap: 1rem !important; text-align: center !important; padding: 2rem 1.25rem !important; }
+  }
+
+@media (max-width: 480px) {
+  #mainNav { padding: 0 0.75rem; }
+  #navCta { padding: 7px 11px; font-size: 0.58rem; }
+  .hero h1 { font-size: clamp(2.2rem, 13vw, 3rem) !important; }
+}
 
 /* ═══════════════ POLISH FIXES ═══════════════ */
 html { scroll-behavior: smooth; }
@@ -310,12 +325,46 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 
 /* ═══════════════ MOBILE — adjust hero logo + nav ═══════════════ */
-
+@media (max-width: 768px) {
+  body.scrolled }
 
 
 
 /* Hide old nav-logo-sticky (replaced by #morphLogo) */
 /* ═══════════════ MORPHING LOGO (big → small) ═══════════════ */
+#morphLogo {
+  position: fixed;
+  top: clamp(82px, 7vw, 88px);
+  left: clamp(1.25rem, 3vw, 3rem);
+  width: clamp(110px, 11vw, 200px);
+  height: clamp(110px, 11vw, 200px);
+  z-index: 999999;
+  display: block;
+  line-height: 0;
+  transition: 
+    top 0.35s cubic-bezier(0.4,0,0.2,1),
+    left 0.35s cubic-bezier(0.4,0,0.2,1),
+    width 0.35s cubic-bezier(0.4,0,0.2,1),
+    height 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+#morphLogo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 18px rgba(0,0,0,0.45));
+  transition: filter 0.5s ease;
+}
+body.scrolled #morphLogo {
+  top: 14px;
+  left: 1.5rem;
+  width: 44px;
+  height: 44px;
+}
+body.scrolled #morphLogo img {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+
 /* ═══════════════ SMALLER HERO HEADLINE ═══════════════ */
 .hero h1 {
   font-size: clamp(3rem, 8vw, 6.5rem) !important;
@@ -325,20 +374,24 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 /* ═══════════════ BRIGHTER HERO DESCRIPTION ═══════════════ */
 .hero-desc {
-  color: rgba(245, 242, 237, 1) !important;
+  color: rgba(245,242,237,1) !important;
   font-size: 1.1rem !important;
   line-height: 1.5 !important;
   max-width: 32rem !important;
 }
 
 /* Hero with content pushed to bottom, room for big logo at top */
-.hero { justify-content: flex-end !important; padding-top: clamp(180px, 22vw, 480px) !important; padding-bottom: clamp(40px, 6vw, 80px) !important; min-height: 100vh !important; }
+.hero { justify-content: flex-end !important; padding-top: clamp(180px, 28vw, 340px) !important; padding-bottom: clamp(40px, 6vw, 80px) !important; min-height: 100vh !important; }
 .hero-body {
   margin-top: auto;
 }
 
 /* ═══════════════ MOBILE ADJUSTMENTS ═══════════════ */
-
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: clamp(2rem, 11vw, 4rem) !important;
+  }
+}
 
 
 
@@ -388,7 +441,7 @@ section {
 .ssub {
   font-size: 1.1rem !important;
   line-height: 1.5 !important;
-  color: rgba(245, 242, 237, 1) !important;
+  color: rgba(245, 242, 237, 0.7) !important;
   max-width: 50rem !important;
   margin: 0 0 3rem 0 !important;
 }
@@ -403,7 +456,7 @@ section {
 .fbtn {
   background: transparent !important;
   border: 1px solid rgba(245, 242, 237, 0.18) !important;
-  color: rgba(245, 242, 237, 1) !important;
+  color: rgba(245, 242, 237, 0.6) !important;
   padding: 10px 20px !important;
   font-size: 0.72rem !important;
   font-weight: 600 !important;
@@ -481,7 +534,7 @@ section {
 }
 .wc-client {
   font-size: 0.75rem !important;
-  color: rgba(245, 242, 237, 1) !important;
+  color: rgba(245, 242, 237, 0.6) !important;
 }
 .work-play {
   position: absolute !important;
@@ -549,7 +602,7 @@ section {
 .proc-step .pdesc {
   font-size: 0.95rem !important;
   line-height: 1.55 !important;
-  color: rgba(245, 242, 237, 1) !important;
+  color: rgba(245, 242, 237, 0.65) !important;
   margin: 0 0 1.25rem 0 !important;
 }
 .proc-step .ptag {
@@ -657,7 +710,7 @@ section {
 .why-item p {
   font-size: 0.95rem !important;
   line-height: 1.55 !important;
-  color: rgba(245, 242, 237, 1) !important;
+  color: rgba(245, 242, 237, 0.65) !important;
   margin: 0 !important;
 }
 
@@ -690,7 +743,7 @@ section {
   border-color: #E8581A !important;
 }
 .forminput::placeholder {
-  color: rgba(245, 242, 237, 1) !important;
+  color: rgba(245, 242, 237, 0.4) !important;
 }
 textarea.forminput {
   min-height: 140px !important;
@@ -773,12 +826,19 @@ footer {
 .fcopy {
   font-size: 0.75rem !important;
   letter-spacing: 0.1em !important;
-  color: rgba(245, 242, 237, 1) !important;
+  color: rgba(245, 242, 237, 0.45) !important;
   text-transform: uppercase !important;
 }
 
 /* ─────── MOBILE ─────── */
-
+@media (max-width: 768px) {
+  section { padding: 4rem 1.25rem !important; }
+  .stitle { font-size: clamp(2rem, 9vw, 3rem) !important; }
+  .work-grid { grid-template-columns: 1fr !important; }
+  .proc-steps, .why-grid, .team-grid { grid-template-columns: 1fr !important; }
+  .form-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+  .proc-step, .why-item { padding: 2rem 1.5rem !important; }
+}
 
 
 
@@ -823,312 +883,124 @@ footer {
 /* ═══════════════ AUTO-SHRINK LOGO ON NARROW VIEWPORTS ═══════════════ */
 /* Below 700px wide, the logo auto-shrinks to nav-bar size (same as scrolled state) */
 @media (max-width: 900px), (max-height: 700px) {
-/* And the hero padding-top reduces since logo no longer occupies hero space */
+  #morphLogo {
+    top: 14px !important;
+    left: 1.25rem !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+  /* And the hero padding-top reduces since logo no longer occupies hero space */
   .hero {
     padding-top: 30px !important;
   }
 }
 
 
-/* ═══════════════ MORPH LOGO — single source of truth ═══════════════ */
-#morphLogo {
-  position: fixed;
-  top: clamp(82px, 6vw, 100px);
-  left: calc(clamp(2rem, 4vw, 5rem) - 4px);
-  width: clamp(120px, 18vw, 340px);
-  height: clamp(120px, 18vw, 340px);
-  z-index: 999999;
-  display: block;
-  line-height: 0;
-  transition:
-    top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    left 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-#morphLogo img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: contain;
-  /* NO drop shadow */
-}
+/* ═══ MOBILE v3 — safe append, no removals ═══ */
+@media (max-width: 540px) {
+  #navLinks { display: none !important; }
+  #navSpacer { display: none !important; }
+  #mainNav { padding: 0 1.25rem !important; height: 60px !important; }
+  #navCta { font-size: 0.62rem !important; padding: 8px 14px !important; }
 
-/* Auto-shrink on small viewports */
-
-
-/* ═══════════════ HERO VIDEO — fill but no warp ═══════════════ */
-.hero-vid-wrap {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 0;
-}
-.hero-vid {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* Make video at least cover both dimensions, like background-size:cover */
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  /* Vimeo iframes don't respect object-fit, so we size proportionally using aspect ratio */
-  aspect-ratio: 16/9;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  border: none;
-}
-/* When viewport is narrower than 16:9, scale by height */
-@media (max-aspect-ratio: 16/9) {
-  .hero-vid {
-    height: 100%;
-    width: auto;
-    /* Make width = height * 16/9 */
-    min-width: 177.78vh;
-  }
-}
-/* When viewport is wider than 16:9, scale by width */
-@media (min-aspect-ratio: 16/9) {
-  .hero-vid {
-    width: 100%;
-    height: auto;
-    /* Make height = width * 9/16 */
-    min-height: 56.25vw;
-  }
-}
-
-
-/* ═══════════════ HERO — full bleed, no max-width constraint ═══════════════ */
-#home.hero {
-  max-width: 100% !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding-left: clamp(2rem, 4vw, 5rem) !important;
-  padding-right: clamp(2rem, 4vw, 5rem) !important;
-  box-sizing: border-box !important;
-}
-.hero-vid-wrap {
-  position: absolute !important;
-  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  overflow: hidden !important;
-  margin: 0 !important;
-  max-width: none !important;
-}
-
-
-/* On very narrow viewports, keep logo small as it's JS-positioned */
-@media (max-width: 600px) {
-  #morphLogo { width: 80px !important; height: 80px !important; }
-}
-
-
-/* ═══ HERO FULL-BLEED — breaks out of section max-width ═══ */
-#home, section#home, #home.hero {
-  max-width: 100vw !important;
-  width: 100vw !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  box-sizing: border-box !important;
-}
-.hero-body {
-  padding-left: clamp(2rem, 4vw, 5rem) !important;
-  padding-right: clamp(2rem, 4vw, 5rem) !important;
-  box-sizing: border-box !important;
-  width: 100% !important;
-  position: relative !important;
-  z-index: 2 !important;
-}
-.hero-vid-wrap {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  overflow: hidden !important;
-  z-index: 0 !important;
-}
-.hero-vid {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-width: 177.78vh !important;
-  min-height: 56.25vw !important;
-  transform: translate(-50%, -50%) !important;
-  pointer-events: none !important;
-  border: none !important;
-}
-
-
-/* ═══════════════════════════════════════════════════════
-   MOBILE — iOS / Android (≤480px)
-   ═══════════════════════════════════════════════════════ */
-
-/* ═══════════════════════════════════════════════════════
-   MOBILE OVERHAUL v2 — iOS/Android
-   ═══════════════════════════════════════════════════════ */
-@media (max-width: 480px) {
-
-  /* ── Nav: show links, smaller text ── */
-  #mainNav {
-    padding: 0 1rem !important;
-    height: 58px !important;
-  }
-  #navLinks {
-    display: flex !important;
-    gap: 1rem !important;
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-  }
-  #navLinks li a {
-    font-size: 0.55rem !important;
-    letter-spacing: 0.12em !important;
-  }
-  #navCta {
-    font-size: 0.55rem !important;
-    padding: 7px 10px !important;
-    letter-spacing: 0.06em !important;
-    white-space: nowrap !important;
-  }
-
-  /* ── Logo: starts BIG above eyebrow, JS-driven morph still works ── */
-  /* DO NOT force small size here — let the scroll-driven JS control it */
-  /* Only override the clamp so it scales for narrow screens */
   #morphLogo {
-    width: clamp(80px, 22vw, 130px) !important;
-    height: clamp(80px, 22vw, 130px) !important;
+    width: clamp(120px, 32vw, 150px) !important;
+    height: clamp(120px, 32vw, 150px) !important;
   }
 
-  /* ── Hero ── */
   #home, section#home {
+    min-height: 100svh !important;
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
+    padding-top: clamp(160px, 42vw, 210px) !important;
     padding-bottom: 2.5rem !important;
-    min-height: 100svh !important;
+    box-sizing: border-box !important;
+    justify-content: flex-end !important;
   }
   .hero-body {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
   }
-
-  /* ── Eyebrow: hide lines on mobile, just text ── */
   .eb-line { display: none !important; }
   .hero-eyebrow {
-    font-size: 0.68rem !important;
+    width: auto !important;
+    font-size: 0.65rem !important;
     letter-spacing: 0.14em !important;
     gap: 0 !important;
-    width: auto !important;
     margin-bottom: 0.75rem !important;
+    justify-content: center !important;
   }
-
-  /* ── Headline ── */
   .hero h1 {
-    font-size: clamp(2.4rem, 11vw, 3.2rem) !important;
-    line-height: 0.93 !important;
+    font-size: clamp(2.4rem, 13vw, 3.2rem) !important;
+    line-height: 0.92 !important;
+    text-align: center !important;
+    width: 100% !important;
     margin-bottom: 0.75rem !important;
   }
-
-  /* ── Description ── */
+  .hero-sub {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    width: 100% !important;
+  }
   .hero-desc {
     font-size: 0.88rem !important;
-    line-height: 1.5 !important;
-    max-width: 100% !important;
-    margin-bottom: 1.25rem !important;
-  }
-
-  /* ── CTA buttons: stack vertically ── */
-  .hero-actions {
-    flex-direction: column !important;
-    gap: 0.65rem !important;
-    align-items: stretch !important;
-  }
-  .hero-actions a,
-  .hero-actions button {
-    width: 100% !important;
-    justify-content: center !important;
     text-align: center !important;
-    box-sizing: border-box !important;
-    font-size: 0.68rem !important;
-    padding: 13px 16px !important;
-  }
-
-  /* ── Marquee ── */
-  .marquee-content {
-    font-size: 0.6rem !important;
-    letter-spacing: 0.12em !important;
-  }
-
-  /* ── Sections ── */
-  section {
-    padding: 3rem 1.25rem !important;
     max-width: 100% !important;
+    margin-bottom: 0.5rem !important;
   }
-  .stitle { font-size: clamp(1.8rem, 9vw, 2.5rem) !important; }
-  .ssub   { font-size: 0.9rem !important; }
-
-  /* ── Work grid ── */
-  .work-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
-  .fbar { gap: 0.4rem !important; flex-wrap: wrap !important; }
-  .fbtn { font-size: 0.6rem !important; padding: 7px 10px !important; }
-
-  /* ── Process ── */
-  .proc-steps { grid-template-columns: 1fr !important; border-left: none !important; }
-  .proc-step { padding: 1.5rem 1.25rem !important; }
-  .proc-step .pnum { font-size: 2.5rem !important; }
-  .proc-step .ptitle { font-size: 1.1rem !important; }
-
-  /* ── Team ── */
-  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
-  .team-photo { font-size: 3rem !important; }
-  .team-name { font-size: 0.9rem !important; }
-  .team-role { font-size: 0.62rem !important; }
-
-  /* ── Why ── */
-  .why-grid { grid-template-columns: 1fr !important; border-left: none !important; }
-  .why-item { padding: 1.5rem 1.25rem !important; }
-  .why-item h3 { font-size: 1.1rem !important; }
-
-  /* ── Contact ── */
-  .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-  .forminput { font-size: 1rem !important; }
-
-  /* ── Footer ── */
-  footer { padding: 1.75rem 1.25rem !important; }
-  .fcopy { font-size: 0.62rem !important; }
-}
-
-/* ── Tablet (481–768px) ── */
-@media (min-width: 481px) and (max-width: 768px) {
-  #navLinks li a { font-size: 0.6rem !important; letter-spacing: 0.12em !important; }
-  #navCta { font-size: 0.6rem !important; padding: 8px 12px !important; }
-  #morphLogo {
-    width: clamp(100px, 16vw, 160px) !important;
-    height: clamp(100px, 16vw, 160px) !important;
-  }
-  .hero h1 { font-size: clamp(2.8rem, 8vw, 4.5rem) !important; }
   .hero-actions {
     flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 0.75rem !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
   }
   .hero-actions a, .hero-actions button {
     width: 100% !important;
+    max-width: 300px !important;
     justify-content: center !important;
+    text-align: center !important;
     box-sizing: border-box !important;
+    font-size: 0.72rem !important;
+    padding: 13px 16px !important;
+    display: flex !important;
   }
+  .marquee-content { font-size: 0.6rem !important; }
+  section { padding: 3rem 1.25rem !important; max-width: 100% !important; }
+  .stitle { font-size: clamp(1.8rem, 9vw, 2.4rem) !important; }
+  .ssub { font-size: 0.88rem !important; max-width: 100% !important; }
+  .work-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+  .fbar { gap: 0.4rem !important; flex-wrap: wrap !important; }
+  .fbtn { font-size: 0.58rem !important; padding: 7px 10px !important; }
+  .proc-steps { grid-template-columns: 1fr !important; border-left: none !important; }
+  .proc-step { padding: 1.5rem 1rem !important; }
+  .proc-step .pnum { font-size: 2.5rem !important; }
+  .team-grid { grid-template-columns: repeat(2,1fr) !important; gap: 0.75rem !important; }
+  .team-photo { font-size: 3rem !important; }
+  .why-grid { grid-template-columns: 1fr !important; border-left: none !important; }
+  .why-item { padding: 1.5rem 1rem !important; }
+  .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .forminput { font-size: 1rem !important; }
+  footer { padding: 1.75rem 1.25rem !important; text-align: center !important; }
+  .fcopy { font-size: 0.62rem !important; }
+}
+
+@media (min-width: 541px) and (max-width: 768px) {
+  #navLinks li a { font-size: 0.6rem !important; letter-spacing: 0.1em !important; }
+  #navCta { font-size: 0.62rem !important; padding: 8px 12px !important; }
+  #morphLogo { width: clamp(110px, 18vw, 160px) !important; height: clamp(110px, 18vw, 160px) !important; }
+  .hero h1 { font-size: clamp(2.8rem, 8vw, 4.5rem) !important; }
+  .hero-sub { flex-direction: column !important; gap: 1rem !important; }
+  .hero-actions { flex-direction: column !important; align-items: flex-start !important; gap: 0.75rem !important; }
+  .hero-actions a, .hero-actions button { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
   .eb-line { display: none !important; }
   .hero-eyebrow { width: auto !important; }
-  .work-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  .team-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .work-grid { grid-template-columns: repeat(2,1fr) !important; }
+  .team-grid { grid-template-columns: repeat(2,1fr) !important; }
   .proc-steps, .why-grid { grid-template-columns: 1fr !important; }
   .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
 }
@@ -1159,11 +1031,7 @@ footer {
       <div class="hero-vid-overlay"></div>
     </div>
     <div class="hero-body">
-      <div class="hero-eyebrow">
-      <span class="eb-line eb-line-left"></span>
-      <span class="eb-text">SHOOT. EDIT. ANIMATE. EFFECT.</span>
-      <span class="eb-line eb-line-right"></span>
-    </div>
+      <div class="hero-eyebrow"><span class="dash"></span> SHOOT. EDIT. ANIMATE. EFFECT.</div>
       <h1>We <span class="solid">Make</span><br><span class="outline">Brands</span><br>Move.</h1>
       <div class="hero-sub">
         <p class="hero-desc">R43 Limited is a commercial production studio built for ad agencies and national brands &mdash; we shoot, edit, animate, and effect work that converts.</p>
@@ -1521,82 +1389,50 @@ document.getElementById('fsubmit').addEventListener('click', () => {
 
 
 
-// ═══ SCROLL-DRIVEN LOGO: locks to eyebrow, morphs into nav on scroll ═══
+// ═══ SCROLL-DRIVEN LOGO ═══
 (function() {
-  var logo   = document.getElementById('morphLogo');
+  var logo = document.getElementById('morphLogo');
   if (!logo) return;
-
-  var NAV_H    = 64;
-  var NAV_LEFT = 24;
-  var NAV_SIZE = 44;
-  var GAP      = 12;  // gap between logo bottom and eyebrow top
-
-  // Remove CSS transitions — JS drives it frame by frame
   logo.style.transition = 'none';
-
-  function easeInOut(t) {
-    return t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
-  }
-
+  function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
   function update() {
-    var eb   = document.querySelector('.hero-eyebrow');
-    var hero = document.querySelector('.hero');
-    if (!eb || !hero) return;
-
-    var vw       = window.innerWidth;
-    var scrollY  = window.scrollY;
-
-    // Compute hero logo size based on viewport (same clamp formula)
-    var heroSize = Math.min(340, Math.max(120, vw * 0.18));
-
-    // Where the eyebrow is in the DOCUMENT (not viewport) coords
-    var ebDocTop  = eb.getBoundingClientRect().top + scrollY;
-    var ebLeft    = eb.getBoundingClientRect().left + (vw > 900 ? 0 : 0);
-
-    // Hero logo sits just above eyebrow in document coords
-    var heroDocTop  = ebDocTop - heroSize - GAP;
-    var heroLeft    = eb.getBoundingClientRect().left; // real-time left
-
-    // Convert to viewport coords
+    var eb = document.querySelector('.hero-eyebrow');
+    if (!eb) return;
+    var vw = window.innerWidth;
+    var isMobile = vw <= 540;
+    var NAV_H = isMobile ? 60 : 64;
+    var NAV_LEFT = isMobile ? 20 : 24;
+    var NAV_SIZE = isMobile ? 36 : 44;
+    var GAP = 12;
+    var scrollY = window.scrollY;
+    var heroSize = isMobile
+      ? Math.min(150, Math.max(120, vw * 0.32))
+      : Math.min(340, Math.max(120, vw * 0.18));
+    var ebDocTop = eb.getBoundingClientRect().top + scrollY;
+    var heroLeft = eb.getBoundingClientRect().left;
+    var heroDocTop = ebDocTop - heroSize - GAP;
     var heroViewTop = heroDocTop - scrollY;
-
-    // Morph progress: starts when logo top hits nav bottom, ends 250px later
-    var morphStart  = heroDocTop - NAV_H;          // scroll pos where logo top = nav bottom
-    var morphEnd    = morphStart + 250;
-    var progress    = Math.min(1, Math.max(0, (scrollY - morphStart) / (morphEnd - morphStart)));
-    var ease        = easeInOut(progress);
-
+    var morphStart = heroDocTop - NAV_H;
+    var morphEnd = morphStart + 250;
+    var progress = Math.min(1, Math.max(0, (scrollY - morphStart) / (morphEnd - morphStart)));
+    var ease = easeInOut(progress);
     var size = heroSize + (NAV_SIZE - heroSize) * ease;
     var top  = heroViewTop + (NAV_H/2 - NAV_SIZE/2 - heroViewTop) * ease;
     var left = heroLeft + (NAV_LEFT - heroLeft) * ease;
-
     logo.style.width  = size + 'px';
     logo.style.height = size + 'px';
     logo.style.top    = top  + 'px';
     logo.style.left   = left + 'px';
   }
-
   var ticking = false;
-  function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(function() { update(); ticking = false; });
-      ticking = true;
-    }
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', function() { requestAnimationFrame(update); }, { passive: true });
-
-  // Initial position
+  window.addEventListener('scroll', function() {
+    if (!ticking) { requestAnimationFrame(function(){ update(); ticking=false; }); ticking=true; }
+  }, {passive:true});
+  window.addEventListener('resize', function() { requestAnimationFrame(update); }, {passive:true});
   update();
 })();
 
-
-
-
-
-
-// ═══ Eyebrow: centered above "We Make", lines fill exact width ═══
+// ═══ Eyebrow line widths = "We Make" width ═══
 (function() {
   function setEyebrowLines() {
     var h1 = document.querySelector('.hero h1');
@@ -1604,38 +1440,23 @@ document.getElementById('fsubmit').addEventListener('click', () => {
     var ebText = document.querySelector('.eb-text');
     var lines = document.querySelectorAll('.eb-line');
     if (!h1 || !eb || !ebText || !lines.length) return;
-
     var cs = getComputedStyle(h1);
-
-    // Measure "We Make" at current font size
     var test = document.createElement('span');
-    test.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;' +
-      'font-size:' + cs.fontSize + ';font-weight:' + cs.fontWeight + ';' +
-      'letter-spacing:' + cs.letterSpacing + ';font-family:' + cs.fontFamily;
+    test.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;font-size:'+cs.fontSize+';font-weight:'+cs.fontWeight+';letter-spacing:'+cs.letterSpacing+';font-family:'+cs.fontFamily;
     test.textContent = 'We Make';
     document.body.appendChild(test);
     var weMakeW = Math.round(test.getBoundingClientRect().width);
     document.body.removeChild(test);
-
-    // Measure eyebrow text width
     var textW = Math.round(ebText.getBoundingClientRect().width);
-    var gap = 16; // gap between line and text (px, matches gap:16px in CSS)
-
-    // Each line = (total - text - 2 gaps) / 2
-    var lineW = Math.max(0, Math.floor((weMakeW - textW - gap * 2) / 2));
-
-    // Set container width and line widths
+    var gap = 16;
+    var lineW = Math.max(0, Math.floor((weMakeW - textW - gap*2) / 2));
     eb.style.width = weMakeW + 'px';
-    lines.forEach(function(l) { l.style.width = lineW + 'px'; });
+    lines.forEach(function(l){ l.style.width = lineW+'px'; });
   }
-
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(setEyebrowLines);
-  } else {
-    window.addEventListener('load', setEyebrowLines);
-  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(setEyebrowLines);
+  else window.addEventListener('load', setEyebrowLines);
   setEyebrowLines();
-  window.addEventListener('resize', setEyebrowLines, { passive: true });
+  window.addEventListener('resize', setEyebrowLines, {passive:true});
 })();
 
 // ── Init ─────────────────────────────────────────────────────
