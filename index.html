@@ -68,7 +68,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99999;display:flex;align-items:c
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.2em;
@@ -76,6 +76,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99999;display:flex;align-items:c
   color: #E8581A;
   margin-bottom: 1.5rem;
   white-space: nowrap;
+  width: 200px; /* overridden by JS */
 }
 .eb-text {
   flex-shrink: 0;
@@ -1463,26 +1464,41 @@ document.getElementById('fsubmit').addEventListener('click', () => {
 
 
 
-// ═══ Set eyebrow line widths to match "We Make" ═══
+
+
+// ═══ Eyebrow: centered above "We Make", lines fill exact width ═══
 (function() {
   function setEyebrowLines() {
     var h1 = document.querySelector('.hero h1');
+    var eb = document.querySelector('.hero-eyebrow');
+    var ebText = document.querySelector('.eb-text');
     var lines = document.querySelectorAll('.eb-line');
-    if (!h1 || !lines.length) return;
-    // Measure "We Make" text width
+    if (!h1 || !eb || !ebText || !lines.length) return;
+
+    var cs = getComputedStyle(h1);
+
+    // Measure "We Make" at current font size
     var test = document.createElement('span');
     test.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;' +
-      'font-size:' + getComputedStyle(h1).fontSize + ';' +
-      'font-weight:' + getComputedStyle(h1).fontWeight + ';' +
-      'letter-spacing:' + getComputedStyle(h1).letterSpacing + ';' +
-      'font-family:' + getComputedStyle(h1).fontFamily;
+      'font-size:' + cs.fontSize + ';font-weight:' + cs.fontWeight + ';' +
+      'letter-spacing:' + cs.letterSpacing + ';font-family:' + cs.fontFamily;
     test.textContent = 'We Make';
     document.body.appendChild(test);
-    var w = Math.round(test.getBoundingClientRect().width);
+    var weMakeW = Math.round(test.getBoundingClientRect().width);
     document.body.removeChild(test);
-    lines.forEach(function(line) { line.style.width = w + 'px'; });
+
+    // Measure eyebrow text width
+    var textW = Math.round(ebText.getBoundingClientRect().width);
+    var gap = 16; // gap between line and text (px, matches gap:16px in CSS)
+
+    // Each line = (total - text - 2 gaps) / 2
+    var lineW = Math.max(0, Math.floor((weMakeW - textW - gap * 2) / 2));
+
+    // Set container width and line widths
+    eb.style.width = weMakeW + 'px';
+    lines.forEach(function(l) { l.style.width = lineW + 'px'; });
   }
-  // Run after fonts load for accurate measurement
+
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(setEyebrowLines);
   } else {
