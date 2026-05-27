@@ -64,27 +64,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99999;display:flex;align-items:c
   background:rgba(8,8,8,0.6);
 }
 .hero-body{position:relative;z-index:2;}
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #E8581A;
-  margin-bottom: 1.5rem;
-  white-space: nowrap;
-  width: 200px;
-}
-.eb-text { flex-shrink: 0; }
-.eb-line { display: block; height: 1px; background: #E8581A; flex-shrink: 0; width: 40px; }
-.hero-eyebrow .dash { display: none; }
+
+
+
+
 .hero-eyebrow::before{content:'';display:block;width:36px;height:1px;background:var(--orange)}
 .hero h1{font-size:clamp(5rem,11vw,9.5rem);font-weight:700;line-height:0.92;letter-spacing:-0.01em;max-width:860px}
 .hero h1 .outline{-webkit-text-stroke:1px rgba(245,242,237,0.85);color:transparent}
 .hero-sub{margin-top:2.5rem;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem}
-.hero-desc{font-size:1rem;font-weight:300;color:var(--muted);max-width:420px;line-height:1.8}
+.hero-desc{font-size:1rem;font-weight: 400 !important;color:var(--muted);max-width:420px;line-height:1.8}
 .hero-actions{display:flex;gap:1rem;flex-shrink:0}
 .btn-primary{font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--black);background:var(--orange);padding:1rem 2rem;text-decoration:none;display:inline-block;transition:background 0.2s}
 .btn-primary:hover{background:var(--orange-l)}
@@ -297,7 +285,7 @@ body.scrolled #mainNav {
 
   .hero { padding: 90px 1.25rem 2.5rem !important; min-height: 90vh !important; }
   .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem) !important; line-height: 0.95 !important; }
-  .hero-eyebrow { font-size: 0.55rem !important; letter-spacing: 0.15em !important; }
+  
   .hero-sub { flex-direction: column !important; gap: 1.5rem !important; align-items: flex-start !important; }
   .hero-desc { max-width: 100% !important; font-size: 0.95rem !important; }
   .hero-actions { flex-direction: column !important; width: 100%; gap: 0.75rem !important; }
@@ -923,15 +911,8 @@ footer {
   }
 
   /* EYEBROW — no lines, centered */
-  .eb-line { display: none !important; }
-  .hero-eyebrow {
-    width: auto !important;
-    font-size: 0.68rem !important;
-    letter-spacing: 0.14em !important;
-    gap: 0 !important;
-    margin-bottom: 0.75rem !important;
-    justify-content: center !important;
-  }
+  
+  
 
   /* HEADLINE — centered */
   .hero h1 {
@@ -1032,8 +1013,8 @@ footer {
     justify-content: center !important;
     box-sizing: border-box !important;
   }
-  .eb-line { display: none !important; }
-  .hero-eyebrow { width: auto !important; }
+  
+  
   .work-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .team-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .proc-steps, .why-grid { grid-template-columns: 1fr !important; }
@@ -1081,6 +1062,30 @@ section#home {
   width: 100% !important;
 }
 
+
+/* ── Eyebrow ── */
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #E8581A;
+  margin-bottom: 1.5rem;
+  white-space: nowrap;
+}
+.eb-text { flex-shrink: 0; }
+.eb-line {
+  display: block;
+  height: 1px;
+  background: #E8581A;
+  flex-shrink: 0;
+  width: 40px; /* overridden by JS */
+}
+.hero-eyebrow .dash { display: none; }
+
 </style>
 </head>
 <body>
@@ -1107,7 +1112,7 @@ section#home {
       <div class="hero-vid-overlay"></div>
     </div>
     <div class="hero-body">
-      <div class="hero-eyebrow"><span class="dash"></span> SHOOT. EDIT. ANIMATE. EFFECT.</div>
+      <div class="hero-eyebrow"><span class="eb-line"></span><span class="eb-text">SHOOT. EDIT. ANIMATE. EFFECT.</span><span class="eb-line"></span></div>
       <h1>We <span class="solid">Make</span><br><span class="outline">Brands</span><br>Move.</h1>
       <div class="hero-sub">
         <p class="hero-desc">R43 Limited is a commercial production studio built for ad agencies and national brands &mdash; we shoot, edit, animate, and effect work that converts.</p>
