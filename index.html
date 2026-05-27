@@ -299,33 +299,9 @@ body.scrolled #mainNav {
 }
 
 /* ═══════════════ MOBILE RESPONSIVE ═══════════════ */
-@media (max-width: 768px) {
-  #mainNav { padding: 0 1rem; height: 64px; }
-  body.scrolled #navLinks { display: none; }
-  #navCta { padding: 8px 14px; font-size: 0.62rem; letter-spacing: 0.1em; }
 
-  .hero { padding: 90px 1.25rem 2.5rem !important; min-height: 90vh !important; }
-  .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem) !important; line-height: 0.95 !important; }
-  .hero-eyebrow { font-size: 0.55rem !important; letter-spacing: 0.15em !important; }
-  .hero-sub { flex-direction: column !important; gap: 1.5rem !important; align-items: flex-start !important; }
-  .hero-desc { max-width: 100% !important; font-size: 0.95rem !important; }
-  .hero-actions { flex-direction: column !important; width: 100%; gap: 0.75rem !important; }
-  .hero-actions > * { width: 100% !important; justify-content: center !important; text-align: center !important; box-sizing: border-box; }
 
-  section { padding: 3.5rem 1.25rem !important; }
-  .stitle { font-size: clamp(2rem, 9vw, 3.5rem) !important; }
 
-  .work-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
-  .proc-steps, .team-grid, .why-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
-
-  footer { flex-direction: column !important; gap: 1rem !important; text-align: center !important; padding: 2rem 1.25rem !important; }
-  }
-
-@media (max-width: 480px) {
-  #mainNav { padding: 0 0.75rem; }
-  #navCta { padding: 7px 11px; font-size: 0.58rem; }
-  .hero h1 { font-size: clamp(2.2rem, 13vw, 3rem) !important; }
-}
 
 /* ═══════════════ POLISH FIXES ═══════════════ */
 html { scroll-behavior: smooth; }
@@ -334,8 +310,7 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 
 /* ═══════════════ MOBILE — adjust hero logo + nav ═══════════════ */
-@media (max-width: 768px) {
-  body.scrolled }
+
 
 
 
@@ -363,11 +338,7 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 }
 
 /* ═══════════════ MOBILE ADJUSTMENTS ═══════════════ */
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: clamp(2rem, 11vw, 4rem) !important;
-  }
-}
+
 
 
 
@@ -807,14 +778,7 @@ footer {
 }
 
 /* ─────── MOBILE ─────── */
-@media (max-width: 768px) {
-  section { padding: 4rem 1.25rem !important; }
-  .stitle { font-size: clamp(2rem, 9vw, 3rem) !important; }
-  .work-grid { grid-template-columns: 1fr !important; }
-  .proc-steps, .why-grid, .team-grid { grid-template-columns: 1fr !important; }
-  .form-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-  .proc-step, .why-item { padding: 2rem 1.5rem !important; }
-}
+
 
 
 
@@ -1001,6 +965,162 @@ footer {
   transform: translate(-50%, -50%) !important;
   pointer-events: none !important;
   border: none !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE — iOS / Android (≤480px)
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  /* ── Nav ── */
+  #mainNav {
+    padding: 0 1.25rem !important;
+    height: 58px !important;
+  }
+  #navLinks { display: none !important; }
+  #navCta {
+    font-size: 0.6rem !important;
+    padding: 8px 14px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  /* ── Logo: auto-snap to nav corner, hero gets full space ── */
+  #morphLogo {
+    top: 10px !important;
+    left: 1.25rem !important;
+    width: 38px !important;
+    height: 38px !important;
+    transition: none !important;
+  }
+
+  /* ── Hero ── */
+  #home, section#home {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+    padding-bottom: 2.5rem !important;
+    min-height: 100svh !important; /* svh = small viewport height, handles iOS address bar */
+  }
+  .hero-body {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* ── Eyebrow: hide lines on mobile, just show text ── */
+  .eb-line { display: none !important; }
+  .hero-eyebrow {
+    font-size: 0.72rem !important;
+    letter-spacing: 0.16em !important;
+    gap: 0 !important;
+    width: auto !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* ── Headline ── */
+  .hero h1 {
+    font-size: clamp(2.6rem, 12vw, 3.5rem) !important;
+    line-height: 0.92 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* ── Description ── */
+  .hero-desc {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+    max-width: 100% !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* ── CTA buttons: stack vertically ── */
+  .hero-actions {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    align-items: flex-start !important;
+  }
+  .hero-actions a,
+  .hero-actions button {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    font-size: 0.72rem !important;
+    padding: 14px 20px !important;
+  }
+
+  /* ── Marquee ── */
+  .marquee-content {
+    font-size: 0.65rem !important;
+    letter-spacing: 0.14em !important;
+  }
+
+  /* ── Sections ── */
+  section {
+    padding: 3.5rem 1.25rem !important;
+    max-width: 100% !important;
+  }
+  .stitle { font-size: clamp(2rem, 10vw, 2.8rem) !important; }
+  .ssub   { font-size: 0.95rem !important; }
+
+  /* ── Work grid ── */
+  .work-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+  .fbar { gap: 0.4rem !important; }
+  .fbtn { font-size: 0.62rem !important; padding: 8px 12px !important; }
+
+  /* ── Process ── */
+  .proc-steps { grid-template-columns: 1fr !important; border-left: none !important; }
+  .proc-step { padding: 1.75rem 1.25rem !important; }
+  .proc-step .pnum { font-size: 2.5rem !important; }
+  .proc-step .ptitle { font-size: 1.2rem !important; }
+
+  /* ── Team ── */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
+  .team-photo { font-size: 3rem !important; }
+  .team-name { font-size: 0.95rem !important; }
+  .team-role { font-size: 0.65rem !important; }
+
+  /* ── Why ── */
+  .why-grid { grid-template-columns: 1fr !important; border-left: none !important; }
+  .why-item { padding: 1.75rem 1.25rem !important; }
+  .why-item h3 { font-size: 1.2rem !important; }
+
+  /* ── Contact form ── */
+  .form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .forminput { font-size: 1rem !important; } /* iOS prevents zoom on inputs ≥16px */
+
+  /* ── Footer ── */
+  footer { padding: 2rem 1.25rem !important; }
+  .fcopy { font-size: 0.65rem !important; }
+}
+
+/* ── Tablet (481–768px): partial adjustments ── */
+@media (min-width: 481px) and (max-width: 768px) {
+  #navLinks { display: none !important; }
+  #morphLogo {
+    top: 12px !important;
+    left: 1.25rem !important;
+    width: 42px !important;
+    height: 42px !important;
+  }
+  .hero h1 { font-size: clamp(2.8rem, 8vw, 4.5rem) !important; }
+  .hero-actions {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+  .hero-actions a, .hero-actions button {
+    width: 100% !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+  .eb-line { display: none !important; }
+  .hero-eyebrow { width: auto !important; }
+  .work-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .proc-steps, .why-grid { grid-template-columns: 1fr !important; }
+  .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
 }
 
 </style>
