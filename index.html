@@ -334,18 +334,9 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 /* ═══════════════ MORPHING LOGO (big → small) ═══════════════ */
 #morphLogo {
   position: fixed;
-  top: clamp(82px, 7vw, 88px);
-  left: clamp(1.25rem, 3vw, 3rem);
-  width: clamp(110px, 11vw, 200px);
-  height: clamp(110px, 11vw, 200px);
   z-index: 999999;
-  display: block;
   line-height: 0;
-  transition: 
-    top 0.35s cubic-bezier(0.4,0,0.2,1),
-    left 0.35s cubic-bezier(0.4,0,0.2,1),
-    width 0.35s cubic-bezier(0.4,0,0.2,1),
-    height 0.35s cubic-bezier(0.4,0,0.2,1);
+  display: block;
 }
 #morphLogo img {
   width: 100%;
@@ -355,16 +346,6 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
   filter: drop-shadow(0 4px 18px rgba(0,0,0,0.45));
   transition: filter 0.5s ease;
 }
-body.scrolled #morphLogo {
-  top: 14px;
-  left: 1.5rem;
-  width: 44px;
-  height: 44px;
-}
-body.scrolled #morphLogo img {
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
-}
-
 /* ═══════════════ SMALLER HERO HEADLINE ═══════════════ */
 .hero h1 {
   font-size: clamp(3rem, 8vw, 6.5rem) !important;
@@ -1514,7 +1495,7 @@ document.getElementById('fsubmit').addEventListener('click', () => {
 })();
 
 
-// ═══ SCROLL-DRIVEN LOGO — works on desktop and iOS ═══
+// ═══ SCROLL-DRIVEN LOGO ═══
 (function() {
   var logo = document.getElementById('morphLogo');
   if (!logo) return;
@@ -1523,39 +1504,60 @@ document.getElementById('fsubmit').addEventListener('click', () => {
   function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
   function update() {
-    var eb = document.querySelector('.hero-eyebrow');
-    if (!eb) return;
-    var vw      = window.innerWidth;
+    var vw = window.innerWidth;
     var isMobile = vw <= 540;
-    var NAV_H   = isMobile ? 58 : 64;
-    var NAV_LEFT = 20;
-    var NAV_SIZE = isMobile ? 36 : 44;
-    var GAP     = 10;
     var scrollY = window.scrollY;
 
-    var heroSize = isMobile
-      ? Math.min(140, Math.max(110, vw * 0.30))
-      : Math.min(340, Math.max(120, vw * 0.18));
+    // Nav dimensions
+    var NAV_H    = isMobile ? 58 : 64;
+    var NAV_LEFT = isMobile ? 16 : 20;
+    var NAV_SIZE = isMobile ? 36 : 44;
 
-    var ebRect    = eb.getBoundingClientRect();
-    var ebDocTop  = ebRect.top + scrollY;
-    var heroLeft  = ebRect.left;
-    var heroDocTop  = ebDocTop - heroSize - GAP;
-    var heroViewTop = heroDocTop - scrollY;
+    if (isMobile) {
+      // ── MOBILE: simple fixed layout ──
+      // Logo sits at fixed position in hero, morphs when hero scrolls out
+      var heroSize = Math.min(140, Math.max(110, vw * 0.30));
+      var HERO_LOGO_TOP  = NAV_H + 12;  // just below nav bar
+      var HERO_LOGO_LEFT = 20;
 
-    var morphStart = heroDocTop - NAV_H;
-    var morphEnd   = morphStart + 250;
-    var progress   = Math.min(1, Math.max(0, (scrollY - morphStart) / (morphEnd - morphStart)));
-    var ease = easeInOut(progress);
+      // Hero is 100svh tall. Start morphing when scrolled past 40% of hero height
+      var heroH = window.innerHeight;
+      var morphStart = heroH * 0.3;
+      var morphEnd   = heroH * 0.6;
+      var progress = Math.min(1, Math.max(0, (scrollY - morphStart) / (morphEnd - morphStart)));
+      var ease = easeInOut(progress);
 
-    var size = heroSize + (NAV_SIZE - heroSize) * ease;
-    var top  = heroViewTop + (NAV_H/2 - NAV_SIZE/2 - heroViewTop) * ease;
-    var left = heroLeft + (NAV_LEFT - heroLeft) * ease;
+      var size = heroSize + (NAV_SIZE - heroSize) * ease;
+      var top  = HERO_LOGO_TOP + (NAV_H/2 - NAV_SIZE/2 - HERO_LOGO_TOP) * ease;
+      var left = HERO_LOGO_LEFT + (NAV_LEFT - HERO_LOGO_LEFT) * ease;
 
-    logo.style.width  = size + 'px';
-    logo.style.height = size + 'px';
-    logo.style.top    = top  + 'px';
-    logo.style.left   = left + 'px';
+      logo.style.width  = size + 'px';
+      logo.style.height = size + 'px';
+      logo.style.top    = top  + 'px';
+      logo.style.left   = left + 'px';
+
+    } else {
+      // ── DESKTOP: eyebrow-locked layout ──
+      var eb = document.querySelector('.hero-eyebrow');
+      if (!eb) return;
+      var heroSize = Math.min(340, Math.max(120, vw * 0.18));
+      var GAP = 10;
+      var ebDocTop  = eb.getBoundingClientRect().top + scrollY;
+      var heroLeft  = eb.getBoundingClientRect().left;
+      var heroDocTop  = ebDocTop - heroSize - GAP;
+      var heroViewTop = heroDocTop - scrollY;
+      var morphStart = heroDocTop - NAV_H;
+      var morphEnd   = morphStart + 250;
+      var progress = Math.min(1, Math.max(0, (scrollY - morphStart) / (morphEnd - morphStart)));
+      var ease = easeInOut(progress);
+      var size = heroSize + (NAV_SIZE - heroSize) * ease;
+      var top  = heroViewTop + (NAV_H/2 - NAV_SIZE/2 - heroViewTop) * ease;
+      var left = heroLeft + (NAV_LEFT - heroLeft) * ease;
+      logo.style.width  = size + 'px';
+      logo.style.height = size + 'px';
+      logo.style.top    = top  + 'px';
+      logo.style.left   = left + 'px';
+    }
   }
 
   var ticking = false;
