@@ -971,27 +971,41 @@ footer {
 /* ═══════════════════════════════════════════════════════
    MOBILE — iOS / Android (≤480px)
    ═══════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE OVERHAUL v2 — iOS/Android
+   ═══════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
 
-  /* ── Nav ── */
+  /* ── Nav: show links, smaller text ── */
   #mainNav {
-    padding: 0 1.25rem !important;
+    padding: 0 1rem !important;
     height: 58px !important;
   }
-  #navLinks { display: none !important; }
+  #navLinks {
+    display: flex !important;
+    gap: 1rem !important;
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  #navLinks li a {
+    font-size: 0.55rem !important;
+    letter-spacing: 0.12em !important;
+  }
   #navCta {
-    font-size: 0.6rem !important;
-    padding: 8px 14px !important;
-    letter-spacing: 0.08em !important;
+    font-size: 0.55rem !important;
+    padding: 7px 10px !important;
+    letter-spacing: 0.06em !important;
+    white-space: nowrap !important;
   }
 
-  /* ── Logo: auto-snap to nav corner, hero gets full space ── */
+  /* ── Logo: starts BIG above eyebrow, JS-driven morph still works ── */
+  /* DO NOT force small size here — let the scroll-driven JS control it */
+  /* Only override the clamp so it scales for narrow screens */
   #morphLogo {
-    top: 10px !important;
-    left: 1.25rem !important;
-    width: 38px !important;
-    height: 38px !important;
-    transition: none !important;
+    width: clamp(80px, 22vw, 130px) !important;
+    height: clamp(80px, 22vw, 130px) !important;
   }
 
   /* ── Hero ── */
@@ -999,43 +1013,43 @@ footer {
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
     padding-bottom: 2.5rem !important;
-    min-height: 100svh !important; /* svh = small viewport height, handles iOS address bar */
+    min-height: 100svh !important;
   }
   .hero-body {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
 
-  /* ── Eyebrow: hide lines on mobile, just show text ── */
+  /* ── Eyebrow: hide lines on mobile, just text ── */
   .eb-line { display: none !important; }
   .hero-eyebrow {
-    font-size: 0.72rem !important;
-    letter-spacing: 0.16em !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.14em !important;
     gap: 0 !important;
     width: auto !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.75rem !important;
   }
 
   /* ── Headline ── */
   .hero h1 {
-    font-size: clamp(2.6rem, 12vw, 3.5rem) !important;
-    line-height: 0.92 !important;
-    margin-bottom: 1rem !important;
+    font-size: clamp(2.4rem, 11vw, 3.2rem) !important;
+    line-height: 0.93 !important;
+    margin-bottom: 0.75rem !important;
   }
 
   /* ── Description ── */
   .hero-desc {
-    font-size: 0.9rem !important;
+    font-size: 0.88rem !important;
     line-height: 1.5 !important;
     max-width: 100% !important;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1.25rem !important;
   }
 
   /* ── CTA buttons: stack vertically ── */
   .hero-actions {
     flex-direction: column !important;
-    gap: 0.75rem !important;
-    align-items: flex-start !important;
+    gap: 0.65rem !important;
+    align-items: stretch !important;
   }
   .hero-actions a,
   .hero-actions button {
@@ -1043,71 +1057,67 @@ footer {
     justify-content: center !important;
     text-align: center !important;
     box-sizing: border-box !important;
-    font-size: 0.72rem !important;
-    padding: 14px 20px !important;
+    font-size: 0.68rem !important;
+    padding: 13px 16px !important;
   }
 
   /* ── Marquee ── */
   .marquee-content {
-    font-size: 0.65rem !important;
-    letter-spacing: 0.14em !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.12em !important;
   }
 
   /* ── Sections ── */
   section {
-    padding: 3.5rem 1.25rem !important;
+    padding: 3rem 1.25rem !important;
     max-width: 100% !important;
   }
-  .stitle { font-size: clamp(2rem, 10vw, 2.8rem) !important; }
-  .ssub   { font-size: 0.95rem !important; }
+  .stitle { font-size: clamp(1.8rem, 9vw, 2.5rem) !important; }
+  .ssub   { font-size: 0.9rem !important; }
 
   /* ── Work grid ── */
   .work-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
-  .fbar { gap: 0.4rem !important; }
-  .fbtn { font-size: 0.62rem !important; padding: 8px 12px !important; }
+  .fbar { gap: 0.4rem !important; flex-wrap: wrap !important; }
+  .fbtn { font-size: 0.6rem !important; padding: 7px 10px !important; }
 
   /* ── Process ── */
   .proc-steps { grid-template-columns: 1fr !important; border-left: none !important; }
-  .proc-step { padding: 1.75rem 1.25rem !important; }
+  .proc-step { padding: 1.5rem 1.25rem !important; }
   .proc-step .pnum { font-size: 2.5rem !important; }
-  .proc-step .ptitle { font-size: 1.2rem !important; }
+  .proc-step .ptitle { font-size: 1.1rem !important; }
 
   /* ── Team ── */
   .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
   .team-photo { font-size: 3rem !important; }
-  .team-name { font-size: 0.95rem !important; }
-  .team-role { font-size: 0.65rem !important; }
+  .team-name { font-size: 0.9rem !important; }
+  .team-role { font-size: 0.62rem !important; }
 
   /* ── Why ── */
   .why-grid { grid-template-columns: 1fr !important; border-left: none !important; }
-  .why-item { padding: 1.75rem 1.25rem !important; }
-  .why-item h3 { font-size: 1.2rem !important; }
+  .why-item { padding: 1.5rem 1.25rem !important; }
+  .why-item h3 { font-size: 1.1rem !important; }
 
-  /* ── Contact form ── */
-  .form-grid {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
-  }
-  .forminput { font-size: 1rem !important; } /* iOS prevents zoom on inputs ≥16px */
+  /* ── Contact ── */
+  .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .forminput { font-size: 1rem !important; }
 
   /* ── Footer ── */
-  footer { padding: 2rem 1.25rem !important; }
-  .fcopy { font-size: 0.65rem !important; }
+  footer { padding: 1.75rem 1.25rem !important; }
+  .fcopy { font-size: 0.62rem !important; }
 }
 
-/* ── Tablet (481–768px): partial adjustments ── */
+/* ── Tablet (481–768px) ── */
 @media (min-width: 481px) and (max-width: 768px) {
-  #navLinks { display: none !important; }
+  #navLinks li a { font-size: 0.6rem !important; letter-spacing: 0.12em !important; }
+  #navCta { font-size: 0.6rem !important; padding: 8px 12px !important; }
   #morphLogo {
-    top: 12px !important;
-    left: 1.25rem !important;
-    width: 42px !important;
-    height: 42px !important;
+    width: clamp(100px, 16vw, 160px) !important;
+    height: clamp(100px, 16vw, 160px) !important;
   }
   .hero h1 { font-size: clamp(2.8rem, 8vw, 4.5rem) !important; }
   .hero-actions {
     flex-direction: column !important;
-    align-items: flex-start !important;
+    align-items: stretch !important;
     gap: 0.75rem !important;
   }
   .hero-actions a, .hero-actions button {
