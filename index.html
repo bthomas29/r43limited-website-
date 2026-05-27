@@ -896,70 +896,96 @@ footer {
 }
 
 
-/* ═══ MOBILE v3 — safe append, no removals ═══ */
+
+/* ═══ MOBILE — phones ≤540px ═══ */
 @media (max-width: 540px) {
-  #navLinks { display: none !important; }
-  #navSpacer { display: none !important; }
-  #mainNav { padding: 0 1.25rem !important; height: 60px !important; }
-  #navCta { font-size: 0.62rem !important; padding: 8px 14px !important; }
 
-  #morphLogo {
-    width: clamp(120px, 32vw, 150px) !important;
-    height: clamp(120px, 32vw, 150px) !important;
-  }
-
-  #home, section#home {
-    min-height: 100svh !important;
-    padding-left: 1.25rem !important;
-    padding-right: 1.25rem !important;
-    padding-top: clamp(160px, 42vw, 210px) !important;
-    padding-bottom: 2.5rem !important;
-    box-sizing: border-box !important;
+  /* NAV — logo morphs in via JS, just show CTA on right */
+  #mainNav {
+    height: 58px !important;
+    padding: 0 1.25rem !important;
     justify-content: flex-end !important;
   }
+  #navLinks  { display: none !important; }
+  #navSpacer { display: none !important; }
+  #navCta {
+    font-size: 0.62rem !important;
+    padding: 8px 14px !important;
+  }
+
+  /* LOGO — JS controls position/size, just set the range */
+  #morphLogo {
+    width: clamp(110px, 30vw, 140px) !important;
+    height: clamp(110px, 30vw, 140px) !important;
+  }
+
+  /* HERO — keep flex-end (content at bottom), padding-top = space for logo */
+  #home, section#home {
+    min-height: 100svh !important;
+    justify-content: flex-end !important;
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 2.5rem !important;
+    box-sizing: border-box !important;
+  }
+
+  /* HERO BODY — centered */
   .hero-body {
-    padding: 0 !important;
+    padding: 0 1.25rem !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     text-align: center !important;
-    width: 100% !important;
   }
+
+  /* EYEBROW — no lines, centered */
   .eb-line { display: none !important; }
   .hero-eyebrow {
     width: auto !important;
-    font-size: 0.65rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.14em !important;
     gap: 0 !important;
     margin-bottom: 0.75rem !important;
     justify-content: center !important;
   }
+
+  /* HEADLINE — centered */
   .hero h1 {
-    font-size: clamp(2.4rem, 13vw, 3.2rem) !important;
-    line-height: 0.92 !important;
+    font-size: clamp(2.4rem, 12vw, 3.2rem) !important;
+    line-height: 0.93 !important;
     text-align: center !important;
     width: 100% !important;
     margin-bottom: 0.75rem !important;
   }
+
+  /* HERO SUB ROW */
   .hero-sub {
     flex-direction: column !important;
     align-items: center !important;
-    gap: 1rem !important;
+    gap: 0.75rem !important;
     width: 100% !important;
   }
+
+  /* DESCRIPTION — centered, opaque */
   .hero-desc {
     font-size: 0.88rem !important;
     text-align: center !important;
     max-width: 100% !important;
-    margin-bottom: 0.5rem !important;
+    color: rgba(245, 242, 237, 1) !important;
+    margin-bottom: 0.75rem !important;
   }
+
+  /* BUTTONS — centered column */
   .hero-actions {
     flex-direction: column !important;
     align-items: center !important;
-    gap: 0.65rem !important;
+    gap: 0.6rem !important;
     width: 100% !important;
   }
-  .hero-actions a, .hero-actions button {
+  .hero-actions > * {
     width: 100% !important;
     max-width: 300px !important;
     justify-content: center !important;
@@ -968,39 +994,67 @@ footer {
     font-size: 0.72rem !important;
     padding: 13px 16px !important;
     display: flex !important;
+    align-items: center !important;
   }
+
+  /* MARQUEE */
   .marquee-content { font-size: 0.6rem !important; }
+
+  /* SECTIONS */
   section { padding: 3rem 1.25rem !important; max-width: 100% !important; }
   .stitle { font-size: clamp(1.8rem, 9vw, 2.4rem) !important; }
   .ssub { font-size: 0.88rem !important; max-width: 100% !important; }
-  .work-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
-  .fbar { gap: 0.4rem !important; flex-wrap: wrap !important; }
+
+  /* WORK */
+  .work-grid { grid-template-columns: 1fr !important; }
+  .fbar { flex-wrap: wrap !important; gap: 0.4rem !important; }
   .fbtn { font-size: 0.58rem !important; padding: 7px 10px !important; }
+
+  /* PROCESS */
   .proc-steps { grid-template-columns: 1fr !important; border-left: none !important; }
   .proc-step { padding: 1.5rem 1rem !important; }
   .proc-step .pnum { font-size: 2.5rem !important; }
-  .team-grid { grid-template-columns: repeat(2,1fr) !important; gap: 0.75rem !important; }
-  .team-photo { font-size: 3rem !important; }
+
+  /* TEAM */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
+
+  /* WHY */
   .why-grid { grid-template-columns: 1fr !important; border-left: none !important; }
   .why-item { padding: 1.5rem 1rem !important; }
+
+  /* CONTACT */
   .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
   .forminput { font-size: 1rem !important; }
+
+  /* FOOTER */
   footer { padding: 1.75rem 1.25rem !important; text-align: center !important; }
   .fcopy { font-size: 0.62rem !important; }
 }
 
+/* TABLET 541–768px */
 @media (min-width: 541px) and (max-width: 768px) {
   #navLinks li a { font-size: 0.6rem !important; letter-spacing: 0.1em !important; }
   #navCta { font-size: 0.62rem !important; padding: 8px 12px !important; }
-  #morphLogo { width: clamp(110px, 18vw, 160px) !important; height: clamp(110px, 18vw, 160px) !important; }
+  #morphLogo {
+    width: clamp(110px, 18vw, 160px) !important;
+    height: clamp(110px, 18vw, 160px) !important;
+  }
   .hero h1 { font-size: clamp(2.8rem, 8vw, 4.5rem) !important; }
   .hero-sub { flex-direction: column !important; gap: 1rem !important; }
-  .hero-actions { flex-direction: column !important; align-items: flex-start !important; gap: 0.75rem !important; }
-  .hero-actions a, .hero-actions button { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+  .hero-actions {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+  .hero-actions > * {
+    width: 100% !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
   .eb-line { display: none !important; }
   .hero-eyebrow { width: auto !important; }
-  .work-grid { grid-template-columns: repeat(2,1fr) !important; }
-  .team-grid { grid-template-columns: repeat(2,1fr) !important; }
+  .work-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .proc-steps, .why-grid { grid-template-columns: 1fr !important; }
   .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
 }
