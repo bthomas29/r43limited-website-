@@ -278,33 +278,9 @@ body.scrolled #mainNav {
 }
 
 /* ═══════════════ MOBILE RESPONSIVE ═══════════════ */
-@media (max-width: 768px) {
-  #mainNav { padding: 0 1rem; height: 64px; }
-  body.scrolled #navLinks { display: none; }
-  #navCta { padding: 8px 14px; font-size: 0.62rem; letter-spacing: 0.1em; }
 
-  .hero { padding: 90px 1.25rem 2.5rem !important; min-height: 90vh !important; }
-  .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem) !important; line-height: 0.95 !important; }
-  
-  .hero-sub { flex-direction: column !important; gap: 1.5rem !important; align-items: flex-start !important; }
-  .hero-desc { max-width: 100% !important; font-size: 0.95rem !important; }
-  .hero-actions { flex-direction: column !important; width: 100%; gap: 0.75rem !important; }
-  .hero-actions > * { width: 100% !important; justify-content: center !important; text-align: center !important; box-sizing: border-box; }
 
-  section { padding: 3.5rem 1.25rem !important; }
-  .stitle { font-size: clamp(2rem, 9vw, 3.5rem) !important; }
 
-  .work-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
-  .proc-steps, .team-grid, .why-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
-
-  footer { flex-direction: column !important; gap: 1rem !important; text-align: center !important; padding: 2rem 1.25rem !important; }
-  }
-
-@media (max-width: 480px) {
-  #mainNav { padding: 0 0.75rem; }
-  #navCta { padding: 7px 11px; font-size: 0.58rem; }
-  .hero h1 { font-size: clamp(2.2rem, 13vw, 3rem) !important; }
-}
 
 /* ═══════════════ POLISH FIXES ═══════════════ */
 html { scroll-behavior: smooth; }
@@ -313,8 +289,7 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 
 /* ═══════════════ MOBILE — adjust hero logo + nav ═══════════════ */
-@media (max-width: 768px) {
-  body.scrolled }
+
 
 
 
@@ -356,11 +331,7 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 }
 
 /* ═══════════════ MOBILE ADJUSTMENTS ═══════════════ */
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: clamp(2rem, 11vw, 4rem) !important;
-  }
-}
+
 
 
 
@@ -800,14 +771,7 @@ footer {
 }
 
 /* ─────── MOBILE ─────── */
-@media (max-width: 768px) {
-  section { padding: 4rem 1.25rem !important; }
-  .stitle { font-size: clamp(2rem, 9vw, 3rem) !important; }
-  .work-grid { grid-template-columns: 1fr !important; }
-  .proc-steps, .why-grid, .team-grid { grid-template-columns: 1fr !important; }
-  .form-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-  .proc-step, .why-item { padding: 2rem 1.5rem !important; }
-}
+
 
 
 
@@ -867,159 +831,10 @@ footer {
 
 
 /* ═══ MOBILE — phones ≤540px ═══ */
-@media (max-width: 540px) {
 
-  /* NAV — logo morphs in via JS, just show CTA on right */
-  #mainNav {
-    height: 58px !important;
-    padding: 0 1.25rem !important;
-    justify-content: flex-end !important;
-  }
-  #navLinks  { display: none !important; }
-  #navSpacer { display: none !important; }
-  #navCta {
-    font-size: 0.62rem !important;
-    padding: 8px 14px !important;
-  }
-
-  /* LOGO — JS controls position/size, just set the range */
-  #morphLogo {
-    width: clamp(110px, 30vw, 140px) !important;
-    height: clamp(110px, 30vw, 140px) !important;
-  }
-
-  /* HERO — keep flex-end (content at bottom), padding-top = space for logo */
-  #home, section#home {
-    min-height: 100svh !important;
-    justify-content: flex-end !important;
-    padding-top: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    padding-bottom: 2.5rem !important;
-    box-sizing: border-box !important;
-  }
-
-  /* HERO BODY — centered */
-  .hero-body {
-    padding: 0 1.25rem !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-  }
-
-  /* EYEBROW — no lines, centered */
-  
-  
-
-  /* HEADLINE — centered */
-  .hero h1 {
-    font-size: clamp(2.4rem, 12vw, 3.2rem) !important;
-    line-height: 0.93 !important;
-    text-align: center !important;
-    width: 100% !important;
-    margin-bottom: 0.75rem !important;
-  }
-
-  /* HERO SUB ROW */
-  .hero-sub {
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 0.75rem !important;
-    width: 100% !important;
-  }
-
-  /* DESCRIPTION — centered, opaque */
-  .hero-desc {
-    font-size: 0.88rem !important;
-    text-align: center !important;
-    max-width: 100% !important;
-    color: rgba(245, 242, 237, 1) !important;
-    margin-bottom: 0.75rem !important;
-  }
-
-  /* BUTTONS — centered column */
-  .hero-actions {
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 0.6rem !important;
-    width: 100% !important;
-  }
-  .hero-actions > * {
-    width: 100% !important;
-    max-width: 300px !important;
-    justify-content: center !important;
-    text-align: center !important;
-    box-sizing: border-box !important;
-    font-size: 0.72rem !important;
-    padding: 13px 16px !important;
-    display: flex !important;
-    align-items: center !important;
-  }
-
-  /* MARQUEE */
-  .marquee-content { font-size: 0.6rem !important; }
-
-  /* SECTIONS */
-  section { padding: 3rem 1.25rem !important; max-width: 100% !important; }
-  .stitle { font-size: clamp(1.8rem, 9vw, 2.4rem) !important; }
-  .ssub { font-size: 0.88rem !important; max-width: 100% !important; }
-
-  /* WORK */
-  .work-grid { grid-template-columns: 1fr !important; }
-  .fbar { flex-wrap: wrap !important; gap: 0.4rem !important; }
-  .fbtn { font-size: 0.58rem !important; padding: 7px 10px !important; }
-
-  /* PROCESS */
-  .proc-steps { grid-template-columns: 1fr !important; border-left: none !important; }
-  .proc-step { padding: 1.5rem 1rem !important; }
-  .proc-step .pnum { font-size: 2.5rem !important; }
-
-  /* TEAM */
-  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
-
-  /* WHY */
-  .why-grid { grid-template-columns: 1fr !important; border-left: none !important; }
-  .why-item { padding: 1.5rem 1rem !important; }
-
-  /* CONTACT */
-  .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-  .forminput { font-size: 1rem !important; }
-
-  /* FOOTER */
-  footer { padding: 1.75rem 1.25rem !important; text-align: center !important; }
-  .fcopy { font-size: 0.62rem !important; }
-}
 
 /* TABLET 541–768px */
-@media (min-width: 541px) and (max-width: 768px) {
-  #navLinks li a { font-size: 0.6rem !important; letter-spacing: 0.1em !important; }
-  #navCta { font-size: 0.62rem !important; padding: 8px 12px !important; }
-  #morphLogo {
-    width: clamp(110px, 18vw, 160px) !important;
-    height: clamp(110px, 18vw, 160px) !important;
-  }
-  .hero h1 { font-size: clamp(2.8rem, 8vw, 4.5rem) !important; }
-  .hero-sub { flex-direction: column !important; gap: 1rem !important; }
-  .hero-actions {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 0.75rem !important;
-  }
-  .hero-actions > * {
-    width: 100% !important;
-    justify-content: center !important;
-    box-sizing: border-box !important;
-  }
-  
-  
-  .work-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  .team-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  .proc-steps, .why-grid { grid-template-columns: 1fr !important; }
-  .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-}
+
 
 
 /* ── Hero: break out of section max-width ── */
@@ -1086,6 +901,160 @@ section#home {
 }
 .hero-eyebrow .dash { display: none; }
 
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — Tablet & Mobile (single source of truth)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── TABLET (541–900px) ── */
+@media (min-width: 541px) and (max-width: 900px) {
+  #navLinks { display: flex !important; gap: 1.25rem !important; }
+  #navLinks li a { font-size: 0.62rem !important; letter-spacing: 0.1em !important; }
+  #navCta { font-size: 0.62rem !important; padding: 8px 14px !important; }
+  .hero h1 { font-size: clamp(3rem, 8vw, 4.5rem) !important; }
+  .hero-actions { flex-wrap: wrap !important; gap: 0.75rem !important; }
+  .work-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .proc-steps { grid-template-columns: 1fr !important; }
+  .why-grid { grid-template-columns: 1fr !important; }
+  .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+}
+
+/* ── MOBILE (≤540px) ── */
+@media (max-width: 540px) {
+
+  /* NAV: just CTA, links hidden */
+  #mainNav {
+    height: 58px !important;
+    padding: 0 1.25rem !important;
+    justify-content: flex-end !important;
+  }
+  #navLinks { display: none !important; }
+  #navSpacer { display: none !important; }
+  #navCta {
+    font-size: 0.62rem !important;
+    padding: 8px 14px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  /* LOGO: size range only — JS controls position/morph */
+  #morphLogo {
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  /* HERO: content pinned to bottom, room for logo on top */
+  section#home {
+    min-height: 100svh !important;
+    justify-content: flex-end !important;
+    padding: 0 0 2.5rem 0 !important;
+    box-sizing: border-box !important;
+  }
+  .hero-body {
+    padding: 0 1.5rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  /* EYEBROW: text only, no lines, centered */
+  .eb-line { display: none !important; }
+  .hero-eyebrow {
+    width: auto !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.14em !important;
+    gap: 0 !important;
+    margin-bottom: 0.85rem !important;
+    justify-content: center !important;
+  }
+
+  /* HEADLINE: centered */
+  .hero h1 {
+    font-size: clamp(2.5rem, 13vw, 3.4rem) !important;
+    line-height: 0.93 !important;
+    text-align: center !important;
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* SUB ROW + DESC */
+  .hero-sub {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.25rem !important;
+    width: 100% !important;
+  }
+  .hero-desc {
+    font-size: 0.92rem !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    text-align: center !important;
+    max-width: 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* BUTTONS: stacked centered */
+  .hero-actions {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+  }
+  .hero-actions > * {
+    width: 100% !important;
+    max-width: 300px !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    font-size: 0.72rem !important;
+    padding: 14px 18px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* MARQUEE */
+  .marquee-content { font-size: 0.6rem !important; letter-spacing: 0.1em !important; }
+
+  /* SECTIONS */
+  section { padding: 3.5rem 1.5rem !important; max-width: 100% !important; }
+  .slabel { font-size: 0.65rem !important; }
+  .stitle { font-size: clamp(1.9rem, 9vw, 2.5rem) !important; }
+  .ssub { font-size: 0.92rem !important; max-width: 100% !important; }
+
+  /* WORK */
+  .work-grid { grid-template-columns: 1fr !important; gap: 0.85rem !important; }
+  .fbar { gap: 0.4rem !important; flex-wrap: wrap !important; margin-bottom: 2rem !important; }
+  .fbtn { font-size: 0.58rem !important; padding: 8px 12px !important; }
+
+  /* TEAM (now before process) */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.85rem !important; }
+  .team-photo { font-size: 3rem !important; }
+  .team-name { font-size: 0.95rem !important; }
+  .team-role { font-size: 0.62rem !important; }
+
+  /* PROCESS */
+  .proc-steps { grid-template-columns: 1fr !important; border-left: none !important; }
+  .proc-step { padding: 1.75rem 1.25rem !important; }
+  .proc-step .pnum { font-size: 2.75rem !important; }
+  .proc-step .ptitle { font-size: 1.2rem !important; }
+
+  /* WHY */
+  .why-grid { grid-template-columns: 1fr !important; border-left: none !important; }
+  .why-item { padding: 1.75rem 1.25rem !important; }
+  .why-item h3 { font-size: 1.2rem !important; }
+
+  /* CONTACT */
+  .form-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .forminput { font-size: 1rem !important; }
+
+  /* FOOTER */
+  footer { padding: 2rem 1.5rem !important; text-align: center !important; }
+  .fcopy { font-size: 0.62rem !important; }
+}
+
 </style>
 </head>
 <body>
@@ -1097,11 +1066,11 @@ section#home {
   <nav id="mainNav" aria-label="Main navigation">
     <div id="navSpacer" aria-hidden="true"></div>
     <ul id="navLinks">
-      <li><a href="#work">Work</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#team">Team</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     <a href="#contact" id="navCta">Start a Project</a>
   </nav>
 
@@ -1118,7 +1087,7 @@ section#home {
         <p class="hero-desc">R43 Limited is a commercial production studio built for ad agencies and national brands &mdash; we shoot, edit, animate, and effect work that converts.</p>
         <div class="hero-actions">
           <a href="#work" class="btn-primary">View Our Work</a>
-          <a href="#contact" class="btn-outline">Start a Project</a>
+          
           <button onclick="document.getElementById('modal').classList.add('open');document.getElementById('modalFrame').src='https://player.vimeo.com/video/1188235325?h=5072b3e921&autoplay=1&color=E8581A';document.body.style.overflow='hidden'" style="font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#E8581A;background:transparent;border:1px solid #E8581A;padding:14px 24px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;">&#9654; Play Reel</button>
         </div>
       </div>
@@ -1128,7 +1097,7 @@ section#home {
   <!-- MARQUEE -->
   <div class="marquee">
     <div class="marquee-content">
-      MOTION GRAPHICS <span class="diamond">&#9670;</span> 3D ANIMATION <span class="diamond">&#9670;</span> VISUAL FX <span class="diamond">&#9670;</span> COLOR GRADING <span class="diamond">&#9670;</span> CREATIVE DIRECTION <span class="diamond">&#9670;</span> POST PRODUCTION <span class="diamond">&#9670;</span> CLEVELAND OHIO <span class="diamond">&#9670;</span> VIDEO PRODUCTION <span class="diamond">&#9670;</span> MOTION GRAPHICS <span class="diamond">&#9670;</span> 3D ANIMATION <span class="diamond">&#9670;</span> VISUAL FX <span class="diamond">&#9670;</span> COLOR GRADING <span class="diamond">&#9670;</span> CREATIVE DIRECTION <span class="diamond">&#9670;</span> POST PRODUCTION <span class="diamond">&#9670;</span> CLEVELAND OHIO <span class="diamond">&#9670;</span> VIDEO PRODUCTION <span class="diamond">&#9670;</span>
+      MOTION GRAPHICS <span class="diamond">&#9670;</span> 3D ANIMATION <span class="diamond">&#9670;</span> VISUAL FX <span class="diamond">&#9670;</span> COLOR GRADING <span class="diamond">&#9670;</span> CREATIVE DIRECTION <span class="diamond">&#9670;</span> POST PRODUCTION <span class="diamond">&#9670;</span> VIDEO PRODUCTION <span class="diamond">&#9670;</span> MOTION GRAPHICS <span class="diamond">&#9670;</span> 3D ANIMATION <span class="diamond">&#9670;</span> VISUAL FX <span class="diamond">&#9670;</span> COLOR GRADING <span class="diamond">&#9670;</span> CREATIVE DIRECTION <span class="diamond">&#9670;</span> POST PRODUCTION <span class="diamond">&#9670;</span> VIDEO PRODUCTION <span class="diamond">&#9670;</span>
     </div>
   </div>
 
@@ -1152,19 +1121,6 @@ section#home {
   </section>
 
   <!-- PROCESS -->
-  <section id="process" class="fade-up">
-    <div class="slabel">HOW WE WORK</div>
-    <h2 class="stitle">Process.</h2>
-    <p class="ssub">From first call to final delivery &mdash; clear, collaborative, and built for agency timelines.</p>
-    <div class="proc-steps fade-up">
-      <div class="proc-step"><div class="pnum">01</div><h3 class="ptitle">Discover</h3><p class="pdesc">We start by understanding your brief, deadline, deliverables, and stakeholders. No assumptions, no surprises.</p><div class="ptag">Brief &middot; Scope</div></div>
-      <div class="proc-step"><div class="pnum">02</div><h3 class="ptitle">Plan</h3><p class="pdesc">We map the production approach, schedule milestones, and assign the right specialists for your work.</p><div class="ptag">Schedule &middot; Crew</div></div>
-      <div class="proc-step"><div class="pnum">03</div><h3 class="ptitle">Make</h3><p class="pdesc">Shoot, edit, animate, effect &mdash; whatever the project needs. You stay in the loop with regular reviews.</p><div class="ptag">Production &middot; Post</div></div>
-      <div class="proc-step"><div class="pnum">04</div><h3 class="ptitle">Deliver</h3><p class="pdesc">Final files in every spec you need &mdash; broadcast, digital, social. On time. On spec. Without drama.</p><div class="ptag">QC &middot; Delivery</div></div>
-    </div>
-  </section>
-
-  <!-- TEAM -->
   <section id="team" class="fade-up">
     <div class="slabel">THE PEOPLE</div>
     <h2 class="stitle">The Team.</h2>
@@ -1174,6 +1130,19 @@ section#home {
       <div class="team-card"><div class="team-photo">S</div><div class="team-info"><div class="team-name">Stacy</div><div class="team-role">Executive Producer</div></div></div>
       <div class="team-card"><div class="team-photo">A</div><div class="team-info"><div class="team-name">Alex</div><div class="team-role">Art Director</div></div></div>
       <div class="team-card"><div class="team-photo">Br</div><div class="team-info"><div class="team-name">Brandon</div><div class="team-role">Producer &middot; Director</div></div></div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="process" class="fade-up">
+    <div class="slabel">HOW WE WORK</div>
+    <h2 class="stitle">Process.</h2>
+    <p class="ssub">From first call to final delivery &mdash; clear, collaborative, and built for agency timelines.</p>
+    <div class="proc-steps fade-up">
+      <div class="proc-step"><div class="pnum">01</div><h3 class="ptitle">Discover</h3><p class="pdesc">We start by understanding your brief, deadline, deliverables, and stakeholders. No assumptions, no surprises.</p><div class="ptag">Brief &middot; Scope</div></div>
+      <div class="proc-step"><div class="pnum">02</div><h3 class="ptitle">Plan</h3><p class="pdesc">We map the production approach, schedule milestones, and assign the right specialists for your work.</p><div class="ptag">Schedule &middot; Crew</div></div>
+      <div class="proc-step"><div class="pnum">03</div><h3 class="ptitle">Make</h3><p class="pdesc">Shoot, edit, animate, effect &mdash; whatever the project needs. You stay in the loop with regular reviews.</p><div class="ptag">Production &middot; Post</div></div>
+      <div class="proc-step"><div class="pnum">04</div><h3 class="ptitle">Deliver</h3><p class="pdesc">Final files in every spec you need &mdash; broadcast, digital, social. On time. On spec. Without drama.</p><div class="ptag">QC &middot; Delivery</div></div>
     </div>
   </section>
 
