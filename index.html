@@ -84,7 +84,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99999;display:flex;align-items:c
 
 
 
-.hero-eyebrow::before{content:'';display:block;width:36px;height:1px;background:var(--orange)}
+
 .hero h1{font-size:clamp(5rem,11vw,9.5rem);font-weight:700;line-height:0.92;letter-spacing:-0.01em;max-width:860px}
 .hero h1 .outline{-webkit-text-stroke:1px rgba(245,242,237,0.85);color:transparent}
 .hero-sub{margin-top:2.5rem;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem}
@@ -928,6 +928,26 @@ section#home {
 /* ── MOBILE (≤540px) ── */
 @media (max-width: 540px) {
 
+  /* === EYEBROW: hide lines, center text === */
+  .hero-eyebrow .eb-line,
+  .eb-line {
+    display: none !important;
+    width: 0 !important;
+  }
+  .hero-eyebrow {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 0.5rem auto 0.85rem auto !important;
+    gap: 0 !important;
+    text-align: center !important;
+  }
+  .eb-text {
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+
   /* NAV: just CTA, links hidden */
   #mainNav {
     height: 58px !important;
@@ -1205,6 +1225,16 @@ section#home {
 }
 @media (max-width: 540px) {
   .team-blurb { font-size: 0.65rem !important; }
+}
+
+
+/* Kill any leftover ::before/::after orange dash on eyebrow */
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: none !important;
+  display: none !important;
+  background: transparent !important;
+  width: 0 !important;
 }
 
 </style>
