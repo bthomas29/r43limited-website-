@@ -1146,6 +1146,7 @@ section#home {
 }
 #mobileMenu ul li a:hover { color: #E8581A; }
 #mobileMenuClose {
+  display: none !important;
   position: absolute;
   top: 18px;
   right: 18px;
@@ -1247,6 +1248,15 @@ body:has(#mobileMenu.open) #morphLogo {
 body.menu-open #morphLogo {
   opacity: 0;
   pointer-events: none;
+}
+
+
+/* Hamburger button stays on top even when menu is open — animated X = close */
+body.menu-open #navHamburger {
+  position: fixed !important;
+  top: 14px !important;
+  right: 16px !important;
+  z-index: 1000001 !important;
 }
 
 </style>
