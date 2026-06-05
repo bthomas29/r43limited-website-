@@ -121,18 +121,18 @@ section{padding:7rem 3rem}
 .work-filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:3rem}
 .fbtn{font-size:0.62rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid var(--border);padding:0.5rem 1.1rem;cursor:pointer;transition:all 0.2s;font-family:var(--f)}
 .fbtn:hover,.fbtn.active{color:var(--black);background:var(--orange);border-color:var(--orange)}
-.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
-.work-card{background:var(--off-black);position:relative;overflow:hidden;cursor:pointer;aspect-ratio:16/9}
-.work-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease,filter 0.4s;filter:brightness(0.72) saturate(0.75);display:block}
-.work-card:hover img{transform:scale(1.04);filter:brightness(0.4) saturate(0.5)}
-.work-card-info{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.3rem;background:linear-gradient(to top,rgba(8,8,8,0.92) 0%,transparent 55%);opacity:0;transition:opacity 0.3s;pointer-events:none}
-.work-card:hover .work-card-info{opacity:1}
+
+
+
+
+
+
 .wc-cat{font-size:0.58rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--orange);margin-bottom:0.3rem}
 .wc-title{font-size:1rem;font-weight:700;line-height:1.2}
 .wc-client{font-size:0.78rem;font-weight: 400;color:var(--muted);margin-top:0.25rem}
-.work-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;border:2px solid rgba(245,242,237,0.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s,border-color 0.3s}
-.work-card:hover .work-play{opacity:1;border-color:var(--orange)}
-.work-play-arrow{width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:15px solid var(--white);margin-left:3px}
+
+
+
 .load-more{display:block;margin:3rem auto 0;font-size:0.7rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);background:transparent;border:1px solid var(--border-h);padding:0.9rem 2.5rem;cursor:pointer;transition:border-color 0.2s,color 0.2s;font-family:var(--f)}
 .load-more:hover{border-color:var(--orange);color:var(--orange)}
 .hidden-work{display:none}
@@ -434,46 +434,12 @@ section {
 }
 
 /* ─────── WORK GRID ─────── */
-.work-grid {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 1rem !important;
-  margin-bottom: 3rem !important;
-}
-.work-card {
-  position: relative !important;
-  aspect-ratio: 16/9 !important;
-  overflow: hidden !important;
-  cursor: pointer !important;
-  background: #111 !important;
-  border-radius: 2px !important;
-  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1) !important;
-}
-.work-card img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  transition: transform 0.6s ease, filter 0.4s ease !important;
-}
-.work-card:hover img {
-  transform: scale(1.08) !important;
-  filter: brightness(0.4) !important;
-}
-.work-card-info {
-  position: absolute !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  padding: 1.5rem !important;
-  background: linear-gradient(transparent, rgba(0,0,0,0.9)) !important;
-  transform: translateY(20px) !important;
-  opacity: 0 !important;
-  transition: all 0.4s ease !important;
-}
-.work-card:hover .work-card-info {
-  transform: translateY(0) !important;
-  opacity: 1 !important;
-}
+
+
+
+
+
+
 .wc-cat {
   font-size: 0.6rem !important;
   font-weight: 700 !important;
@@ -492,32 +458,9 @@ section {
   font-size: 0.75rem !important;
   color: rgba(245, 242, 237, 0.85) !important;
 }
-.work-play {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) scale(0.7) !important;
-  width: 60px !important;
-  height: 60px !important;
-  background: #E8581A !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  opacity: 0 !important;
-  transition: all 0.4s ease !important;
-}
-.work-card:hover .work-play {
-  opacity: 1 !important;
-  transform: translate(-50%, -50%) scale(1) !important;
-}
-.work-play-arrow {
-  width: 0; height: 0;
-  border-left: 14px solid #000;
-  border-top: 9px solid transparent;
-  border-bottom: 9px solid transparent;
-  margin-left: 4px;
-}
+
+
+
 .hidden-work { display: none !important; }
 
 /* ─────── PROCESS STEPS ─────── */
@@ -918,7 +861,7 @@ section#home {
   #navCta { font-size: 0.62rem !important; padding: 8px 14px !important; }
   .hero h1 { font-size: clamp(3rem, 8vw, 4.5rem) !important; }
   .hero-actions { flex-wrap: wrap !important; gap: 0.75rem !important; }
-  .work-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  
   .team-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .proc-steps { grid-template-columns: 1fr !important; }
   .why-grid { grid-template-columns: 1fr !important; }
@@ -1047,7 +990,7 @@ section#home {
   .ssub { font-size: 0.92rem !important; max-width: 100% !important; }
 
   /* WORK */
-  .work-grid { grid-template-columns: 1fr !important; gap: 0.85rem !important; }
+  
   .fbar { gap: 0.4rem !important; flex-wrap: wrap !important; margin-bottom: 2rem !important; }
   .fbtn { font-size: 0.58rem !important; padding: 8px 12px !important; }
 
@@ -1257,6 +1200,110 @@ body.menu-open #navHamburger {
   top: 14px !important;
   right: 16px !important;
   z-index: 1000001 !important;
+}
+
+
+/* ═══ WORK GRID — aspect-ratio aware ═══ */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+.work-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #111;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
+.work-card:hover { transform: translateY(-4px); }
+.work-thumb {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.work-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.work-card:hover .work-thumb img { transform: scale(1.04); }
+
+/* RATIO classes — control card height + grid column span */
+.work-card.ratio-wide {
+  grid-column: span 6;   /* horizontal: half-width on desktop, 2 across */
+}
+.work-card.ratio-wide .work-thumb { aspect-ratio: 16/9; }
+
+.work-card.ratio-square {
+  grid-column: span 4;   /* square: 3 across on desktop */
+}
+.work-card.ratio-square .work-thumb { aspect-ratio: 1/1; }
+
+.work-card.ratio-vertical {
+  grid-column: span 3;   /* vertical: 4 across on desktop */
+}
+.work-card.ratio-vertical .work-thumb { aspect-ratio: 9/16; }
+
+/* Card info overlay */
+.work-card-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Play button overlay */
+.work-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+  background: rgba(232, 88, 26, 0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 3;
+}
+.work-card:hover .work-play { opacity: 1; }
+.work-play-arrow {
+  width: 0; height: 0;
+  border-left: 16px solid #fff;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  margin-left: 4px;
+}
+
+/* ── TABLET (541-900px): simpler grid ── */
+@media (min-width: 541px) and (max-width: 900px) {
+  .work-card.ratio-wide     { grid-column: span 12; }
+  .work-card.ratio-square   { grid-column: span 6; }
+  .work-card.ratio-vertical { grid-column: span 6; }
+}
+
+/* ── MOBILE (≤540): single column, respect ratios ── */
+@media (max-width: 540px) {
+  .work-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.75rem !important;
+  }
+  .work-card.ratio-wide     { grid-column: span 2 !important; }
+  .work-card.ratio-square   { grid-column: span 1 !important; }
+  .work-card.ratio-vertical { grid-column: span 1 !important; }
+  .work-card-info { padding: 0.75rem !important; }
+  .wc-title { font-size: 0.85rem !important; }
+  .wc-cat { font-size: 0.55rem !important; }
 }
 
 </style>
@@ -1473,139 +1520,157 @@ body.menu-open #navHamburger {
 //    category : reel | production | vfx | animation | finishing | editorial
 //    featured : true = shows immediately, false = behind "Load More"
 // ============================================================
+
+// ════════════════════════════════════════════════════════════════
+//  VIDEOS CONFIG — Edit this to add, remove or reorder videos
+//
+//  Each video has these properties:
+//    id:       Vimeo video ID (the number from vimeo.com/123456789)
+//    title:    What shows under the video card
+//    client:   Client name (optional — leave "" if none)
+//    category: One of: production, animation, vfx, finishing, reel
+//    featured: true = always visible, false = "Show More" only
+//    ratio:    "16:9" (horizontal), "9:16" (vertical), or "1:1" (square)
+//
+//  TO ADD A VIDEO: copy the {} block below, change the fields, paste
+//  in the array where you want it to appear in the grid.
+//
+//  TO CHANGE THUMBNAILS: thumbnails come from Vimeo automatically
+//  via vumbnail.com — make sure the Vimeo video has a thumbnail set.
+// ════════════════════════════════════════════════════════════════
 const VIDEOS = [
   {
     "id": "887475467",
     "title": "R43 Demo Reel 2023",
     "client": "",
     "category": "reel",
-    "featured": true
+    "featured": true, "ratio": "16:9"
   },
   {
     "id": "738408262",
     "title": "R43 FX Demo",
     "client": "",
     "category": "vfx",
-    "featured": true
+    "featured": true, "ratio": "16:9"
   },
   {
     "id": "240694961",
     "title": "Interwoven \u2014 Flying Blind",
     "client": "Stern Advertising",
     "category": "production",
-    "featured": true
+    "featured": true, "ratio": "16:9"
   },
   {
     "id": "287508878",
     "title": "Peoples \u2014 Dude Perfect",
     "client": "Stern Advertising",
     "category": "production",
-    "featured": true
+    "featured": true, "ratio": "16:9"
   },
   {
     "id": "177570436",
     "title": "Kay Jewelers \u2014 Hall of Fame",
     "client": "",
     "category": "vfx",
-    "featured": true
+    "featured": true, "ratio": "16:9"
   },
   {
     "id": "240881109",
     "title": "Lowe's \u2014 Modern Fire Pit",
     "client": "Lowe's Companies",
     "category": "production",
-    "featured": true
+    "featured": true, "ratio": "16:9"
   },
   {
     "id": "736238478",
     "title": "DeWalt Pro Handheld",
     "client": "Marcus Thomas",
     "category": "animation",
-    "featured": true
+    "featured": true, "ratio": "16:9"
   },
   {
     "id": "177571245",
     "title": "Kay Jewelers \u2014 Valentine's Day",
     "client": "",
     "category": "finishing",
-    "featured": true
+    "featured": true, "ratio": "16:9"
   },
   {
     "id": "229351838",
     "title": "Grove Hill: A True Story",
     "client": "",
     "category": "production",
-    "featured": true
+    "featured": true, "ratio": "16:9"
   },
   {
     "id": "240744007",
     "title": "Classic Auto \u2014 Where in the World",
     "client": "",
     "category": "vfx",
-    "featured": false
+    "featured": false, "ratio": "16:9"
   },
   {
     "id": "309970878",
     "title": "R43 Limited \u2014 Studio Tour",
     "client": "",
     "category": "production",
-    "featured": false
+    "featured": false, "ratio": "16:9"
   },
   {
     "id": "240872974",
     "title": "Lowe's \u2014 In Ground Fire Pit",
     "client": "Lowe's Companies",
     "category": "production",
-    "featured": false
+    "featured": false, "ratio": "16:9"
   },
   {
     "id": "527488880",
     "title": "UH Geauga \u2014 Navigating a Pandemic",
     "client": "University Hospitals",
     "category": "production",
-    "featured": false
+    "featured": false, "ratio": "16:9"
   },
   {
     "id": "736615533",
     "title": "Miller Lite \u2014 Brewed In Ohio",
     "client": "VMLY&R Commerce",
     "category": "finishing",
-    "featured": false
+    "featured": false, "ratio": "16:9"
   },
   {
     "id": "528399589",
     "title": "Dexcom",
     "client": "",
     "category": "production",
-    "featured": false
+    "featured": false, "ratio": "16:9"
   },
   {
     "id": "527945047",
     "title": "Lowe's \u2014 She Shed",
     "client": "Lowe's Companies",
     "category": "production",
-    "featured": false
+    "featured": false, "ratio": "16:9"
   },
   {
     "id": "287509323",
     "title": "Nissan \u2014 Go Long",
     "client": "",
     "category": "vfx",
-    "featured": false
+    "featured": false, "ratio": "16:9"
   },
   {
     "id": "291154142",
     "title": "VW \u2014 LA Galaxy",
     "client": "VMLY&R Commerce",
     "category": "editorial",
-    "featured": false
+    "featured": false, "ratio": "16:9"
   },
   {
     "id": "58403606",
     "title": "McDonald's \u2014 3-4-5",
     "client": "Stern Advertising",
     "category": "production",
-    "featured": false
+    "featured": false, "ratio": "16:9"
   }
 ];
 
@@ -1619,16 +1684,24 @@ function buildGrid() {
   VIDEOS.forEach(v => {
     const catLabel = CAT_LABELS[v.category] || v.category;
     const clientHtml = v.client ? `<div class="wc-client">${v.client}</div>` : '';
+    const ratio = v.ratio || '16:9';
+    // Map ratio to CSS class
+    const ratioClass = ratio === '9:16' ? 'ratio-vertical' :
+                       ratio === '1:1'  ? 'ratio-square'   :
+                                          'ratio-wide';
     const card = document.createElement('article');
-    card.className = 'work-card' + (v.featured ? '' : ' hidden-work');
+    card.className = 'work-card ' + ratioClass + (v.featured ? '' : ' hidden-work');
     card.dataset.cat = v.category;
     card.dataset.vimeo = v.id;
+    card.dataset.ratio = ratio;
     card.tabIndex = 0;
     card.setAttribute('role', 'button');
     card.setAttribute('aria-label', 'Play ' + v.title);
     card.innerHTML = `
-      <img src="https://vumbnail.com/${v.id}.jpg" alt="${v.title}" loading="lazy">
-      <div class="work-play" aria-hidden="true"><div class="work-play-arrow"></div></div>
+      <div class="work-thumb">
+        <img src="https://vumbnail.com/${v.id}_large.jpg" alt="${v.title}" loading="lazy">
+        <div class="work-play" aria-hidden="true"><div class="work-play-arrow"></div></div>
+      </div>
       <div class="work-card-info">
         <div class="wc-cat">${catLabel}</div>
         <div class="wc-title">${v.title}</div>
