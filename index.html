@@ -1392,7 +1392,7 @@ body.menu-open #navHamburger {
   <!-- HERO -->
   <section id="home" class="hero">
     <div class="hero-vid-wrap">
-      <iframe class="hero-vid" src="https://player.vimeo.com/video/1188235325?h=5072b3e921&background=1&autoplay=1&loop=1&muted=1&controls=0" frameborder="0" allow="autoplay; fullscreen" title="R43 Limited Background Reel"></iframe>
+      <iframe id="heroVid" class="hero-vid" src="" frameborder="0" allow="autoplay; fullscreen" title="R43 Limited Background Reel" data-vimeo-id="1188235325"></iframe>
       <div class="hero-vid-overlay"></div>
     </div>
     <div class="hero-body">
@@ -1547,6 +1547,14 @@ body.menu-open #navHamburger {
 // ════════════════════════════════════════════════════════════════
 window.VIDEOS = [
   {
+    "id": "1188235325",
+    "title": "Hero Background Reel",
+    "client": "",
+    "category": "hero",
+    "featured": true,
+    "ratio": "16:9"
+  },
+  {
     "id": "887475467",
     "title": "R43 Demo Reel 2023",
     "client": "",
@@ -1682,13 +1690,21 @@ window.VIDEOS = [
 ];
 
 // Category display labels
-const CAT_LABELS = {"reel": "Demo Reel", "production": "Video Production", "vfx": "Visual FX", "animation": "Motion & Animation", "finishing": "Finishing", "editorial": "Editorial"};
+const CAT_LABELS = {
+  hero: 'Hero',
+  production: 'Video Production',
+  animation: 'Motion & Animation',
+  vfx: 'Visual FX',
+  editorial: 'Editorial',
+  finishing: 'Finishing',
+  reel: 'Reels'
+};
 
 // ── Build work grid from VIDEOS config ──────────────────────
 function buildGrid() {
   const grid = document.getElementById('workGrid');
   grid.innerHTML = '';
-  VIDEOS.forEach(v => {
+  VIDEOS.filter(v => v.category !== 'hero').forEach(v => {
     const catLabel = CAT_LABELS[v.category] || v.category;
     const clientHtml = v.client ? `<div class="wc-client">${v.client}</div>` : '';
     const ratio = v.ratio || '16:9';
@@ -1924,15 +1940,29 @@ document.getElementById('fsubmit').addEventListener('click', () => {
 // ── Init ─────────────────────────────────────────────────────
 // Try to load videos from videos.json (managed via admin.html).
 // Falls back to the inline window.VIDEOS array if videos.json missing.
+
+// Set the hero background video from the videos config
+function setHeroVideo() {
+  var iframe = document.getElementById('heroVid');
+  if (!iframe) return;
+  var hero = (window.VIDEOS || []).find(function(v){ return v.category === 'hero'; });
+  // Fall back to the data-vimeo-id attribute if no hero category found
+  var id = (hero && hero.id) || iframe.dataset.vimeoId;
+  if (id) {
+    iframe.src = 'https://player.vimeo.com/video/' + id + '?background=1&autoplay=1&loop=1&muted=1&controls=0';
+  }
+}
+
 (function loadVideos() {
   fetch('videos.json?v=' + Date.now(), { cache: 'no-store' })
     .then(r => { if (!r.ok) throw 0; return r.json(); })
     .then(data => {
       if (Array.isArray(data) && data.length) window.VIDEOS = data;
+      setHeroVideo();
       buildGrid();
       attachCardEvents();
     })
-    .catch(() => { buildGrid(); attachCardEvents(); });
+    .catch(() => { setHeroVideo(); buildGrid(); attachCardEvents(); });
 })();
 </script>
 </body>
