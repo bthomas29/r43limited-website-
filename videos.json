@@ -142,5 +142,13 @@
     "category": "hero",
     "featured": true,
     "ratio": "16:9"
+  },
+  {
+    "id": "1198541398",
+    "title": "Summer_Artist_9x16_Final",
+    "client": "",
+    "category": "production",
+    "featured": true,
+    "ratio": "9:16"
   }
 ]
