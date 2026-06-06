@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R43 Limited — Admin Panel</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: #0f0f0f; color: #F5F2ED; min-height: 100vh;
+  }
+  header {
+    background: #080808; border-bottom: 1px solid rgba(245,242,237,0.1);
+    padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 1rem;
+  }
+  header h1 { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.05em; }
+  header h1 .orange { color: #E8581A; }
+  .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .btn {
+    padding: 10px 16px; background: transparent; border: 1px solid rgba(245,242,237,0.3);
+    color: #F5F2ED; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer; border-radius: 3px; transition: all 0.2s;
+    font-family: inherit;
+  }
+  .btn:hover { background: rgba(245,242,237,0.1); border-color: rgba(245,242,237,0.6); }
+  .btn-primary { background: #E8581A; border-color: #E8581A; color: #000; }
+  .btn-primary:hover { background: #FF6B2C; border-color: #FF6B2C; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-publish { background: #2D7A2D; border-color: #2D7A2D; color: #fff; }
+  .btn-publish:hover { background: #3a9b3a; border-color: #3a9b3a; }
+
+  main { max-width: 1600px; margin: 0 auto; padding: 2rem; }
+  .toolbar {
+    background: #1a1a1a; border: 1px solid rgba(245,242,237,0.08);
+    border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;
+  }
+  .toolbar h2 {
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.18em;
+    color: #E8581A; text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .add-form {
+    display: grid; grid-template-columns: 2fr 1.5fr 1fr 1fr 0.8fr auto;
+    gap: 0.75rem; align-items: stretch;
+  }
+  input, select, textarea {
+    background: #0a0a0a; border: 1px solid rgba(245,242,237,0.15); color: #F5F2ED;
+    padding: 10px 12px; font-size: 0.85rem; border-radius: 3px; font-family: inherit;
+  }
+  input:focus, select:focus { outline: none; border-color: #E8581A; }
+
+  .buckets {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 1.5rem;
+  }
+  .bucket {
+    background: #1a1a1a; border: 1px solid rgba(245,242,237,0.08);
+    border-radius: 8px; padding: 1.25rem; min-height: 200px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .bucket.drag-over { border-color: #E8581A; background: rgba(232,88,26,0.05); }
+  .bucket-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1rem; padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(245,242,237,0.08);
+  }
+  .bucket-title { font-size: 0.85rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+  .bucket-count {
+    font-size: 0.7rem; color: rgba(245,242,237,0.5);
+    background: rgba(245,242,237,0.05); padding: 3px 10px; border-radius: 12px;
+  }
+  .bucket-empty {
+    color: rgba(245,242,237,0.3); font-size: 0.8rem; font-style: italic;
+    padding: 1rem 0; text-align: center;
+  }
+
+  .card {
+    background: #0a0a0a; border: 1px solid rgba(245,242,237,0.08); border-radius: 5px;
+    padding: 0.75rem; margin-bottom: 0.6rem; cursor: grab; transition: all 0.15s;
+    display: grid; grid-template-columns: 70px 1fr auto; gap: 0.75rem; align-items: center;
+  }
+  .card:hover { border-color: rgba(245,242,237,0.3); transform: translateY(-1px); }
+  .card.dragging { opacity: 0.4; cursor: grabbing; }
+  .card-thumb {
+    width: 70px; height: 40px; background: #222; border-radius: 3px;
+    overflow: hidden; flex-shrink: 0; position: relative;
+  }
+  .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .ratio-badge {
+    position: absolute; bottom: 2px; right: 2px;
+    background: rgba(0,0,0,0.85); color: #E8581A; font-size: 0.55rem;
+    font-weight: 800; padding: 1px 4px; border-radius: 2px;
+  }
+  .card-info { min-width: 0; }
+  .card-title {
+    font-size: 0.85rem; font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px;
+  }
+  .card-meta { font-size: 0.7rem; color: rgba(245,242,237,0.5); display: flex; gap: 0.5rem; align-items: center; }
+  .card-meta select {
+    background: transparent; border: 1px solid rgba(245,242,237,0.15);
+    color: rgba(245,242,237,0.7); font-size: 0.7rem; padding: 2px 4px; border-radius: 2px;
+  }
+  .card-actions { display: flex; gap: 0.4rem; align-items: center; }
+  .toggle {
+    width: 32px; height: 18px; background: rgba(245,242,237,0.15);
+    border-radius: 9px; position: relative; cursor: pointer; transition: background 0.2s;
+  }
+  .toggle::after {
+    content: ''; width: 14px; height: 14px; background: #F5F2ED;
+    border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: left 0.2s;
+  }
+  .toggle.on { background: #E8581A; }
+  .toggle.on::after { left: 16px; }
+  .toggle-label { font-size: 0.6rem; color: rgba(245,242,237,0.5); }
+  .card-delete {
+    background: transparent; border: none; color: rgba(245,242,237,0.3);
+    cursor: pointer; font-size: 1.2rem; padding: 0 4px;
+  }
+  .card-delete:hover { color: #ff4444; }
+
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200;
+    display: none; align-items: center; justify-content: center; padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #1a1a1a; border: 1px solid rgba(245,242,237,0.15); border-radius: 8px;
+    padding: 2rem; max-width: 700px; width: 100%; max-height: 80vh;
+    display: flex; flex-direction: column;
+  }
+  .modal h3 { font-size: 1rem; margin-bottom: 1rem; }
+  .modal p { font-size: 0.85rem; color: rgba(245,242,237,0.7); margin-bottom: 1rem; line-height: 1.5; }
+  .modal label { display: block; font-size: 0.75rem; margin-bottom: 0.4rem; color: rgba(245,242,237,0.7); }
+  .modal input[type=text], .modal input[type=password], .modal textarea {
+    width: 100%; margin-bottom: 1rem;
+  }
+  .modal textarea {
+    font-family: 'SF Mono', 'Monaco', 'Menlo', monospace; font-size: 0.75rem;
+    min-height: 200px; resize: vertical;
+  }
+  .modal-actions {
+    display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem;
+  }
+
+  .toast {
+    position: fixed; bottom: 2rem; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #E8581A; color: #000; padding: 12px 24px; border-radius: 4px;
+    font-size: 0.85rem; font-weight: 700; z-index: 300; transition: transform 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4); max-width: 90vw;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.error { background: #ff4444; color: #fff; }
+  .toast.success { background: #2D7A2D; color: #fff; }
+
+  .instructions {
+    background: rgba(232,88,26,0.08); border: 1px solid rgba(232,88,26,0.2);
+    border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    font-size: 0.8rem; line-height: 1.6;
+  }
+  .instructions strong { color: #E8581A; }
+  .instructions code {
+    background: rgba(0,0,0,0.4); padding: 1px 6px; border-radius: 3px;
+    font-family: 'SF Mono', monospace; font-size: 0.8rem;
+  }
+
+  .status-bar {
+    background: #1a1a1a; padding: 0.75rem 1.25rem; border-radius: 6px;
+    margin-bottom: 1.5rem; display: flex; justify-content: space-between;
+    align-items: center; font-size: 0.78rem;
+  }
+  .status-token-set { color: #6ee06e; }
+  .status-token-unset { color: rgba(245,242,237,0.5); }
+
+  @media (max-width: 768px) {
+    main { padding: 1rem; }
+    .add-form { grid-template-columns: 1fr; }
+    .buckets { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span class="orange">R43</span> Limited — Work Admin</h1>
+  <div class="actions">
+    <button class="btn" id="btnSettings">⚙ Settings</button>
+    <button class="btn" id="btnLoadCurrent">Load from Site</button>
+    <button class="btn" id="btnExport">Export Code</button>
+    <button class="btn btn-publish" id="btnPublish">↑ Publish to Live Site</button>
+  </div>
+</header>
+
+<main>
+  <div class="status-bar">
+    <span>Token: <span id="tokenStatus" class="status-token-unset">Not configured</span></span>
+    <span id="repoInfo">Repo: <code>bthomas29/r43limited-website-</code></span>
+  </div>
+
+  <div class="instructions">
+    <strong>Workflow:</strong> Add videos → drag between category buckets → adjust ratios & featured → click <strong>Publish to Live Site</strong>. Your site auto-updates in ~60 seconds.
+    First-time? Click <strong>⚙ Settings</strong> to add your GitHub token.
+  </div>
+
+  <div class="toolbar">
+    <h2>Add Video</h2>
+    <div class="add-form">
+      <input type="text" id="newUrl" placeholder="Vimeo URL or ID (e.g. 887475467)">
+      <input type="text" id="newTitle" placeholder="Title">
+      <input type="text" id="newClient" placeholder="Client (optional)">
+      <select id="newCat">
+        <option value="production">Production</option>
+        <option value="animation">Animation</option>
+        <option value="vfx">VFX</option>
+        <option value="finishing">Finishing</option>
+        <option value="reel">Reel</option>
+      </select>
+      <select id="newRatio">
+        <option value="16:9">16:9 Wide</option>
+        <option value="9:16">9:16 Vertical</option>
+        <option value="1:1">1:1 Square</option>
+      </select>
+      <button class="btn btn-primary" id="btnAdd">Add</button>
+    </div>
+  </div>
+
+  <div class="buckets" id="buckets"></div>
+</main>
+
+<!-- Settings Modal -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <h3>GitHub Settings</h3>
+    <p>To publish directly to your live site, paste a GitHub Personal Access Token. The token is stored only in your browser on this device.</p>
+    <p><strong>How to create one (2 minutes):</strong></p>
+    <ol style="font-size: 0.8rem; line-height: 1.7; color: rgba(245,242,237,0.7); margin-left: 1.5rem; margin-bottom: 1rem;">
+      <li>Go to <code>github.com/settings/tokens?type=beta</code></li>
+      <li>Click <strong>Generate new token</strong> (fine-grained)</li>
+      <li>Name: "R43 Admin"</li>
+      <li>Repository access → <strong>Only select repositories</strong> → choose <code>r43limited-website-</code></li>
+      <li>Permissions → Repository permissions → <strong>Contents → Read and write</strong></li>
+      <li>Generate, copy the token (starts with <code>github_pat_</code>), paste below</li>
+    </ol>
+    <label for="tokenInput">GitHub Personal Access Token</label>
+    <input type="password" id="tokenInput" placeholder="github_pat_xxxxxxxxxxxx">
+    <label for="ownerInput">GitHub Username</label>
+    <input type="text" id="ownerInput" value="bthomas29">
+    <label for="repoInput">Repository Name</label>
+    <input type="text" id="repoInput" value="r43limited-website-">
+    <label for="siteUrlInput">Site URL (no trailing slash)</label>
+    <input type="text" id="siteUrlInput" placeholder="https://r43limited.com">
+    <div class="modal-actions">
+      <button class="btn" id="btnClearToken">Clear Token</button>
+      <button class="btn" id="btnSettingsCancel">Cancel</button>
+      <button class="btn btn-primary" id="btnSettingsSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Export Modal -->
+<div class="modal-overlay" id="exportModal">
+  <div class="modal">
+    <h3>Export videos.json</h3>
+    <p>Copy this and save it as <code>videos.json</code> in your repo root if you prefer manual upload.</p>
+    <textarea id="exportText" readonly></textarea>
+    <div class="modal-actions">
+      <button class="btn" id="btnExportClose">Close</button>
+      <button class="btn btn-primary" id="btnExportCopy">Copy</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════════
+//  R43 ADMIN PANEL — with GitHub auto-publish
+// ════════════════════════════════════════════════
+
+const CAT_LABELS = {
+  production: 'Production',
+  animation: 'Motion & Animation',
+  vfx: 'Visual FX',
+  finishing: 'Finishing',
+  reel: 'Reels'
+};
+const CATEGORIES = ['production', 'animation', 'vfx', 'finishing', 'reel'];
+
+let videos = [];
+let settings = { token: '', owner: 'bthomas29', repo: 'r43limited-website-', siteUrl: 'https://bthomas29.github.io/r43limited-website-' };
+
+function loadState() {
+  try {
+    const v = localStorage.getItem('r43_videos');
+    if (v) videos = JSON.parse(v);
+    const s = localStorage.getItem('r43_settings');
+    if (s) settings = Object.assign(settings, JSON.parse(s));
+  } catch(e) {}
+}
+function saveVideos() { localStorage.setItem('r43_videos', JSON.stringify(videos)); }
+function saveSettings() { localStorage.setItem('r43_settings', JSON.stringify(settings)); }
+
+function toast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  setTimeout(() => t.className = 'toast', type === 'error' ? 5000 : 2500);
+}
+
+function extractVimeoId(input) {
+  if (!input) return null;
+  const trimmed = input.trim();
+  if (/^\d+$/.test(trimmed)) return trimmed;
+  const m = trimmed.match(/vimeo\.com\/(?:.*\/)?(\d+)/);
+  return m ? m[1] : null;
+}
+
+function render() {
+  const container = document.getElementById('buckets');
+  container.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    const bucket = document.createElement('div');
+    bucket.className = 'bucket';
+    bucket.dataset.category = cat;
+    const items = videos.filter(v => v.category === cat);
+    bucket.innerHTML = `
+      <div class="bucket-header">
+        <div class="bucket-title">${CAT_LABELS[cat]}</div>
+        <div class="bucket-count">${items.length}</div>
+      </div>
+      <div class="bucket-list"></div>`;
+    container.appendChild(bucket);
+    const list = bucket.querySelector('.bucket-list');
+    if (items.length === 0) list.innerHTML = '<div class="bucket-empty">Drop videos here</div>';
+    else items.forEach(v => list.appendChild(createCard(v)));
+    bucket.addEventListener('dragover', e => { e.preventDefault(); bucket.classList.add('drag-over'); });
+    bucket.addEventListener('dragleave', () => bucket.classList.remove('drag-over'));
+    bucket.addEventListener('drop', e => {
+      e.preventDefault();
+      bucket.classList.remove('drag-over');
+      const id = e.dataTransfer.getData('text/plain');
+      const v = videos.find(x => x.id === id);
+      if (v) { v.category = cat; saveVideos(); render(); }
+    });
+  });
+  updateTokenStatus();
+}
+
+function createCard(v) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.draggable = true;
+  card.dataset.id = v.id;
+  card.innerHTML = `
+    <div class="card-thumb">
+      <img src="https://vumbnail.com/${v.id}.jpg" alt="">
+      <div class="ratio-badge">${v.ratio || '16:9'}</div>
+    </div>
+    <div class="card-info">
+      <div class="card-title">${v.title || '(no title)'}</div>
+      <div class="card-meta">
+        ${v.client ? `<span>${v.client}</span><span>·</span>` : ''}
+        <select class="ratio-select">
+          <option value="16:9" ${v.ratio==='16:9'?'selected':''}>16:9</option>
+          <option value="9:16" ${v.ratio==='9:16'?'selected':''}>9:16</option>
+          <option value="1:1" ${v.ratio==='1:1'?'selected':''}>1:1</option>
+        </select>
+      </div>
+    </div>
+    <div class="card-actions">
+      <span class="toggle-label">Featured</span>
+      <div class="toggle ${v.featured?'on':''}" data-action="feat"></div>
+      <button class="card-delete" data-action="del" title="Delete">×</button>
+    </div>`;
+  card.addEventListener('dragstart', e => {
+    card.classList.add('dragging');
+    e.dataTransfer.setData('text/plain', v.id);
+  });
+  card.addEventListener('dragend', () => card.classList.remove('dragging'));
+  card.querySelector('.ratio-select').addEventListener('change', e => {
+    v.ratio = e.target.value; saveVideos(); render();
+  });
+  card.querySelector('[data-action="feat"]').addEventListener('click', () => {
+    v.featured = !v.featured; saveVideos(); render();
+  });
+  card.querySelector('[data-action="del"]').addEventListener('click', () => {
+    if (confirm(`Delete "${v.title}"?`)) {
+      videos = videos.filter(x => x.id !== v.id);
+      saveVideos(); render(); toast('Deleted');
+    }
+  });
+  return card;
+}
+
+function updateTokenStatus() {
+  const el = document.getElementById('tokenStatus');
+  if (settings.token) {
+    el.textContent = 'Configured ✓';
+    el.className = 'status-token-set';
+  } else {
+    el.textContent = 'Not configured';
+    el.className = 'status-token-unset';
+  }
+  document.getElementById('repoInfo').innerHTML = `Repo: <code>${settings.owner}/${settings.repo}</code>`;
+}
+
+// Add video
+document.getElementById('btnAdd').addEventListener('click', () => {
+  const id = extractVimeoId(document.getElementById('newUrl').value);
+  if (!id) { toast('Invalid Vimeo URL or ID', 'error'); return; }
+  if (videos.find(v => v.id === id)) { toast('Already in list', 'error'); return; }
+  const title = document.getElementById('newTitle').value.trim() || `Video ${id}`;
+  videos.push({
+    id, title,
+    client: document.getElementById('newClient').value.trim(),
+    category: document.getElementById('newCat').value,
+    featured: true,
+    ratio: document.getElementById('newRatio').value
+  });
+  saveVideos(); render();
+  ['newUrl','newTitle','newClient'].forEach(i => document.getElementById(i).value = '');
+  toast(`Added "${title}"`);
+});
+
+// Load from live site
+async function loadFromSite(silent) {
+  const baseUrl = settings.siteUrl || `https://${settings.owner}.github.io/${settings.repo}`;
+  
+  // Try 1: fetch videos.json
+  try {
+    const res = await fetch(`${baseUrl}/videos.json?t=` + Date.now(), { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length) {
+        if (!silent && videos.length && !confirm('Replace local list with live videos.json?')) return false;
+        videos = data;
+        saveVideos(); render();
+        toast(`Loaded ${data.length} videos from videos.json`, 'success');
+        return true;
+      }
+    }
+  } catch(e) { console.warn('videos.json fetch failed:', e); }
+  
+  // Try 2: parse index.html for window.VIDEOS or const VIDEOS
+  try {
+    const res = await fetch(`${baseUrl}/?t=` + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw 0;
+    const text = await res.text();
+    let match = text.match(/window\.VIDEOS\s*=\s*(\[[\s\S]*?\]);/);
+    if (!match) match = text.match(/const\s+VIDEOS\s*=\s*(\[[\s\S]*?\]);/);
+    if (!match) throw new Error('VIDEOS array not found');
+    const parsed = (new Function('return ' + match[1]))();
+    if (!Array.isArray(parsed) || !parsed.length) throw new Error('Empty array');
+    const normalized = parsed.map(v => Object.assign({ ratio: '16:9' }, v));
+    if (!silent && videos.length && !confirm('Replace local list with videos from live index.html?')) return false;
+    videos = normalized;
+    saveVideos(); render();
+    toast(`Loaded ${normalized.length} videos from index.html`, 'success');
+    return true;
+  } catch(e) {
+    console.error('Parse fallback failed:', e);
+    if (!silent) toast('Could not load videos from live site', 'error');
+    return false;
+  }
+}
+
+document.getElementById('btnLoadCurrent').addEventListener('click', () => loadFromSite(false));
+    if (!res.ok) throw 0;
+    const data = await res.json();
+    if (videos.length && !confirm('Replace local list with live videos.json?')) return;
+    videos = data;
+    saveVideos(); render();
+    toast(`Loaded ${data.length} videos from live site`);
+  } catch(e) {
+    toast('Could not load videos.json from live site', 'error');
+  }
+});
+
+// Settings
+document.getElementById('btnSettings').addEventListener('click', () => {
+  document.getElementById('tokenInput').value = settings.token;
+  document.getElementById('ownerInput').value = settings.owner;
+  document.getElementById('repoInput').value = settings.repo;
+  document.getElementById('siteUrlInput').value = settings.siteUrl || '';
+  document.getElementById('settingsModal').classList.add('open');
+});
+document.getElementById('btnSettingsSave').addEventListener('click', () => {
+  settings.token = document.getElementById('tokenInput').value.trim();
+  settings.owner = document.getElementById('ownerInput').value.trim();
+  settings.repo = document.getElementById('repoInput').value.trim();
+  settings.siteUrl = document.getElementById('siteUrlInput').value.trim().replace(/\/$/, '');
+  saveSettings();
+  document.getElementById('settingsModal').classList.remove('open');
+  updateTokenStatus();
+  toast('Settings saved');
+});
+document.getElementById('btnSettingsCancel').addEventListener('click', () => {
+  document.getElementById('settingsModal').classList.remove('open');
+});
+document.getElementById('btnClearToken').addEventListener('click', () => {
+  if (confirm('Clear stored token?')) {
+    settings.token = '';
+    document.getElementById('tokenInput').value = '';
+    saveSettings(); updateTokenStatus();
+    toast('Token cleared');
+  }
+});
+
+// Export
+document.getElementById('btnExport').addEventListener('click', () => {
+  document.getElementById('exportText').value = JSON.stringify(videos, null, 2);
+  document.getElementById('exportModal').classList.add('open');
+});
+document.getElementById('btnExportCopy').addEventListener('click', async () => {
+  const t = document.getElementById('exportText');
+  try { await navigator.clipboard.writeText(t.value); toast('Copied'); }
+  catch { t.select(); document.execCommand('copy'); toast('Copied'); }
+});
+document.getElementById('btnExportClose').addEventListener('click', () => {
+  document.getElementById('exportModal').classList.remove('open');
+});
+
+// Publish to GitHub
+document.getElementById('btnPublish').addEventListener('click', async () => {
+  if (!settings.token) {
+    toast('Add your GitHub token first (⚙ Settings)', 'error');
+    document.getElementById('settingsModal').classList.add('open');
+    return;
+  }
+  if (!videos.length) { toast('No videos to publish', 'error'); return; }
+  if (!confirm(`Publish ${videos.length} videos to live site? Auto-deploys in ~60 sec.`)) return;
+  
+  const btn = document.getElementById('btnPublish');
+  btn.disabled = true;
+  btn.textContent = 'Publishing...';
+  
+  const api = `https://api.github.com/repos/${settings.owner}/${settings.repo}/contents/videos.json`;
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(videos, null, 2))));
+  
+  try {
+    // 1. Get current file SHA (required for update)
+    let sha = null;
+    try {
+      const getRes = await fetch(api, {
+        headers: { 'Authorization': `Bearer ${settings.token}`, 'Accept': 'application/vnd.github+json' }
+      });
+      if (getRes.ok) sha = (await getRes.json()).sha;
+    } catch(e) {}
+    
+    // 2. PUT new content
+    const putRes = await fetch(api, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${settings.token}`,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `Update videos.json (${videos.length} videos)`,
+        content: content,
+        sha: sha || undefined
+      })
+    });
+    
+    if (putRes.ok) {
+      toast('Published! Live in ~60 seconds 🚀', 'success');
+    } else {
+      const err = await putRes.json();
+      console.error(err);
+      toast(`Publish failed: ${err.message || putRes.status}`, 'error');
+    }
+  } catch(e) {
+    console.error(e);
+    toast('Publish failed — check console', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '↑ Publish to Live Site';
+  }
+});
+
+// Init
+loadState();
+render();
+
+// Auto-load from live site on first open (when nothing in localStorage)
+if (videos.length === 0) {
+  setTimeout(() => loadFromSite(true), 200);
+}
+</script>
+</body>
+</html>
