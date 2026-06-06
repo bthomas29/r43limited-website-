@@ -193,6 +193,23 @@
   margin-left: 0.5rem;
 }
 
+
+/* Editable title styling */
+.card-title[contenteditable="true"] {
+  cursor: text;
+  border-radius: 2px;
+  padding: 1px 4px;
+  margin: -1px -4px 1px -4px;
+  transition: background 0.15s;
+}
+.card-title[contenteditable="true"]:hover {
+  background: rgba(232,88,26,0.1);
+}
+.card-title[contenteditable="true"]:focus {
+  outline: 1px solid #E8581A;
+  background: rgba(0,0,0,0.5);
+}
+
 </style>
 </head>
 <body>
@@ -202,6 +219,7 @@
   <div class="actions">
     <button class="btn" id="btnSettings">⚙ Settings</button>
     <button class="btn" id="btnLoadCurrent">Load from Site</button>
+    <button class="btn" id="btnFetchTitles">↻ Refresh Titles</button>
     <button class="btn" id="btnExport">Export Code</button>
     <button class="btn btn-publish" id="btnPublish">↑ Publish to Live Site</button>
   </div>
@@ -378,7 +396,7 @@ function createCard(v) {
       <div class="ratio-badge">${v.ratio || '16:9'}</div>
     </div>
     <div class="card-info">
-      <div class="card-title">${v.title || '(no title)'}</div>
+      <div class="card-title" contenteditable="true" spellcheck="false" data-id="${v.id}-${v.category}">${v.title || '(no title)'}</div>
       <div class="card-meta">
         ${v.client ? `<span>${v.client}</span><span>·</span>` : ''}
         <select class="ratio-select">
@@ -398,6 +416,24 @@ function createCard(v) {
     e.dataTransfer.setData('text/plain', v.id);
   });
   card.addEventListener('dragend', () => card.classList.remove('dragging'));
+  // Title edit
+  const titleEl = card.querySelector('.card-title');
+  titleEl.addEventListener('blur', () => {
+    const newTitle = titleEl.textContent.trim();
+    if (newTitle && newTitle !== v.title) {
+      v.title = newTitle;
+      saveVideos();
+      toast('Title updated');
+    } else if (!newTitle) {
+      titleEl.textContent = v.title;
+    }
+  });
+  titleEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); titleEl.blur(); }
+    if (e.key === 'Escape') { titleEl.textContent = v.title; titleEl.blur(); }
+  });
+  titleEl.addEventListener('click', e => e.stopPropagation());
+  
   card.querySelector('.ratio-select').addEventListener('change', e => {
     v.ratio = e.target.value; saveVideos(); render();
   });
@@ -426,15 +462,24 @@ function updateTokenStatus() {
 }
 
 // Add video
-document.getElementById('btnAdd').addEventListener('click', () => {
+document.getElementById('btnAdd').addEventListener('click', async () => {
   const id = extractVimeoId(document.getElementById('newUrl').value);
   if (!id) { toast('Invalid Vimeo URL or ID', 'error'); return; }
-  if (videos.find(v => v.id === id)) { toast('Already in list', 'error'); return; }
-  const title = document.getElementById('newTitle').value.trim() || `Video ${id}`;
+  // Allow same Vimeo ID across different categories (e.g. Demo Reel can be in both Reels and Hero buckets)
+  const newCat = document.getElementById('newCat').value;
+  if (videos.find(v => v.id === id && v.category === newCat)) {
+    toast('Already in ' + (CAT_LABELS[newCat] || newCat) + ' bucket', 'error');
+    return;
+  }
+  let title = document.getElementById('newTitle').value.trim();
+  if (!title) {
+    // Auto-fetch from Vimeo
+    title = await fetchVimeoTitle(id) || `Video ${id}`;
+  }
   videos.push({
     id, title,
     client: document.getElementById('newClient').value.trim(),
-    category: document.getElementById('newCat').value,
+    category: newCat,
     featured: true,
     ratio: document.getElementById('newRatio').value
   });
@@ -530,6 +575,43 @@ document.getElementById('btnExportCopy').addEventListener('click', async () => {
 document.getElementById('btnExportClose').addEventListener('click', () => {
   document.getElementById('exportModal').classList.remove('open');
 });
+
+
+// Fetch real titles from Vimeo for all videos
+document.getElementById('btnFetchTitles').addEventListener('click', async () => {
+  if (!videos.length) { toast('No videos to refresh', 'error'); return; }
+  if (!confirm(`Fetch real titles from Vimeo for ${videos.length} videos? This will overwrite current titles.`)) return;
+  
+  const btn = document.getElementById('btnFetchTitles');
+  btn.disabled = true;
+  btn.textContent = 'Fetching...';
+  
+  let success = 0, failed = 0;
+  for (let v of videos) {
+    try {
+      const res = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${v.id}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.title) { v.title = data.title; success++; }
+      } else { failed++; }
+    } catch(e) { failed++; }
+  }
+  saveVideos();
+  render();
+  btn.disabled = false;
+  btn.textContent = '↻ Refresh Titles';
+  toast(`Updated ${success} titles${failed ? ', '+failed+' failed' : ''}`, 'success');
+});
+
+// Also auto-fetch title when adding a new video (if blank)
+async function fetchVimeoTitle(id) {
+  try {
+    const res = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${id}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.title || null;
+  } catch(e) { return null; }
+}
 
 // Publish to GitHub
 document.getElementById('btnPublish').addEventListener('click', async () => {
