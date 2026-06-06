@@ -1348,7 +1348,14 @@ body.menu-open #navHamburger {
     ],
     "priceRange": "$$"
   }
-  </script>
+  
+(function loadVideos() {
+    fetch('videos.json?v=' + Date.now(), { cache: 'no-store' })
+      .then(r => { if (!r.ok) throw 0; return r.json(); })
+      .then(data => { if (Array.isArray(data) && data.length) window.VIDEOS = data; buildGrid(); attachCardEvents(); })
+      .catch(() => { buildGrid(); attachCardEvents(); });
+  })();
+</script>
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2745%27 fill=%27%23E8581A%27/%3E%3Ctext x=%2750%27 y=%2762%27 font-family=%27Georgia,serif%27 font-style=%27italic%27 font-size=%2740%27 font-weight=%27900%27 fill=%27%23F5F2ED%27 text-anchor=%27middle%27%3ER43%3C/text%3E%3C/svg%3E">
 </head>
@@ -1538,7 +1545,7 @@ body.menu-open #navHamburger {
 //  TO CHANGE THUMBNAILS: thumbnails come from Vimeo automatically
 //  via vumbnail.com — make sure the Vimeo video has a thumbnail set.
 // ════════════════════════════════════════════════════════════════
-const VIDEOS = [
+window.VIDEOS = [
   {
     "id": "887475467",
     "title": "R43 Demo Reel 2023",
