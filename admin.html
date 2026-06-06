@@ -178,6 +178,21 @@
     .add-form { grid-template-columns: 1fr; }
     .buckets { grid-template-columns: 1fr; }
   }
+
+/* Hero Background Video bucket — visually special */
+.bucket[data-category="hero"] {
+  border-color: rgba(232,88,26,0.3);
+  background: linear-gradient(135deg, rgba(232,88,26,0.06), transparent);
+}
+.bucket[data-category="hero"] .bucket-title { color: #E8581A; }
+.bucket[data-category="hero"] .bucket-header::after {
+  content: 'Only 1 video; first video in bucket is used';
+  font-size: 0.6rem;
+  color: rgba(245,242,237,0.5);
+  font-style: italic;
+  margin-left: 0.5rem;
+}
+
 </style>
 </head>
 <body>
@@ -210,11 +225,13 @@
       <input type="text" id="newTitle" placeholder="Title">
       <input type="text" id="newClient" placeholder="Client (optional)">
       <select id="newCat">
-        <option value="production">Production</option>
-        <option value="animation">Animation</option>
-        <option value="vfx">VFX</option>
+        <option value="production">Video Production</option>
+        <option value="animation">Motion & Animation</option>
+        <option value="vfx">Visual FX</option>
+        <option value="editorial">Editorial</option>
         <option value="finishing">Finishing</option>
         <option value="reel">Reel</option>
+        <option value="hero">Hero Background Video</option>
       </select>
       <select id="newRatio">
         <option value="16:9">16:9 Wide</option>
@@ -279,13 +296,16 @@
 // ════════════════════════════════════════════════
 
 const CAT_LABELS = {
-  production: 'Production',
+  hero: 'Hero Background Video',
+  production: 'Video Production',
   animation: 'Motion & Animation',
   vfx: 'Visual FX',
+  editorial: 'Editorial',
   finishing: 'Finishing',
   reel: 'Reels'
 };
-const CATEGORIES = ['production', 'animation', 'vfx', 'finishing', 'reel'];
+// Order matters — buckets render in this order, matching the website
+const CATEGORIES = ['hero', 'production', 'animation', 'vfx', 'editorial', 'finishing', 'reel'];
 
 let videos = [];
 let settings = { token: '', owner: 'bthomas29', repo: 'r43limited-website-', siteUrl: 'https://bthomas29.github.io/r43limited-website-' };
