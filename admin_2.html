@@ -466,16 +466,6 @@ async function loadFromSite(silent) {
 }
 
 document.getElementById('btnLoadCurrent').addEventListener('click', () => loadFromSite(false));
-    if (!res.ok) throw 0;
-    const data = await res.json();
-    if (videos.length && !confirm('Replace local list with live videos.json?')) return;
-    videos = data;
-    saveVideos(); render();
-    toast(`Loaded ${data.length} videos from live site`);
-  } catch(e) {
-    toast('Could not load videos.json from live site', 'error');
-  }
-});
 
 // Settings
 document.getElementById('btnSettings').addEventListener('click', () => {
