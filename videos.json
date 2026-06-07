@@ -214,5 +214,29 @@
     "category": "finishing",
     "featured": true,
     "ratio": "16:9"
+  },
+  {
+    "id": "1199107203",
+    "title": "Jacked Up",
+    "client": "Marcus Thomas",
+    "category": "animation",
+    "featured": true,
+    "ratio": "16:9"
+  },
+  {
+    "id": "1199107203",
+    "title": "Futurism",
+    "client": "ESO",
+    "category": "finishing",
+    "featured": true,
+    "ratio": "16:9"
+  },
+  {
+    "id": "1199107999",
+    "title": "Fusion Palette",
+    "client": "Marcus Thomas",
+    "category": "animation",
+    "featured": true,
+    "ratio": "9:16"
   }
 ]
