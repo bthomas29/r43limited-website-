@@ -1,19 +1,12 @@
 [
   {
     "ratio": "16:9",
-    "id": "738408262",
-    "title": "R43 FX Demo",
-    "client": "",
-    "category": "vfx",
-    "featured": false
-  },
-  {
-    "ratio": "16:9",
     "id": "240694961",
     "title": "Interwoven — Flying Blind",
     "client": "Stern Advertising",
     "category": "editorial",
-    "featured": true
+    "featured": true,
+    "catRank": 1
   },
   {
     "ratio": "16:9",
@@ -21,7 +14,8 @@
     "title": "Peoples — Dude Perfect",
     "client": "Stern Advertising",
     "category": "vfx",
-    "featured": true
+    "featured": true,
+    "catRank": 1
   },
   {
     "ratio": "16:9",
@@ -29,7 +23,8 @@
     "title": "Kay Jewelers — Hall of Fame",
     "client": "",
     "category": "vfx",
-    "featured": true
+    "featured": true,
+    "catRank": 3
   },
   {
     "ratio": "16:9",
@@ -37,7 +32,8 @@
     "title": "Lowe's — Modern Fire Pit",
     "client": "Lowe's Companies",
     "category": "production",
-    "featured": true
+    "featured": true,
+    "catRank": 1
   },
   {
     "ratio": "16:9",
@@ -45,15 +41,8 @@
     "title": "DeWalt Pro Handheld",
     "client": "Marcus Thomas",
     "category": "animation",
-    "featured": true
-  },
-  {
-    "ratio": "16:9",
-    "id": "177571245",
-    "title": "Kay Jewelers — Valentine's Day",
-    "client": "",
-    "category": "editorial",
-    "featured": true
+    "featured": true,
+    "catRank": 1
   },
   {
     "ratio": "16:9",
@@ -61,7 +50,8 @@
     "title": "Grove Hill: A True Story",
     "client": "",
     "category": "production",
-    "featured": true
+    "featured": true,
+    "catRank": 2
   },
   {
     "ratio": "16:9",
@@ -69,7 +59,8 @@
     "title": "Lowe's — In Ground Fire Pit",
     "client": "Lowe's Companies",
     "category": "production",
-    "featured": true
+    "featured": true,
+    "catRank": 3
   },
   {
     "ratio": "16:9",
@@ -77,7 +68,8 @@
     "title": "UH Geauga — Navigating a Pandemic",
     "client": "University Hospitals",
     "category": "production",
-    "featured": true
+    "featured": true,
+    "catRank": 4
   },
   {
     "ratio": "16:9",
@@ -85,7 +77,8 @@
     "title": "La-Z-Boy Difference",
     "client": "VMLY&R Commerce",
     "category": "production",
-    "featured": false
+    "featured": false,
+    "catRank": 5
   },
   {
     "ratio": "16:9",
@@ -93,15 +86,17 @@
     "title": "La-Z-Boy Lead Time",
     "client": "",
     "category": "animation",
-    "featured": false
+    "featured": false,
+    "catRank": 2
   },
   {
     "ratio": "16:9",
     "id": "527945047",
-    "title": "CMA",
+    "title": "Cleveland Museum of Art - Reopen",
     "client": "Lowe's Companies",
     "category": "editorial",
-    "featured": true
+    "featured": true,
+    "catRank": 3
   },
   {
     "ratio": "16:9",
@@ -109,7 +104,8 @@
     "title": "Kay",
     "client": "",
     "category": "editorial",
-    "featured": true
+    "featured": true,
+    "catRank": 4
   },
   {
     "ratio": "16:9",
@@ -117,7 +113,8 @@
     "title": "Kay-Unconditional Love",
     "client": "VMLY&R Commerce",
     "category": "editorial",
-    "featured": true
+    "featured": true,
+    "catRank": 5
   },
   {
     "ratio": "16:9",
@@ -125,15 +122,8 @@
     "title": "McDonald's — 3-4-5",
     "client": "Stern Advertising",
     "category": "editorial",
-    "featured": true
-  },
-  {
-    "id": "1198541398",
-    "title": "Summer_Artist_9x16_Final",
-    "client": "",
-    "category": "production",
     "featured": true,
-    "ratio": "9:16"
+    "catRank": 6
   },
   {
     "id": "289757329",
@@ -141,7 +131,8 @@
     "client": "",
     "category": "animation",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 3
   },
   {
     "id": "177597143",
@@ -149,15 +140,17 @@
     "client": "",
     "category": "editorial",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 7
   },
   {
     "id": "528392778",
     "title": "Ddexcom",
     "client": "Marcus Thomas",
-    "category": "finishing",
+    "category": "vfx",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 2
   },
   {
     "id": "240674232",
@@ -165,15 +158,17 @@
     "client": "",
     "category": "finishing",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 3
   },
   {
     "id": "207345944",
-    "title": "Chagrin Falls Levy",
+    "title": "Chagrin Falls Exempted Village Schools - Levy",
     "client": "",
     "category": "production",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 7
   },
   {
     "id": "738407879",
@@ -181,7 +176,8 @@
     "client": "",
     "category": "hero",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 1
   },
   {
     "id": "736213385",
@@ -189,7 +185,8 @@
     "client": "VML",
     "category": "editorial",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 8
   },
   {
     "id": "736255732",
@@ -197,7 +194,8 @@
     "client": "",
     "category": "finishing",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 2
   },
   {
     "id": "528379616",
@@ -205,7 +203,8 @@
     "client": "Ghurka",
     "category": "production",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 8
   },
   {
     "id": "240692959",
@@ -213,38 +212,34 @@
     "client": "Kay Jewelers",
     "category": "finishing",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 4
   },
   {
-    "id": "1199107203",
-    "title": "Jacked Up",
-    "client": "Marcus Thomas",
-    "category": "animation",
-    "featured": true,
-    "ratio": "16:9"
-  },
-  {
-    "id": "1199107203",
-    "title": "Futurism",
-    "client": "ESO",
-    "category": "finishing",
-    "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "id": "738408262",
+    "title": "R43 FX Demo",
+    "client": "",
+    "category": "vfx",
+    "featured": false,
+    "catRank": 4
   },
   {
     "id": "1199107999",
-    "title": "Fusion Palette",
+    "title": "Fusion_Palette_9x16_FINAL h.264",
     "client": "Marcus Thomas",
     "category": "animation",
     "featured": true,
-    "ratio": "9:16"
+    "ratio": "9:16",
+    "catRank": 5
   },
   {
     "id": "1199106231",
-    "title": "Holidaze",
+    "title": "1OLC0619000H",
     "client": "Marcus Thomas",
     "category": "finishing",
     "featured": true,
-    "ratio": "16:9"
+    "ratio": "16:9",
+    "catRank": 1
   }
 ]
