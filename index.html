@@ -1740,12 +1740,30 @@ const CAT_LABELS = {
 // ── Build work grid from VIDEOS config ──────────────────────
 function buildGrid() {
   const grid = document.getElementById('workGrid');
+  if (!grid) return;
   grid.innerHTML = '';
-  VIDEOS.filter(v => v.category !== 'hero').forEach(v => {
+  // Determine current filter
+  var activeFilter = 'all';
+  var activeBtn = document.querySelector('.fbtn.active');
+  if (activeBtn) activeFilter = activeBtn.dataset.filter || 'all';
+  
+  // Sort videos appropriately
+  var workVideos = window.VIDEOS.filter(v => v.category !== 'hero');
+  var sortedVideos;
+  if (activeFilter === 'all') {
+    // "All Work" — use array order (this is the All Work View Order from admin)
+    sortedVideos = workVideos.slice();
+  } else {
+    // Category filter — sort by catRank within that category
+    sortedVideos = workVideos
+      .filter(v => v.category === activeFilter)
+      .sort(function(a,b){ return (a.catRank||0) - (b.catRank||0); });
+  }
+  
+  sortedVideos.forEach(v => {
     const catLabel = CAT_LABELS[v.category] || v.category;
     const clientHtml = v.client ? `<div class="wc-client">${v.client}</div>` : '';
     const ratio = v.ratio || '16:9';
-    // Map ratio to CSS class
     const ratioClass = ratio === '9:16' ? 'ratio-vertical' :
                        ratio === '1:1'  ? 'ratio-square'   :
                                           'ratio-wide';
