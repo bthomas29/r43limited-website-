@@ -210,6 +210,83 @@
   background: rgba(0,0,0,0.5);
 }
 
+
+/* Drop target indicator — orange line on top edge of target card */
+.card.drag-target {
+  border-top: 2px solid #E8581A !important;
+  margin-top: -2px;
+  background: linear-gradient(to bottom, rgba(232,88,26,0.1), #0a0a0a 20%);
+}
+
+
+/* ALL WORK ORDER bucket — visually distinct from category buckets */
+.bucket.all-work-bucket {
+  border: 1px solid rgba(232,88,26,0.4);
+  background: linear-gradient(135deg, rgba(232,88,26,0.04), transparent);
+  grid-column: 1 / -1;
+  margin-bottom: 0.5rem;
+}
+.bucket.all-work-bucket .bucket-title { color: #E8581A; }
+.bucket-note {
+  font-size: 0.72rem;
+  color: rgba(245,242,237,0.55);
+  font-style: italic;
+  margin-bottom: 0.85rem;
+  line-height: 1.4;
+}
+.all-work-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.6rem;
+  min-height: 80px;
+}
+.mini-card {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #0a0a0a;
+  border: 1px solid rgba(245,242,237,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: grab;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.mini-card:hover {
+  border-color: rgba(232,88,26,0.5);
+  transform: translateY(-2px);
+}
+.mini-card.dragging { opacity: 0.4; cursor: grabbing; }
+.mini-card.drag-target {
+  border-left: 3px solid #E8581A !important;
+  margin-left: -3px;
+}
+.mini-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.mini-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+  padding: 1rem 0.5rem 0.4rem 0.5rem;
+  pointer-events: none;
+}
+.mini-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #F5F2ED;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mini-cat {
+  font-size: 0.55rem;
+  color: #E8581A;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
 </style>
 </head>
 <body>
@@ -335,6 +412,23 @@ function loadState() {
     const s = localStorage.getItem('r43_settings');
     if (s) settings = Object.assign(settings, JSON.parse(s));
   } catch(e) {}
+  // Initialize catRank for any video missing it (preserves current category order)
+  ensureCatRanks();
+}
+function ensureCatRanks() {
+  // Group by category and assign sequential catRank in current array order
+  const seen = {};
+  videos.forEach(v => {
+    if (typeof v.catRank !== 'number') {
+      seen[v.category] = (seen[v.category] || 0) + 1;
+      v.catRank = seen[v.category];
+    }
+  });
+}
+function reassignCatRanks(cat) {
+  // Sort videos in this category by current catRank, then reassign 1..N
+  const catVideos = videos.filter(v => v.category === cat).sort((a,b) => (a.catRank||0) - (b.catRank||0));
+  catVideos.forEach((v, i) => v.catRank = i + 1);
 }
 function saveVideos() { localStorage.setItem('r43_videos', JSON.stringify(videos)); }
 function saveSettings() { localStorage.setItem('r43_settings', JSON.stringify(settings)); }
@@ -357,11 +451,46 @@ function extractVimeoId(input) {
 function render() {
   const container = document.getElementById('buckets');
   container.innerHTML = '';
+  // ALL WORK ORDER bucket — drag to reorder how videos appear in "All Work" filter view
+  const allBucket = document.createElement('div');
+  allBucket.className = 'bucket all-work-bucket';
+  allBucket.dataset.category = 'ALL';
+  const workVideos = videos.filter(v => v.category !== 'hero');
+  allBucket.innerHTML = `
+    <div class="bucket-header">
+      <div class="bucket-title">All Work View Order</div>
+      <div class="bucket-count">${workVideos.length}</div>
+    </div>
+    <div class="bucket-note">Drag to reorder how videos appear when "All Work" filter is active on the live site. Category-specific orderings are managed in the buckets below.</div>
+    <div class="all-work-strip"></div>`;
+  container.appendChild(allBucket);
+  const strip = allBucket.querySelector('.all-work-strip');
+  if (workVideos.length === 0) {
+    strip.innerHTML = '<div class="bucket-empty">No videos yet — add some below</div>';
+  } else {
+    workVideos.forEach(v => strip.appendChild(createMiniCard(v)));
+  }
+  // Strip-level drop handler (drop at end)
+  strip.addEventListener('dragover', e => { e.preventDefault(); });
+  strip.addEventListener('drop', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const key = e.dataTransfer.getData('text/plain');
+    const [draggedId, draggedCat] = key.split('__');
+    const idx = videos.findIndex(x => x.id === draggedId && x.category === draggedCat);
+    if (idx === -1) return;
+    const v = videos[idx];
+    // Move to end of array (last position in All Work view)
+    videos.splice(idx, 1);
+    videos.push(v);
+    saveVideos(); render();
+  });
+
   CATEGORIES.forEach(cat => {
     const bucket = document.createElement('div');
     bucket.className = 'bucket';
     bucket.dataset.category = cat;
-    const items = videos.filter(v => v.category === cat);
+    const items = videos.filter(v => v.category === cat).sort((a,b) => (a.catRank||0) - (b.catRank||0));
     bucket.innerHTML = `
       <div class="bucket-header">
         <div class="bucket-title">${CAT_LABELS[cat]}</div>
@@ -377,12 +506,67 @@ function render() {
     bucket.addEventListener('drop', e => {
       e.preventDefault();
       bucket.classList.remove('drag-over');
-      const id = e.dataTransfer.getData('text/plain');
-      const v = videos.find(x => x.id === id);
-      if (v) { v.category = cat; saveVideos(); render(); }
+      const key = e.dataTransfer.getData('text/plain');
+      const [draggedId, draggedCat] = key.split('__');
+      const v = videos.find(x => x.id === draggedId && x.category === draggedCat);
+      if (!v) return;
+      const oldCat = v.category;
+      v.category = cat;
+      // Assign catRank as end of new category
+      const maxRank = Math.max(0, ...videos.filter(x => x.category === cat && x !== v).map(x => x.catRank||0));
+      v.catRank = maxRank + 1;
+      // If category changed, reassign catRanks in old category to close gaps
+      if (oldCat !== cat) reassignCatRanks(oldCat);
+      saveVideos(); render();
     });
   });
   updateTokenStatus();
+}
+
+
+// Compact card for the All Work Order strip
+function createMiniCard(v) {
+  const card = document.createElement('div');
+  card.className = 'mini-card';
+  card.draggable = true;
+  card.dataset.id = v.id;
+  card.dataset.cat = v.category;
+  card.innerHTML = `
+    <img src="https://vumbnail.com/${v.id}.jpg" alt="">
+    <div class="mini-overlay">
+      <div class="mini-title">${v.title || 'Untitled'}</div>
+      <div class="mini-cat">${CAT_LABELS[v.category] || v.category}</div>
+    </div>`;
+  card.addEventListener('dragstart', e => {
+    card.classList.add('dragging');
+    e.dataTransfer.setData('text/plain', v.id + '__' + v.category);
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  card.addEventListener('dragend', () => card.classList.remove('dragging'));
+  // Mini-card to mini-card drop = reorder All Work view
+  card.addEventListener('dragover', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    card.classList.add('drag-target');
+  });
+  card.addEventListener('dragleave', () => card.classList.remove('drag-target'));
+  card.addEventListener('drop', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    card.classList.remove('drag-target');
+    const key = e.dataTransfer.getData('text/plain');
+    const [draggedId, draggedCat] = key.split('__');
+    if (draggedId === v.id && draggedCat === v.category) return;
+    const draggedIdx = videos.findIndex(x => x.id === draggedId && x.category === draggedCat);
+    if (draggedIdx === -1) return;
+    const draggedVideo = videos[draggedIdx];
+    videos.splice(draggedIdx, 1);
+    // Find target's new index, insert before
+    const targetIdx = videos.findIndex(x => x.id === v.id && x.category === v.category);
+    videos.splice(targetIdx, 0, draggedVideo);
+    saveVideos(); render();
+  });
+  return card;
 }
 
 function createCard(v) {
@@ -390,6 +574,8 @@ function createCard(v) {
   card.className = 'card';
   card.draggable = true;
   card.dataset.id = v.id;
+  card.dataset.cat = v.category;
+  card.dataset.key = v.id + '__' + v.category;
   card.innerHTML = `
     <div class="card-thumb">
       <img src="https://vumbnail.com/${v.id}.jpg" alt="">
@@ -413,9 +599,49 @@ function createCard(v) {
     </div>`;
   card.addEventListener('dragstart', e => {
     card.classList.add('dragging');
-    e.dataTransfer.setData('text/plain', v.id);
+    e.dataTransfer.setData('text/plain', v.id + '__' + v.category);
+    e.dataTransfer.effectAllowed = 'move';
   });
   card.addEventListener('dragend', () => card.classList.remove('dragging'));
+  
+  // Card-to-card drop: insert dragged card before this target card (reordering)
+  card.addEventListener('dragover', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Show drop indicator on top edge
+    card.classList.add('drag-target');
+  });
+  card.addEventListener('dragleave', () => card.classList.remove('drag-target'));
+  card.addEventListener('drop', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    card.classList.remove('drag-target');
+    const key = e.dataTransfer.getData('text/plain');
+    const [draggedId, draggedCat] = key.split('__');
+    if (draggedId === v.id && draggedCat === v.category) return;
+    const draggedVideo = videos.find(x => x.id === draggedId && x.category === draggedCat);
+    if (!draggedVideo) return;
+    
+    if (draggedCat === v.category) {
+      // Same category — reorder via catRank ONLY (preserve array order for All Work)
+      const catVideos = videos.filter(x => x.category === v.category).sort((a,b)=>(a.catRank||0)-(b.catRank||0));
+      const fromIdx = catVideos.indexOf(draggedVideo);
+      const toIdx = catVideos.indexOf(v);
+      catVideos.splice(fromIdx, 1);
+      const newToIdx = catVideos.indexOf(v);
+      catVideos.splice(newToIdx, 0, draggedVideo);
+      catVideos.forEach((vid, i) => vid.catRank = i + 1);
+    } else {
+      // Cross-category — change category and assign catRank for new bucket
+      draggedVideo.category = v.category;
+      // Insert into target's catRank position
+      const catVideos = videos.filter(x => x.category === v.category && x !== draggedVideo).sort((a,b)=>(a.catRank||0)-(b.catRank||0));
+      const targetCatIdx = catVideos.indexOf(v);
+      catVideos.splice(targetCatIdx, 0, draggedVideo);
+      catVideos.forEach((vid, i) => vid.catRank = i + 1);
+    }
+    saveVideos(); render();
+  });
   // Title edit
   const titleEl = card.querySelector('.card-title');
   titleEl.addEventListener('blur', () => {
@@ -476,12 +702,14 @@ document.getElementById('btnAdd').addEventListener('click', async () => {
     // Auto-fetch from Vimeo
     title = await fetchVimeoTitle(id) || `Video ${id}`;
   }
+  const maxRank = Math.max(0, ...videos.filter(v => v.category === newCat).map(v => v.catRank||0));
   videos.push({
     id, title,
     client: document.getElementById('newClient').value.trim(),
     category: newCat,
     featured: true,
-    ratio: document.getElementById('newRatio').value
+    ratio: document.getElementById('newRatio').value,
+    catRank: maxRank + 1
   });
   saveVideos(); render();
   ['newUrl','newTitle','newClient'].forEach(i => document.getElementById(i).value = '');
