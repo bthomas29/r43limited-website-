@@ -150,5 +150,45 @@
     "category": "production",
     "featured": true,
     "ratio": "9:16"
+  },
+  {
+    "id": "289757329",
+    "title": "Great Lakes Theater - Mamma Mia",
+    "client": "",
+    "category": "animation",
+    "featured": true,
+    "ratio": "16:9"
+  },
+  {
+    "id": "177597143",
+    "title": "Cleveland Museum of Art",
+    "client": "",
+    "category": "editorial",
+    "featured": true,
+    "ratio": "16:9"
+  },
+  {
+    "id": "528392778",
+    "title": "Ddexcom",
+    "client": "Marcus Thomas",
+    "category": "finishing",
+    "featured": true,
+    "ratio": "16:9"
+  },
+  {
+    "id": "240674232",
+    "title": "McD's Rock Box",
+    "client": "",
+    "category": "finishing",
+    "featured": true,
+    "ratio": "16:9"
+  },
+  {
+    "id": "207345944",
+    "title": "Chagrin Falls Levy",
+    "client": "",
+    "category": "production",
+    "featured": true,
+    "ratio": "16:9"
   }
 ]
