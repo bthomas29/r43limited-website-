@@ -1300,13 +1300,22 @@ body.menu-open #navHamburger {
 }
 
 
-/* ═══ WORK GRID — Simple row-major (reads left-to-right, gaps OK) ═══ */
+/* ═══ WORK GRID — JS-driven masonry: row-major reading + back-fill packing ═══ */
 .work-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  align-items: start;
+  grid-auto-rows: 1px;
+  column-gap: 1.25rem;
+  row-gap: 0;
+  grid-auto-flow: row dense;
 }
+.work-card {
+  margin-bottom: 1.25rem;
+}
+/* Aspect ratios still controlled by thumb */
+.work-card.ratio-wide .work-thumb     { aspect-ratio: 16/9; }
+.work-card.ratio-square .work-thumb   { aspect-ratio: 1/1; }
+.work-card.ratio-vertical .work-thumb { aspect-ratio: 9/16; }
 .work-card {
   position: relative;
   overflow: hidden;
@@ -1356,16 +1365,7 @@ body.menu-open #navHamburger {
 }
 
 
-/* Cards get their height directly from their aspect ratio — eliminates 850px stretching */
-.work-card { height: auto; }
-.work-card.ratio-wide     { aspect-ratio: 16/9; }
-.work-card.ratio-square   { aspect-ratio: 1/1; }
-.work-card.ratio-vertical { aspect-ratio: 9/16; }
-.work-card .work-thumb { 
-  width: 100%; 
-  height: 100%; 
-  aspect-ratio: unset;
-}
+
 
 </style>
 
@@ -2009,7 +2009,42 @@ document.getElementById('fsubmit').addEventListener('click', () => {
   });
 })();
 
-// ── Init ─────────────────────────────────────────────────────
+
+// ═══ MASONRY ROW SPANS ═══
+// Calculates grid-row span for each card based on actual rendered height.
+// With grid-auto-flow: row dense, this gives true masonry (no gaps) while
+// preserving left-to-right reading order from videos.json.
+function setMasonryRowSpans() {
+  var grid = document.getElementById('workGrid');
+  if (!grid) return;
+  var cards = Array.from(grid.children);
+  cards.forEach(function(card) { card.style.gridRow = ''; });
+  // Force layout recalc
+  void grid.offsetHeight;
+  cards.forEach(function(card) {
+    var thumb = card.querySelector('.work-thumb');
+    if (!thumb) return;
+    var h = thumb.getBoundingClientRect().height;
+    if (h < 1) return;
+    // 1px rows + 0 row-gap, so span = pixel height
+    card.style.gridRow = 'span ' + Math.ceil(h);
+  });
+}
+
+// Run after buildGrid, on resize, and after thumbnails load
+window.addEventListener('load', setMasonryRowSpans);
+window.addEventListener('resize', function() {
+  clearTimeout(window.__rsTimer);
+  window.__rsTimer = setTimeout(setMasonryRowSpans, 100);
+});
+// Also run when each image loads (since aspect-ratio could shift)
+document.addEventListener('load', function(e) {
+  if (e.target && e.target.tagName === 'IMG' && e.target.closest('.work-card')) {
+    setMasonryRowSpans();
+  }
+}, true);
+
+  // ── Init ─────────────────────────────────────────────────────
 // Try to load videos from videos.json (managed via admin.html).
 // Falls back to the inline window.VIDEOS array if videos.json missing.
 
@@ -2033,8 +2068,9 @@ function setHeroVideo() {
       setHeroVideo();
       buildGrid();
       attachCardEvents();
+      setTimeout(setMasonryRowSpans, 50);
     })
-    .catch(() => { setHeroVideo(); buildGrid(); attachCardEvents(); });
+    .catch(() => { setHeroVideo(); buildGrid(); attachCardEvents(); setTimeout(setMasonryRowSpans, 50); });
 })();
 </script>
 </body>
