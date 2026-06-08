@@ -1300,21 +1300,14 @@ body.menu-open #navHamburger {
 }
 
 
-/* ═══ WORK GRID — CSS COLUMNS MASONRY (3 across, aspect-ratio preserved) ═══ */
+/* ═══ WORK GRID — Simple row-major (reads left-to-right, gaps OK) ═══ */
 .work-grid {
-  column-count: 3;
-  column-gap: 1.25rem;
-  /* Reset any old grid styles */
-  display: block;
-  align-items: initial;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  align-items: start;
 }
 .work-card {
-  break-inside: avoid;
-  page-break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  display: inline-block;
-  width: 100%;
-  margin-bottom: 1.25rem;
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -1337,17 +1330,41 @@ body.menu-open #navHamburger {
 .work-card.ratio-square .work-thumb   { aspect-ratio: 1/1; }
 .work-card.ratio-vertical .work-thumb { aspect-ratio: 9/16; }
 
-/* Tablet: 2 columns */
+/* Tablet: 2 columns, same row span approach */
 @media (max-width: 900px) {
-  .work-grid { column-count: 2; }
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 10px;
+    gap: 16px;
+  }
+  /* Recalc for ~460px column width: */
+  
+  
+  
 }
-/* Mobile: 2 columns, tighter gap */
+/* Mobile: 2 columns, smaller */
 @media (max-width: 540px) {
   .work-grid {
-    column-count: 2;
-    column-gap: 0.75rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 10px;
+    gap: 12px;
   }
-  .work-card { margin-bottom: 0.75rem; }
+  /* Column width ~170px */
+  
+  
+  
+}
+
+
+/* Cards get their height directly from their aspect ratio — eliminates 850px stretching */
+.work-card { height: auto; }
+.work-card.ratio-wide     { aspect-ratio: 16/9; }
+.work-card.ratio-square   { aspect-ratio: 1/1; }
+.work-card.ratio-vertical { aspect-ratio: 9/16; }
+.work-card .work-thumb { 
+  width: 100%; 
+  height: 100%; 
+  aspect-ratio: unset;
 }
 
 </style>
