@@ -1300,24 +1300,7 @@ body.menu-open #navHamburger {
 }
 
 
-/* ═══ WORK GRID — uniform 16:9 cards (vertical/square content fits inside) ═══ */
-.work-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-}
-.work-card { margin-bottom: 0; }
-/* ALL thumbs are 16:9 regardless of source video ratio */
-.work-card .work-thumb { aspect-ratio: 16/9; }
-/* Vertical/square videos: fit inside 16:9 frame, with subtle background to fill bars */
-.work-card.ratio-vertical .work-thumb,
-.work-card.ratio-square .work-thumb {
-  background: #000;
-}
-.work-card.ratio-vertical .work-thumb img,
-.work-card.ratio-square .work-thumb img {
-  object-fit: contain;
-}
+
 .work-card {
   position: relative;
   overflow: hidden;
@@ -1341,25 +1324,8 @@ body.menu-open #navHamburger {
 .work-card.ratio-square .work-thumb   { aspect-ratio: 1/1; }
 .work-card.ratio-vertical .work-thumb { aspect-ratio: 9/16; }
 
-/* Tablet: 2 columns, same row span approach */
-@media (max-width: 900px) {
-  .work-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 10px;
-    gap: 16px;
-  }
-  /* Recalc for ~460px column width: */
-  
-  
-  
-}
-/* Mobile: 2 columns, smaller */
-@media (max-width: 540px) {
-  .work-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 10px;
-    gap: 12px;
-  }
+
+
   /* Column width ~170px */
   
   
@@ -1368,6 +1334,55 @@ body.menu-open #navHamburger {
 
 
 
+
+
+/* ═══ WORK GRID — CSS COLUMNS MASONRY (3 across, aspect-ratio preserved) ═══ */
+.work-grid {
+  column-count: 3;
+  column-gap: 1.25rem;
+  display: block;
+}
+.work-card {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #111;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
+.work-card:hover { transform: translateY(-4px); }
+.work-thumb { position: relative; width: 100%; overflow: hidden; }
+.work-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.work-card:hover .work-thumb img { transform: scale(1.04); }
+
+/* Aspect ratios preserved — vertical looks vertical, square looks square, wide looks wide */
+.work-card.ratio-wide .work-thumb     { aspect-ratio: 16/9; }
+.work-card.ratio-square .work-thumb   { aspect-ratio: 1/1; }
+.work-card.ratio-vertical .work-thumb { aspect-ratio: 9/16; }
+
+/* Tablet: 2 columns */
+@media (max-width: 900px) {
+  .work-grid { column-count: 2; }
+}
+/* Mobile: 2 columns, tighter */
+@media (max-width: 540px) {
+  .work-grid {
+    column-count: 2;
+    column-gap: 0.75rem;
+  }
+  .work-card { margin-bottom: 0.75rem; }
+}
 
 </style>
 
