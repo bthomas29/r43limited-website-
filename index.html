@@ -84,10 +84,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99999;display:flex;align-items:c
 }
 .hero-body{position:relative;z-index:2;}
 
-
-
-
-
 .hero h1{font-size:clamp(5rem,11vw,9.5rem);font-weight:700;line-height:0.92;letter-spacing:-0.01em;max-width:860px}
 .hero h1 .outline{-webkit-text-stroke:1px rgba(245,242,237,0.85);color:transparent}
 .hero-sub{margin-top:2.5rem;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem}
@@ -125,16 +121,9 @@ section{padding:7rem 3rem}
 .fbtn{font-size:0.62rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid var(--border);padding:0.5rem 1.1rem;cursor:pointer;transition:all 0.2s;font-family:var(--f)}
 .fbtn:hover,.fbtn.active{color:var(--black);background:var(--orange);border-color:var(--orange)}
 
-
-
-
-
-
 .wc-cat{font-size:0.58rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--orange);margin-bottom:0.3rem}
 .wc-title{font-size:1rem;font-weight:700;line-height:1.2}
 .wc-client{font-size:0.78rem;font-weight: 400;color:var(--muted);margin-top:0.25rem}
-
-
 
 .load-more{display:block;margin:3rem auto 0;font-size:0.7rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);background:transparent;border:1px solid var(--border-h);padding:0.9rem 2.5rem;cursor:pointer;transition:border-color 0.2s,color 0.2s;font-family:var(--f)}
 .load-more:hover{border-color:var(--orange);color:var(--orange)}
@@ -168,8 +157,6 @@ section{padding:7rem 3rem}
 
 /* ── PROCESS ── */
 #process{background:var(--surface)}
-
-
 
 .pnum{font-size:2.8rem;font-weight:700;color:rgba(255,255,255,0.08);line-height:1}
 .ptitle{font-size:1.5rem;font-weight:700;letter-spacing:-0.01em}
@@ -298,9 +285,6 @@ body.scrolled #mainNav {
 
 /* ═══════════════ MOBILE RESPONSIVE ═══════════════ */
 
-
-
-
 /* ═══════════════ POLISH FIXES ═══════════════ */
 html { scroll-behavior: smooth; }
 body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
@@ -308,9 +292,6 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 
 /* ═══════════════ MOBILE — adjust hero logo + nav ═══════════════ */
-
-
-
 
 /* Hide old nav-logo-sticky (replaced by #morphLogo) */
 /* ═══════════════ MORPHING LOGO (big → small) ═══════════════ */
@@ -350,9 +331,6 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 }
 
 /* ═══════════════ MOBILE ADJUSTMENTS ═══════════════ */
-
-
-
 
 /* ═══════════════════════════════════════════════════════════
    SECTION DESIGN OVERHAUL — bold, balanced, cinematic
@@ -438,11 +416,6 @@ section {
 
 /* ─────── WORK GRID ─────── */
 
-
-
-
-
-
 .wc-cat {
   font-size: 0.6rem !important;
   font-weight: 700 !important;
@@ -461,8 +434,6 @@ section {
   font-size: 0.75rem !important;
   color: rgba(245, 242, 237, 0.85) !important;
 }
-
-
 
 .hidden-work { display: none !important; }
 
@@ -734,9 +705,6 @@ footer {
 
 /* ─────── MOBILE ─────── */
 
-
-
-
 /* ═══════════════ MARQUEE TICKER ═══════════════ */
 .marquee {
   position: relative;
@@ -778,15 +746,10 @@ footer {
 /* ═══════════════ AUTO-SHRINK LOGO ON NARROW VIEWPORTS ═══════════════ */
 /* Below 700px wide, the logo auto-shrinks to nav-bar size (same as scrolled state) */
 
-
-
-
 /* ═══ MOBILE — phones ≤540px ═══ */
 
 
 /* TABLET 541–768px */
-
-
 
 /* ── Hero: break out of section max-width ── */
 section#home {
@@ -1212,14 +1175,6 @@ body.menu-open #navHamburger {
 
 /* RATIO classes — control card height + grid column span */
 
-
-
-
-
-
-
-
-
 /* Card info overlay */
 .work-card-info {
   position: absolute;
@@ -1257,11 +1212,7 @@ body.menu-open #navHamburger {
 }
 
 /* ── TABLET (541-900px): simpler grid ── */
-@media (min-width: 541px) and (max-width: 900px) {
-  
-  
-  
-}
+
 
 /* ── MOBILE (≤540): single column, respect ratios ── */
 @media (max-width: 540px) {
@@ -1274,42 +1225,10 @@ body.menu-open #navHamburger {
   .wc-cat { font-size: 0.55rem !important; }
 }
 
-
-
-
-
-
-
-
-
 /* Aspect-ratio classes — height follows from card width */
 
-
-
-
-
-
   /* Column width ~170px */
-  
-  
-  
-}
-
-
-
-
-
 /* Aspect ratios preserved — vertical looks vertical, square looks square, wide looks wide */
-
-
-
-
-
-
-  
-}
-
-
 /* ═══ WORK GRID — uniform 16:9 cards, 3-column desktop ═══ */
 .work-grid {
   display: grid;
@@ -1561,8 +1480,6 @@ body.menu-open #navHamburger {
   <footer>
     <div class="fcopy">&copy; 2026 R43 Limited &middot; Made in Chagrin Falls, Ohio. Built for brands everywhere.</div>
   </footer>
-
-
 
 <script>
 // ============================================================
@@ -1856,18 +1773,6 @@ document.getElementById('fsubmit').addEventListener('click', () => {
   if (!n || !em) { alert('Please fill in your name and email.'); return; }
   alert('Thanks ' + n + "! We\'ll be in touch shortly.");
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ═══ Eyebrow line widths = "We Make" width ═══
 (function() {
