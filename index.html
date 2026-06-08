@@ -1210,40 +1210,15 @@ body.menu-open #navHamburger {
 }
 
 
-/* ═══ WORK GRID — aspect-ratio aware ═══ */
-
-.work-card {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  background: #111;
-  border-radius: 6px;
-  transition: transform 0.3s ease;
-}
-.work-card:hover { transform: translateY(-4px); }
-.work-thumb {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-.work-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease;
-}
-.work-card:hover .work-thumb img { transform: scale(1.04); }
-
 /* RATIO classes — control card height + grid column span */
 
-.work-card.ratio-wide .work-thumb { aspect-ratio: 16/9; }
 
 
-.work-card.ratio-square .work-thumb { aspect-ratio: 1/1; }
 
 
-.work-card.ratio-vertical .work-thumb { aspect-ratio: 9/16; }
+
+
+
 
 /* Card info overlay */
 .work-card-info {
@@ -1272,7 +1247,7 @@ body.menu-open #navHamburger {
   transition: opacity 0.25s ease;
   z-index: 3;
 }
-.work-card:hover .work-play { opacity: 1; }
+
 .work-play-arrow {
   width: 0; height: 0;
   border-left: 16px solid #fff;
@@ -1301,28 +1276,16 @@ body.menu-open #navHamburger {
 
 
 
-.work-card {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  background: #111;
-  border-radius: 6px;
-  transition: transform 0.3s ease;
-}
-.work-card:hover { transform: translateY(-4px); }
-.work-thumb { position: relative; width: 100%; overflow: hidden; }
-.work-thumb img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease;
-}
-.work-card:hover .work-thumb img { transform: scale(1.04); }
+
+
+
+
+
 
 /* Aspect-ratio classes — height follows from card width */
-.work-card.ratio-wide .work-thumb     { aspect-ratio: 16/9; }
-.work-card.ratio-square .work-thumb   { aspect-ratio: 1/1; }
-.work-card.ratio-vertical .work-thumb { aspect-ratio: 9/16; }
+
+
+
 
 
 
@@ -1336,20 +1299,27 @@ body.menu-open #navHamburger {
 
 
 
-/* ═══ WORK GRID — CSS COLUMNS MASONRY (3 across, aspect-ratio preserved) ═══ */
+/* Aspect ratios preserved — vertical looks vertical, square looks square, wide looks wide */
+
+
+
+
+
+
+  
+}
+
+
+/* ═══ WORK GRID — uniform 16:9 cards, 3-column desktop ═══ */
 .work-grid {
-  column-count: 3;
-  column-gap: 1.25rem;
-  display: block;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
 }
 .work-card {
-  break-inside: avoid;
-  page-break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  display: inline-block;
-  width: 100%;
-  margin-bottom: 1.25rem;
   position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   cursor: pointer;
   background: #111;
@@ -1357,31 +1327,37 @@ body.menu-open #navHamburger {
   transition: transform 0.3s ease;
 }
 .work-card:hover { transform: translateY(-4px); }
-.work-thumb { position: relative; width: 100%; overflow: hidden; }
+
+.work-thumb {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .work-thumb img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
   transition: transform 0.5s ease;
 }
 .work-card:hover .work-thumb img { transform: scale(1.04); }
 
-/* Aspect ratios preserved — vertical looks vertical, square looks square, wide looks wide */
-.work-card.ratio-wide .work-thumb     { aspect-ratio: 16/9; }
-.work-card.ratio-square .work-thumb   { aspect-ratio: 1/1; }
-.work-card.ratio-vertical .work-thumb { aspect-ratio: 9/16; }
-
-/* Tablet: 2 columns */
-@media (max-width: 900px) {
-  .work-grid { column-count: 2; }
+/* Vertical (9:16) and square (1:1): show thumbnail centered inside the 16:9 frame */
+.work-card.ratio-vertical .work-thumb,
+.work-card.ratio-square .work-thumb {
+  background: #000;
 }
-/* Mobile: 2 columns, tighter */
+.work-card.ratio-vertical .work-thumb img,
+.work-card.ratio-square .work-thumb img {
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .work-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 540px) {
-  .work-grid {
-    column-count: 2;
-    column-gap: 0.75rem;
-  }
-  .work-card { margin-bottom: 0.75rem; }
+  .work-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
 }
 
 </style>
