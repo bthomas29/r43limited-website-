@@ -1229,16 +1229,19 @@ body.menu-open #navHamburger {
 
   /* Column width ~170px */
 /* Aspect ratios preserved — vertical looks vertical, square looks square, wide looks wide */
-/* ═══ WORK GRID — uniform 16:9 cards, 3-column desktop ═══ */
+/* ═══ WORK GRID — masonry-look (dense pack) + row-major order ═══ */
 .work-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  grid-auto-rows: 1px;        /* fine-grained rows so JS can set precise spans */
+  column-gap: 1.25rem;
+  row-gap: 0;                 /* gap added via margin-bottom on cards */
+  grid-auto-flow: row dense;  /* lets shorter cards back-fill next to tall ones */
 }
 .work-card {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  margin-bottom: 1.25rem;
   overflow: hidden;
   cursor: pointer;
   background: #111;
@@ -1250,9 +1253,12 @@ body.menu-open #navHamburger {
 .work-thumb {
   position: relative;
   width: 100%;
-  height: 100%;
   overflow: hidden;
 }
+/* Aspect ratios drive card height — each card sized to its content */
+.work-card.ratio-wide .work-thumb     { aspect-ratio: 16/9; }
+.work-card.ratio-square .work-thumb   { aspect-ratio: 1/1; }
+.work-card.ratio-vertical .work-thumb { aspect-ratio: 9/16; }
 .work-thumb img {
   width: 100%;
   height: 100%;
@@ -1262,15 +1268,8 @@ body.menu-open #navHamburger {
 }
 .work-card:hover .work-thumb img { transform: scale(1.04); }
 
-/* Vertical (9:16) and square (1:1): show thumbnail centered inside the 16:9 frame */
-.work-card.ratio-vertical .work-thumb,
-.work-card.ratio-square .work-thumb {
-  background: #000;
-}
-.work-card.ratio-vertical .work-thumb img,
-.work-card.ratio-square .work-thumb img {
-  object-fit: contain;
-}
+
+
 
 @media (max-width: 900px) {
   .work-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1926,7 +1925,38 @@ function setHeroVideo() {
   }
 }
 
-(function loadVideos() {
+
+// ═══ MASONRY: dynamic row spans match each card's actual rendered height ═══
+function setMasonryRowSpans() {
+  var grid = document.getElementById('workGrid');
+  if (!grid) return;
+  var cards = Array.from(grid.children);
+  // Reset spans so we can measure natural height
+  cards.forEach(function(c) { c.style.gridRow = ''; });
+  void grid.offsetHeight; // force layout flush
+  cards.forEach(function(c) {
+    var thumb = c.querySelector('.work-thumb');
+    if (!thumb) return;
+    var h = thumb.getBoundingClientRect().height;
+    if (h < 1) return;
+    // grid-auto-rows is 1px, row-gap is 0, so span = exact pixel height
+    c.style.gridRow = 'span ' + Math.ceil(h);
+  });
+}
+// Recalculate after images load, on filter change, and on resize
+window.addEventListener('load', function() { setTimeout(setMasonryRowSpans, 100); });
+window.addEventListener('resize', function() {
+  clearTimeout(window.__rsTimer);
+  window.__rsTimer = setTimeout(setMasonryRowSpans, 150);
+});
+document.addEventListener('load', function(e) {
+  if (e.target && e.target.tagName === 'IMG' && e.target.closest('.work-card')) {
+    clearTimeout(window.__rsImgTimer);
+    window.__rsImgTimer = setTimeout(setMasonryRowSpans, 100);
+  }
+}, true);
+
+  (function loadVideos() {
   fetch('videos.json?v=' + Date.now(), { cache: 'no-store' })
     .then(r => { if (!r.ok) throw 0; return r.json(); })
     .then(data => {
@@ -1934,8 +1964,9 @@ function setHeroVideo() {
       setHeroVideo();
       buildGrid();
       attachCardEvents();
+      setTimeout(setMasonryRowSpans, 100);
     })
-    .catch(() => { setHeroVideo(); buildGrid(); attachCardEvents(); });
+    .catch(() => { setHeroVideo(); buildGrid(); attachCardEvents(); setTimeout(setMasonryRowSpans, 100); });
 })();
 </script>
 </body>
