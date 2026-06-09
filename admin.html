@@ -824,7 +824,17 @@ document.getElementById('btnFetchThumbs').addEventListener('click', async () => 
         const data = await res.json();
         if (data.thumbnail_url) {
           // Use highest-res Vimeo thumb URL — these are versioned so caching is safe
-          v.thumbnail_url = data.thumbnail_url.replace(/_\d+x\d+/, '_1280x720');
+          // Preserve native aspect ratio — scale up to ~1280 on longer dimension
+            const m = data.thumbnail_url.match(/_(\d+)x(\d+)/);
+            if (m && data.thumbnail_width && data.thumbnail_height) {
+              const tw = data.thumbnail_width, th = data.thumbnail_height;
+              const target = 1280;
+              const newW = tw >= th ? target : Math.round(tw * target / th);
+              const newH = th >= tw ? target : Math.round(th * target / tw);
+              v.thumbnail_url = data.thumbnail_url.replace(/_\d+x\d+/, `_${newW}x${newH}`);
+            } else {
+              v.thumbnail_url = data.thumbnail_url;
+            }
           success++;
         } else { failed++; }
       } else { failed++; }
