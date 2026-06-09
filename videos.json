@@ -36,13 +36,13 @@
     "catRank": 3
   },
   {
-    "ratio": "16:9",
-    "id": "177570436",
-    "title": "Kay Jewelers — Hall of Fame",
-    "client": "",
-    "category": "vfx",
+    "id": "1199753319",
+    "title": "WVBA4334100H CPO Social Refresh 2026 1x1_02",
+    "client": "VML",
+    "category": "animation",
     "featured": true,
-    "catRank": 3
+    "ratio": "1:1",
+    "catRank": 7
   },
   {
     "ratio": "16:9",
@@ -55,12 +55,30 @@
   },
   {
     "id": "1199108100",
-    "title": "Open Now",
+    "title": "Social_9x16_Ohio_OpenNow_FINAL",
     "client": "Cleveland Museum of Art",
     "category": "animation",
     "featured": true,
     "ratio": "9:16",
-    "catRank": 8
+    "catRank": 9
+  },
+  {
+    "ratio": "16:9",
+    "id": "528399589",
+    "title": "La-Z-Boy Lead Time",
+    "client": "",
+    "category": "animation",
+    "featured": true,
+    "catRank": 2
+  },
+  {
+    "ratio": "16:9",
+    "id": "287509323",
+    "title": "Kay",
+    "client": "",
+    "category": "editorial",
+    "featured": true,
+    "catRank": 4
   },
   {
     "ratio": "16:9",
@@ -100,30 +118,12 @@
   },
   {
     "ratio": "16:9",
-    "id": "528399589",
-    "title": "La-Z-Boy Lead Time",
-    "client": "",
-    "category": "animation",
-    "featured": true,
-    "catRank": 2
-  },
-  {
-    "ratio": "16:9",
     "id": "527945047",
     "title": "Cleveland Museum of Art - Reopen",
     "client": "Lowe's Companies",
     "category": "editorial",
     "featured": true,
     "catRank": 3
-  },
-  {
-    "ratio": "16:9",
-    "id": "287509323",
-    "title": "Kay",
-    "client": "",
-    "category": "editorial",
-    "featured": true,
-    "catRank": 4
   },
   {
     "ratio": "16:9",
@@ -249,7 +249,7 @@
     "client": "",
     "category": "vfx",
     "featured": false,
-    "catRank": 4
+    "catRank": 7
   },
   {
     "id": "1199107203",
@@ -276,7 +276,7 @@
     "category": "animation",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 7
+    "catRank": 8
   },
   {
     "id": "177570911",
@@ -289,12 +289,21 @@
   },
   {
     "id": "1199106156",
-    "title": "Futurism",
+    "title": "ESO waves 2026 FINAL",
     "client": "ESO",
     "category": "editorial",
     "featured": true,
     "ratio": "16:9",
     "catRank": 9
+  },
+  {
+    "ratio": "16:9",
+    "id": "177570436",
+    "title": "Kay Jewelers — Hall of Fame",
+    "client": "",
+    "category": "vfx",
+    "featured": true,
+    "catRank": 3
   },
   {
     "id": "1199754922",
@@ -312,15 +321,6 @@
     "category": "animation",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 9
-  },
-  {
-    "id": "1199753319",
-    "title": "VW Certified",
-    "client": "VML",
-    "category": "animation",
-    "featured": true,
-    "ratio": "1:1",
     "catRank": 10
   }
 ]
