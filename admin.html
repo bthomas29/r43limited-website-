@@ -297,6 +297,7 @@
     <button class="btn" id="btnSettings">⚙ Settings</button>
     <button class="btn" id="btnLoadCurrent">Load from Site</button>
     <button class="btn" id="btnFetchTitles">↻ Refresh Titles</button>
+    <button class="btn" id="btnFetchThumbs">🖼 Refresh Thumbnails</button>
     <button class="btn" id="btnExport">Export Code</button>
     <button class="btn btn-publish" id="btnPublish">↑ Publish to Live Site</button>
   </div>
@@ -532,7 +533,7 @@ function createMiniCard(v) {
   card.dataset.id = v.id;
   card.dataset.cat = v.category;
   card.innerHTML = `
-    <img src="https://vumbnail.com/${v.id}.jpg" alt="">
+    <img src="${v.thumbnail_url || 'https://vumbnail.com/' + v.id + '.jpg'}" alt="">
     <div class="mini-overlay">
       <div class="mini-title">${v.title || 'Untitled'}</div>
       <div class="mini-cat">${CAT_LABELS[v.category] || v.category}</div>
@@ -578,7 +579,7 @@ function createCard(v) {
   card.dataset.key = v.id + '__' + v.category;
   card.innerHTML = `
     <div class="card-thumb">
-      <img src="https://vumbnail.com/${v.id}.jpg" alt="">
+      <img src="${v.thumbnail_url || 'https://vumbnail.com/' + v.id + '.jpg'}" alt="">
       <div class="ratio-badge">${v.ratio || '16:9'}</div>
     </div>
     <div class="card-info">
@@ -806,6 +807,36 @@ document.getElementById('btnExportClose').addEventListener('click', () => {
 
 
 // Fetch real titles from Vimeo for all videos
+document.getElementById('btnFetchThumbs').addEventListener('click', async () => {
+  if (!videos.length) { toast('No videos to refresh', 'error'); return; }
+  if (!confirm(`Fetch fresh thumbnail URLs from Vimeo for ${videos.length} videos? Use this after updating thumbnails on Vimeo so the new ones show on your site.`)) return;
+  
+  const btn = document.getElementById('btnFetchThumbs');
+  btn.disabled = true;
+  
+  let success = 0, failed = 0;
+  for (let i = 0; i < videos.length; i++) {
+    btn.textContent = `Fetching ${i+1}/${videos.length}...`;
+    const v = videos[i];
+    try {
+      const res = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${v.id}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.thumbnail_url) {
+          // Use highest-res Vimeo thumb URL — these are versioned so caching is safe
+          v.thumbnail_url = data.thumbnail_url.replace(/_\d+x\d+/, '_1280x720');
+          success++;
+        } else { failed++; }
+      } else { failed++; }
+    } catch(e) { failed++; }
+  }
+  saveVideos();
+  render();
+  btn.disabled = false;
+  btn.textContent = '🖼 Refresh Thumbnails';
+  toast(`Updated ${success} thumbnails${failed ? ', '+failed+' failed' : ''} — click Publish to push to live site`, 'success');
+});
+
 document.getElementById('btnFetchTitles').addEventListener('click', async () => {
   if (!videos.length) { toast('No videos to refresh', 'error'); return; }
   if (!confirm(`Fetch real titles from Vimeo for ${videos.length} videos? This will overwrite current titles.`)) return;
