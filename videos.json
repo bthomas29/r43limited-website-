@@ -28,15 +28,6 @@
   },
   {
     "ratio": "16:9",
-    "id": "287508878",
-    "title": "Peoples — Dude Perfect",
-    "client": "Stern Advertising",
-    "category": "vfx",
-    "featured": true,
-    "catRank": 1
-  },
-  {
-    "ratio": "16:9",
     "id": "736238478",
     "title": "DeWalt Pro Handheld",
     "client": "Marcus Thomas",
@@ -61,6 +52,15 @@
     "category": "production",
     "featured": true,
     "catRank": 1
+  },
+  {
+    "id": "1199108100",
+    "title": "Open Now",
+    "client": "Cleveland Museum of Art",
+    "category": "animation",
+    "featured": true,
+    "ratio": "9:16",
+    "catRank": 8
   },
   {
     "ratio": "16:9",
@@ -133,6 +133,15 @@
     "category": "editorial",
     "featured": true,
     "catRank": 5
+  },
+  {
+    "ratio": "16:9",
+    "id": "287508878",
+    "title": "Peoples — Dude Perfect",
+    "client": "Stern Advertising",
+    "category": "vfx",
+    "featured": true,
+    "catRank": 1
   },
   {
     "ratio": "16:9",
@@ -288,12 +297,30 @@
     "catRank": 9
   },
   {
-    "id": "1199108100",
-    "title": "Open Now",
-    "client": "Cleveland Museum of Art",
-    "category": "animation",
+    "id": "1199754922",
+    "title": "More Than Paint Deep Maneuverability",
+    "client": "VML",
+    "category": "vfx",
     "featured": true,
     "ratio": "9:16",
-    "catRank": 8
+    "catRank": 6
+  },
+  {
+    "id": "1199753690",
+    "title": "RDO Realverse",
+    "client": "VML",
+    "category": "animation",
+    "featured": true,
+    "ratio": "16:9",
+    "catRank": 9
+  },
+  {
+    "id": "1199753319",
+    "title": "VW Certified",
+    "client": "VML",
+    "category": "animation",
+    "featured": true,
+    "ratio": "1:1",
+    "catRank": 10
   }
 ]
