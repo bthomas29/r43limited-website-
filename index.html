@@ -1278,6 +1278,19 @@ body.menu-open #navHamburger {
   .work-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
 }
 
+
+/* Snap thumbs to fill their allocated cell — verticals are slightly cropped,
+   squares slightly cropped, in exchange for clean horizontal alignment */
+.work-card.ratio-vertical .work-thumb,
+.work-card.ratio-square .work-thumb {
+  height: 100%;
+  aspect-ratio: unset;
+}
+.work-card.ratio-vertical .work-thumb img,
+.work-card.ratio-square .work-thumb img {
+  object-fit: cover;
+}
+
 </style>
 
   <!-- Schema.org structured data -->
@@ -1931,18 +1944,35 @@ function setMasonryRowSpans() {
   var grid = document.getElementById('workGrid');
   if (!grid) return;
   var cards = Array.from(grid.children);
-  // Reset spans so we can measure natural height
   cards.forEach(function(c) { c.style.gridRow = ''; });
-  void grid.offsetHeight; // force layout flush
+  void grid.offsetHeight;
+  
+  // First pass: find the WIDE card "base span" — used as the alignment unit
+  var baseSpan = 0;
+  for (var i = 0; i < cards.length; i++) {
+    if (cards[i].classList.contains('ratio-wide')) {
+      var thumb = cards[i].querySelector('.work-thumb');
+      if (!thumb) continue;
+      var h = thumb.getBoundingClientRect().height;
+      if (h < 1) continue;
+      var mb = parseFloat(getComputedStyle(cards[i]).marginBottom) || 0;
+      baseSpan = Math.ceil(h + mb);
+      break;
+    }
+  }
+  // Fallback if no wide card found
+  if (!baseSpan) baseSpan = 226;
+  
+  // Second pass: assign spans
+  // Wide = 1× base, Square = 2× base, Vertical = 3× base — clean horizontal alignment
   cards.forEach(function(c) {
-    var thumb = c.querySelector('.work-thumb');
-    if (!thumb) return;
-    var h = thumb.getBoundingClientRect().height;
-    if (h < 1) return;
-    // Add the card's margin-bottom into the span so the cell allocates room for it
-    var mb = parseFloat(getComputedStyle(c).marginBottom) || 0;
-    // grid-auto-rows is 1px, row-gap is 0, so span = pixel height + margin
-    c.style.gridRow = 'span ' + Math.ceil(h + mb);
+    if (c.classList.contains('ratio-vertical')) {
+      c.style.gridRow = 'span ' + (baseSpan * 3);
+    } else if (c.classList.contains('ratio-square')) {
+      c.style.gridRow = 'span ' + (baseSpan * 2);
+    } else {
+      c.style.gridRow = 'span ' + baseSpan;
+    }
   });
 }
 // Recalculate after images load, on filter change, and on resize
