@@ -363,6 +363,10 @@
     <input type="text" id="repoInput" value="r43limited-website-">
     <label for="siteUrlInput">Site URL (no trailing slash)</label>
     <input type="text" id="siteUrlInput" placeholder="https://r43limited.com">
+      </div>
+      <div class="form-row">
+        <label>Vimeo Personal Access Token (optional, for private video thumbnails)</label>
+        <input type="password" id="vimeoTokenInput" placeholder="abcdef1234567890... (get from developer.vimeo.com/apps)">
     <div class="modal-actions">
       <button class="btn" id="btnClearToken">Clear Token</button>
       <button class="btn" id="btnSettingsCancel">Cancel</button>
@@ -767,6 +771,7 @@ document.getElementById('btnSettings').addEventListener('click', () => {
   document.getElementById('ownerInput').value = settings.owner;
   document.getElementById('repoInput').value = settings.repo;
   document.getElementById('siteUrlInput').value = settings.siteUrl || '';
+    document.getElementById('vimeoTokenInput').value = settings.vimeoToken || '';
   document.getElementById('settingsModal').classList.add('open');
 });
 document.getElementById('btnSettingsSave').addEventListener('click', () => {
@@ -814,15 +819,39 @@ document.getElementById('btnFetchThumbs').addEventListener('click', async () => 
   const btn = document.getElementById('btnFetchThumbs');
   btn.disabled = true;
   
-  let success = 0, failed = 0;
+  const useApi = !!(settings.vimeoToken && settings.vimeoToken.length > 10);
+  let success = 0, failed = 0, apiUsed = 0, oembedUsed = 0;
+  
   for (let i = 0; i < videos.length; i++) {
     btn.textContent = `Fetching ${i+1}/${videos.length}...`;
     const v = videos[i];
-    try {
-      const res = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${v.id}`);
-      if (res.ok) {
-        const data = await res.json();
-        if (data.thumbnail_url) {
+    let got = false;
+    
+    // Try authenticated Vimeo API first (works for private videos)
+    if (useApi) {
+      try {
+        const apiRes = await fetch(`https://api.vimeo.com/videos/${v.id}?fields=pictures.sizes`, {
+          headers: { 'Authorization': 'bearer ' + settings.vimeoToken, 'Accept': 'application/vnd.vimeo.*+json;version=3.4' }
+        });
+        if (apiRes.ok) {
+          const apiData = await apiRes.json();
+          if (apiData.pictures && apiData.pictures.sizes && apiData.pictures.sizes.length) {
+            // Pick the largest size that preserves aspect ratio
+            const sizes = apiData.pictures.sizes.sort((a,b) => (b.width * b.height) - (a.width * a.height));
+            v.thumbnail_url = sizes[0].link;
+            success++; apiUsed++; got = true;
+          }
+        }
+      } catch(e) { /* fall through to oembed */ }
+    }
+    
+    // Fall back to oEmbed (public videos only)
+    if (!got) {
+      try {
+        const res = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${v.id}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.thumbnail_url) {
           // Use highest-res Vimeo thumb URL — these are versioned so caching is safe
           // Preserve native aspect ratio — scale up to ~1280 on longer dimension
             const m = data.thumbnail_url.match(/_(\d+)x(\d+)/);
@@ -835,16 +864,18 @@ document.getElementById('btnFetchThumbs').addEventListener('click', async () => 
             } else {
               v.thumbnail_url = data.thumbnail_url;
             }
-          success++;
+          success++; oembedUsed++;
         } else { failed++; }
-      } else { failed++; }
-    } catch(e) { failed++; }
+        } else { failed++; }
+      } catch(e) { failed++; }
+    }
   }
   saveVideos();
   render();
   btn.disabled = false;
   btn.textContent = '🖼 Refresh Thumbnails';
-  toast(`Updated ${success} thumbnails${failed ? ', '+failed+' failed' : ''} — click Publish to push to live site`, 'success');
+  const detail = apiUsed + oembedUsed > 0 ? ` (${apiUsed} via API, ${oembedUsed} via oEmbed)` : '';
+  toast(`Updated ${success} thumbnails${failed ? ', '+failed+' failed' : ''}${detail} — click Publish`, 'success');
 });
 
 document.getElementById('btnFetchTitles').addEventListener('click', async () => {
