@@ -126,8 +126,16 @@
   .modal-overlay.open { display: flex; }
   .modal {
     background: #1a1a1a; border: 1px solid rgba(245,242,237,0.15); border-radius: 8px;
-    padding: 2rem; max-width: 700px; width: 100%; max-height: 80vh;
+    padding: 2rem; max-width: 700px; width: 100%; max-height: 85vh;
     display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+  .modal hr {
+    border: none; border-top: 1px solid rgba(245,242,237,0.15); margin: 1.5rem 0 0.5rem;
+  }
+  .modal .section-label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: #888; margin: 0.5rem 0 1rem;
   }
   .modal h3 { font-size: 1rem; margin-bottom: 1rem; }
   .modal p { font-size: 0.85rem; color: rgba(245,242,237,0.7); margin-bottom: 1rem; line-height: 1.5; }
@@ -363,7 +371,10 @@
     <input type="text" id="repoInput" value="r43limited-website-">
     <label for="siteUrlInput">Site URL (no trailing slash)</label>
     <input type="text" id="siteUrlInput" placeholder="https://r43limited.com">
-    <label for="vimeoTokenInput">Vimeo Personal Access Token (optional, for private video thumbnails)</label>
+
+    <hr>
+    <div class="section-label">Vimeo (optional — for private video thumbnails)</div>
+    <label for="vimeoTokenInput">Personal Access Token</label>
     <input type="password" id="vimeoTokenInput" placeholder="get from developer.vimeo.com/apps">
     <div class="modal-actions">
       <button class="btn" id="btnClearToken">Clear Token</button>
