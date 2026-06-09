@@ -1279,10 +1279,17 @@ body.menu-open #navHamburger {
 }
 
 
-/* Vertical/square thumbs use aspect-ratio on the thumb, image fills with cover */
+/* Vertical/square thumbs fill their snapped cell completely; cover crops to fit */
+.work-card.ratio-vertical .work-thumb,
+.work-card.ratio-square .work-thumb {
+  height: 100%;
+  aspect-ratio: unset;
+}
 .work-card.ratio-vertical .work-thumb img,
 .work-card.ratio-square .work-thumb img {
   object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 </style>
@@ -1940,14 +1947,25 @@ function setMasonryRowSpans() {
   var cards = Array.from(grid.children);
   cards.forEach(function(c) { c.style.gridRow = ''; });
   void grid.offsetHeight;
-  // Each card spans exactly its natural rendered height — image fills cell at its native aspect
+  // Find the base wide-card span as the alignment unit
+  var baseSpan = 0;
+  for (var i = 0; i < cards.length; i++) {
+    if (cards[i].classList.contains('ratio-wide')) {
+      var thumb = cards[i].querySelector('.work-thumb');
+      if (!thumb) continue;
+      var h = thumb.getBoundingClientRect().height;
+      if (h < 1) continue;
+      var mb = parseFloat(getComputedStyle(cards[i]).marginBottom) || 0;
+      baseSpan = Math.ceil(h + mb);
+      break;
+    }
+  }
+  if (!baseSpan) baseSpan = 226;
+  // Snap: wide = 1× base, square = 2× base, vertical = 3× base — clean horizontal alignment
   cards.forEach(function(c) {
-    var thumb = c.querySelector('.work-thumb');
-    if (!thumb) return;
-    var h = thumb.getBoundingClientRect().height;
-    if (h < 1) return;
-    var mb = parseFloat(getComputedStyle(c).marginBottom) || 0;
-    c.style.gridRow = 'span ' + Math.ceil(h + mb);
+    if (c.classList.contains('ratio-vertical'))      c.style.gridRow = 'span ' + (baseSpan * 3);
+    else if (c.classList.contains('ratio-square'))   c.style.gridRow = 'span ' + (baseSpan * 2);
+    else                                              c.style.gridRow = 'span ' + baseSpan;
   });
 }
 // Recalculate after images load, on filter change, and on resize
