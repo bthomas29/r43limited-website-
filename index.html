@@ -1939,8 +1939,10 @@ function setMasonryRowSpans() {
     if (!thumb) return;
     var h = thumb.getBoundingClientRect().height;
     if (h < 1) return;
-    // grid-auto-rows is 1px, row-gap is 0, so span = exact pixel height
-    c.style.gridRow = 'span ' + Math.ceil(h);
+    // Add the card's margin-bottom into the span so the cell allocates room for it
+    var mb = parseFloat(getComputedStyle(c).marginBottom) || 0;
+    // grid-auto-rows is 1px, row-gap is 0, so span = pixel height + margin
+    c.style.gridRow = 'span ' + Math.ceil(h + mb);
   });
 }
 // Recalculate after images load, on filter change, and on resize
