@@ -259,5 +259,14 @@
     "featured": true,
     "ratio": "16:9",
     "catRank": 6
+  },
+  {
+    "id": "226222470",
+    "title": "Homecoming Weekend",
+    "client": "Case Western Reserve",
+    "category": "animation",
+    "featured": true,
+    "ratio": "16:9",
+    "catRank": 7
   }
 ]
