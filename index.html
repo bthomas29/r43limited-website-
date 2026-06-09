@@ -1279,13 +1279,7 @@ body.menu-open #navHamburger {
 }
 
 
-/* Snap thumbs to fill their allocated cell — verticals are slightly cropped,
-   squares slightly cropped, in exchange for clean horizontal alignment */
-.work-card.ratio-vertical .work-thumb,
-.work-card.ratio-square .work-thumb {
-  height: 100%;
-  aspect-ratio: unset;
-}
+/* Vertical/square thumbs use aspect-ratio on the thumb, image fills with cover */
 .work-card.ratio-vertical .work-thumb img,
 .work-card.ratio-square .work-thumb img {
   object-fit: cover;
@@ -1946,33 +1940,14 @@ function setMasonryRowSpans() {
   var cards = Array.from(grid.children);
   cards.forEach(function(c) { c.style.gridRow = ''; });
   void grid.offsetHeight;
-  
-  // First pass: find the WIDE card "base span" — used as the alignment unit
-  var baseSpan = 0;
-  for (var i = 0; i < cards.length; i++) {
-    if (cards[i].classList.contains('ratio-wide')) {
-      var thumb = cards[i].querySelector('.work-thumb');
-      if (!thumb) continue;
-      var h = thumb.getBoundingClientRect().height;
-      if (h < 1) continue;
-      var mb = parseFloat(getComputedStyle(cards[i]).marginBottom) || 0;
-      baseSpan = Math.ceil(h + mb);
-      break;
-    }
-  }
-  // Fallback if no wide card found
-  if (!baseSpan) baseSpan = 226;
-  
-  // Second pass: assign spans
-  // Wide = 1× base, Square = 2× base, Vertical = 3× base — clean horizontal alignment
+  // Each card spans exactly its natural rendered height — image fills cell at its native aspect
   cards.forEach(function(c) {
-    if (c.classList.contains('ratio-vertical')) {
-      c.style.gridRow = 'span ' + (baseSpan * 3);
-    } else if (c.classList.contains('ratio-square')) {
-      c.style.gridRow = 'span ' + (baseSpan * 2);
-    } else {
-      c.style.gridRow = 'span ' + baseSpan;
-    }
+    var thumb = c.querySelector('.work-thumb');
+    if (!thumb) return;
+    var h = thumb.getBoundingClientRect().height;
+    if (h < 1) return;
+    var mb = parseFloat(getComputedStyle(c).marginBottom) || 0;
+    c.style.gridRow = 'span ' + Math.ceil(h + mb);
   });
 }
 // Recalculate after images load, on filter change, and on resize
