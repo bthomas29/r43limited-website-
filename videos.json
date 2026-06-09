@@ -6,7 +6,8 @@
     "category": "finishing",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 1
+    "catRank": 1,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2165871030-c2d4453493114375cbe597783c6a9901d34020e58ed9d1421706930b15975994-d_1280x720?region=us"
   },
   {
     "ratio": "16:9",
@@ -24,7 +25,8 @@
     "category": "animation",
     "featured": true,
     "ratio": "9:16",
-    "catRank": 5
+    "catRank": 5,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2165866445-46fdbfd170a604ecccd38bd414c5edec08af6836ad9aa83d6c474e3635c7fae6-d_1280x720?region=us"
   },
   {
     "ratio": "16:9",
@@ -42,7 +44,8 @@
     "category": "animation",
     "featured": true,
     "ratio": "1:1",
-    "catRank": 7
+    "catRank": 7,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2166686598-0b7f276e51ee73aaf0221654146c101f1b821fd5fd2925bd58663effda86acb2-d_1280x720?region=us"
   },
   {
     "ratio": "16:9",
@@ -60,7 +63,8 @@
     "category": "animation",
     "featured": true,
     "ratio": "9:16",
-    "catRank": 9
+    "catRank": 9,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2165866619-d857ddf6e469857927619d82981c272418da50b696272bb1222a22f9781f361d-d_1280x720?region=us"
   },
   {
     "ratio": "16:9",
@@ -123,7 +127,8 @@
     "client": "Lowe's Companies",
     "category": "editorial",
     "featured": true,
-    "catRank": 3
+    "catRank": 3,
+    "thumbnail_url": "https://i.vimeocdn.com/video/1092810419-a1fcdf86983bda8c7ac2d2fb5a9ab0e3e258ffaf9ac4c894f37c230ca15d5d74-d_1280x720?region=us"
   },
   {
     "ratio": "16:9",
@@ -195,7 +200,8 @@
     "category": "production",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 7
+    "catRank": 7,
+    "thumbnail_url": "https://i.vimeocdn.com/video/622401742-5b36fa4c62ea4d397bec74bf3a3ff289802bc90f94f7c41c326e303ca54722a0-d_640?region=us"
   },
   {
     "id": "738407879",
@@ -204,7 +210,8 @@
     "category": "hero",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 1
+    "catRank": 1,
+    "thumbnail_url": "https://i.vimeocdn.com/video/1485842338-e947e7d040dd6b679c872afab9c50bb2b461cb2d49c465d9e507d6e1fa9247f8-d_1280x720?region=us"
   },
   {
     "id": "736213385",
@@ -231,7 +238,8 @@
     "category": "production",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 8
+    "catRank": 8,
+    "thumbnail_url": "https://i.vimeocdn.com/video/1093629079-4a541f73066b1adcac8dfcfc9e5bd73b171b5444bbf4ccd381806102c5d219c6-d_1280x720?region=us"
   },
   {
     "id": "240692959",
@@ -258,7 +266,8 @@
     "category": "animation",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 1
+    "catRank": 1,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2165866048-227fd12ec2fc3034c7723def54c4f5eb5e27ee1b52117f571decdece0ed3672b-d_1280x720?region=us"
   },
   {
     "id": "736285788",
@@ -294,7 +303,8 @@
     "category": "editorial",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 9
+    "catRank": 9,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2166658555-8d53c648b7ad9e806c19f7eda233f4124cecb8b7c1aedcea11fb0792a3768abb-d_1280x720?region=us"
   },
   {
     "ratio": "16:9",
@@ -312,7 +322,8 @@
     "category": "vfx",
     "featured": true,
     "ratio": "9:16",
-    "catRank": 6
+    "catRank": 6,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2166663213-e11236160cb9cc0bcd4bd298cd6876a08c136ccb422a11eb51252c21cbe0105d-d_1280x720?region=us"
   },
   {
     "id": "1199753690",
@@ -321,6 +332,7 @@
     "category": "animation",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 10
+    "catRank": 10,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2166664394-afcd4ad4d062dbe9de1bc8f764b4746a42d8f04802ebe411c9a6077922d4e152-d_1280x720?region=us"
   }
 ]
