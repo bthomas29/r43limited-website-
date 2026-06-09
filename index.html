@@ -1710,7 +1710,7 @@ function buildGrid() {
     card.setAttribute('aria-label', 'Play ' + v.title);
     card.innerHTML = `
       <div class="work-thumb">
-        <img src="https://vumbnail.com/${v.id}_large.jpg" alt="${v.title}" loading="lazy">
+        <img src="${v.thumbnail_url || ('https://vumbnail.com/' + v.id + '_large.jpg')}" alt="${v.title}" loading="lazy">
         <div class="work-play" aria-hidden="true"><div class="work-play-arrow"></div></div>
       </div>
       <div class="work-card-info">
