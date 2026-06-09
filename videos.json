@@ -277,5 +277,23 @@
     "featured": true,
     "ratio": "16:9",
     "catRank": 5
+  },
+  {
+    "id": "1199106156",
+    "title": "Futurism",
+    "client": "ESO",
+    "category": "editorial",
+    "featured": true,
+    "ratio": "16:9",
+    "catRank": 9
+  },
+  {
+    "id": "1199108100",
+    "title": "Open Now",
+    "client": "Cleveland Museum of Art",
+    "category": "animation",
+    "featured": true,
+    "ratio": "9:16",
+    "catRank": 8
   }
 ]
