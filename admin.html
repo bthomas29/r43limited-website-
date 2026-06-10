@@ -788,6 +788,7 @@ document.getElementById('btnSettingsSave').addEventListener('click', () => {
   settings.owner = document.getElementById('ownerInput').value.trim();
   settings.repo = document.getElementById('repoInput').value.trim();
   settings.siteUrl = document.getElementById('siteUrlInput').value.trim().replace(/\/$/, '');
+  settings.vimeoToken = document.getElementById('vimeoTokenInput').value.trim();
   saveSettings();
   document.getElementById('settingsModal').classList.remove('open');
   updateTokenStatus();
