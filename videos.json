@@ -294,7 +294,7 @@
     "category": "vfx",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 5
+    "catRank": 4
   },
   {
     "id": "1199106156",
@@ -322,7 +322,7 @@
     "category": "vfx",
     "featured": true,
     "ratio": "9:16",
-    "catRank": 6,
+    "catRank": 5,
     "thumbnail_url": "https://i.vimeocdn.com/video/2166663213-e11236160cb9cc0bcd4bd298cd6876a08c136ccb422a11eb51252c21cbe0105d-d_719x1280?region=us"
   },
   {
@@ -379,6 +379,6 @@
     "category": "vfx",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 8
+    "catRank": 6
   }
 ]
