@@ -1757,25 +1757,27 @@ document.querySelectorAll('.fbtn').forEach(btn => {
 
 // ── Load more ────────────────────────────────────────────────
 
-// ═══ Mobile-only "Load More" — show first 6 cards, button reveals the rest ═══
+// ═══ Load More — show limited cards initially, button reveals the rest ═══
 var MOBILE_INITIAL_COUNT = 7;
+var DESKTOP_INITIAL_COUNT = 13;
 function applyMobileLoadMore() {
   var grid = document.getElementById('workGrid');
   var btn = document.getElementById('loadMore');
   if (!grid || !btn) return;
   var cards = Array.from(grid.children);
   var isMobile = window.innerWidth <= 900;
+  var limit = isMobile ? MOBILE_INITIAL_COUNT : DESKTOP_INITIAL_COUNT;
   // Reset state
   cards.forEach(function(c) {
     c.classList.remove('hidden-work');
     c.style.display = '';
   });
-  if (isMobile && cards.length > MOBILE_INITIAL_COUNT) {
-    cards.slice(MOBILE_INITIAL_COUNT).forEach(function(c) {
+  if (cards.length > limit) {
+    cards.slice(limit).forEach(function(c) {
       c.classList.add('hidden-work');
     });
     btn.style.display = 'inline-block';
-    btn.textContent = 'Load More Work (' + (cards.length - MOBILE_INITIAL_COUNT) + ')';
+    btn.textContent = 'Load More Work (' + (cards.length - limit) + ')';
   } else {
     btn.style.display = 'none';
   }
