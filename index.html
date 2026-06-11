@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>R43 Limited | Commercial Video Production & Animation | Cleveland, OH</title>
-<meta name="description" content="Cleveland video production studio for ad agencies and brand marketing teams. A steady calm in creative chaos — production, post, animation, and VFX, delivered on time and on budget.">
+<meta name="description" content="Cleveland video production studio for ad agencies and brand teams. Full-service production, post, animation, and VFX — built for agency workflows.">
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="R43 Limited — Commercial Video Production & Animation">
@@ -1428,7 +1428,7 @@ body.menu-open #navHamburger {
   <section id="team" class="fade-up">
     <div class="slabel">THE PEOPLE</div>
     <h2 class="stitle">The Team.</h2>
-    <p class="ssub">A small crew of collaborative craftspeople. We've worked together long enough to move fast, care deeply, and finish each other's color notes.</p>
+    <p class="ssub">A small crew of collaborative craftspeople. We&rsquo;ve worked together long enough that nothing rattles us &mdash; we move fast and care deeply about every project.</p>
     <div class="team-grid fade-up">
       <div class="team-card"><div class="team-photo">B</div><div class="team-info"><div class="team-name">Billy</div><div class="team-role">Editor &middot; Lead Creative</div><div class="team-blurb">Will cut the same scene 50 ways until it lands.</div></div></div>
       <div class="team-card"><div class="team-photo">S</div><div class="team-info"><div class="team-name">Stacy</div><div class="team-role">Executive Producer</div><div class="team-blurb">Keeps the schedule sacred and the clients sane.</div></div></div>
@@ -1876,14 +1876,25 @@ document.getElementById('fsubmit').addEventListener('click', () => {
     var NAV_SIZE = isMobile ? 36 : 44;
 
     if (isMobile) {
-      // MOBILE: logo fixed below nav, centered horizontally. Padding-top on hero prevents overlap.
+      // MOBILE: logo fixed below nav, centered horizontally. Shrink as eyebrow approaches from below.
       var heroSize = Math.min(130, Math.max(100, vw * 0.30));
       var HERO_LOGO_TOP = NAV_H + 14;
       var HERO_LOGO_LEFT = (vw - heroSize) / 2;
-      var heroH = window.innerHeight;
-      var morphStart = heroH * 0.20;
-      var morphEnd = heroH * 0.50;
-      var progress = Math.min(1, Math.max(0, (scrollY - morphStart) / (morphEnd - morphStart)));
+      // Use eyebrow position to drive shrink (so it fires before the H1 hits the logo)
+      var eb = document.querySelector('.hero-eyebrow');
+      var progress = 0;
+      if (eb) {
+        var ebViewTop = eb.getBoundingClientRect().top;
+        var logoBottom = HERO_LOGO_TOP + heroSize;
+        // Shrink starts when eyebrow is 80px below logo bottom, finishes when they meet
+        var shrinkStart = 80;
+        var shrinkEnd = -10;
+        var distance = ebViewTop - logoBottom;
+        progress = Math.max(0, Math.min(1, (shrinkStart - distance) / (shrinkStart - shrinkEnd)));
+      } else {
+        var heroH = window.innerHeight;
+        progress = Math.min(1, Math.max(0, (scrollY - heroH*0.20) / (heroH*0.30)));
+      }
       var ease = easeInOut(progress);
       var size = heroSize + (NAV_SIZE - heroSize) * ease;
       var top  = HERO_LOGO_TOP + (NAV_H/2 - NAV_SIZE/2 - HERO_LOGO_TOP) * ease;
