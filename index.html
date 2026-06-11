@@ -1272,10 +1272,19 @@ body.menu-open #navHamburger {
 
 
 @media (max-width: 900px) {
-  .work-grid { grid-template-columns: repeat(2, 1fr); }
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.25rem;
+    row-gap: 0;
+  }
 }
 @media (max-width: 540px) {
-  .work-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 0.75rem;
+    row-gap: 0;
+  }
+  .work-card { margin-bottom: 0.75rem; }
 }
 
 
