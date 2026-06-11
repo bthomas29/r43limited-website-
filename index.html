@@ -2031,7 +2031,8 @@ document.addEventListener('load', function(e) {
       setHeroVideo();
       buildGrid();
       attachCardEvents();
-      setTimeout(setMasonryRowSpans, 100);
+      applyMobileLoadMore();
+      setTimeout(setMasonryRowSpans, 150);
     })
     .catch(() => { setHeroVideo(); buildGrid(); attachCardEvents(); applyMobileLoadMore(); setTimeout(setMasonryRowSpans, 100); });
 })();
