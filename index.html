@@ -1391,7 +1391,7 @@ body.menu-open #navHamburger {
         <div class="hero-actions">
           <a href="#work" class="btn-primary">View Our Work</a>
           
-          <button onclick="document.getElementById('modal').classList.add('open');document.getElementById('modalFrame').src='https://player.vimeo.com/video/1188235325?h=5072b3e921&autoplay=1&color=E8581A';document.body.style.overflow='hidden'" style="font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#E8581A;background:transparent;border:1px solid #E8581A;padding:14px 24px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;">&#9654; Play Reel</button>
+          <button onclick="document.getElementById('modal').classList.add('open');document.getElementById('modalFrame').src='https://player.vimeo.com/video/1188235325?h=5072b3e921&autoplay=1&muted=0&color=E8581A';document.body.style.overflow='hidden'" style="font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#E8581A;background:transparent;border:1px solid #E8581A;padding:14px 24px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;">&#9654; Play Reel</button>
         </div>
       </div>
     </div>
@@ -1804,7 +1804,7 @@ const frame = document.getElementById('modalFrame');
 function attachCardEvents() {
   document.querySelectorAll('.work-card').forEach(card => {
     card.addEventListener('click', () => {
-      frame.src = 'https://player.vimeo.com/video/' + card.dataset.vimeo + '?autoplay=1&color=E8581A&title=0&byline=0&portrait=0';
+      frame.src = 'https://player.vimeo.com/video/' + card.dataset.vimeo + '?autoplay=1&muted=0&color=E8581A&title=0&byline=0&portrait=0';
       modal.classList.add('open');
       document.body.style.overflow = 'hidden'; document.body.classList.add('menu-open');
     });
