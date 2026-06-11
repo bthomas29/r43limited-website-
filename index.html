@@ -1717,7 +1717,7 @@ function buildGrid() {
                        ratio === '1:1'  ? 'ratio-square'   :
                                           'ratio-wide';
     const card = document.createElement('article');
-    card.className = 'work-card ' + ratioClass + (v.featured ? '' : ' hidden-work');
+    card.className = 'work-card ' + ratioClass;
     card.dataset.cat = v.category;
     card.dataset.vimeo = v.id;
     card.dataset.ratio = ratio;
@@ -1756,12 +1756,43 @@ document.querySelectorAll('.fbtn').forEach(btn => {
 });
 
 // ── Load more ────────────────────────────────────────────────
+
+// ═══ Mobile-only "Load More" — show first 6 cards, button reveals the rest ═══
+var MOBILE_INITIAL_COUNT = 6;
+function applyMobileLoadMore() {
+  var grid = document.getElementById('workGrid');
+  var btn = document.getElementById('loadMore');
+  if (!grid || !btn) return;
+  var cards = Array.from(grid.children);
+  var isMobile = window.innerWidth <= 900;
+  // Reset state
+  cards.forEach(function(c) {
+    c.classList.remove('hidden-work');
+    c.style.display = '';
+  });
+  if (isMobile && cards.length > MOBILE_INITIAL_COUNT) {
+    cards.slice(MOBILE_INITIAL_COUNT).forEach(function(c) {
+      c.classList.add('hidden-work');
+    });
+    btn.style.display = 'inline-block';
+    btn.textContent = 'Load More Work (' + (cards.length - MOBILE_INITIAL_COUNT) + ')';
+  } else {
+    btn.style.display = 'none';
+  }
+  if (typeof setMasonryRowSpans === 'function') setTimeout(setMasonryRowSpans, 100);
+}
+window.addEventListener('resize', function() {
+  clearTimeout(window.__loadMoreTimer);
+  window.__loadMoreTimer = setTimeout(applyMobileLoadMore, 200);
+});
+
 document.getElementById('loadMore').addEventListener('click', () => {
   document.querySelectorAll('.hidden-work').forEach(c => {
     c.classList.remove('hidden-work');
-    c.style.display = 'block';
+    c.style.display = '';
   });
   document.getElementById('loadMore').style.display = 'none';
+  if (typeof setMasonryRowSpans === 'function') setTimeout(setMasonryRowSpans, 100);
 });
 
 // ── Video modal ──────────────────────────────────────────────
@@ -1978,7 +2009,7 @@ function setMasonryRowSpans() {
   });
 }
 // Recalculate after images load, on filter change, and on resize
-window.addEventListener('load', function() { setTimeout(setMasonryRowSpans, 100); });
+window.addEventListener('load', function() { applyMobileLoadMore(); setTimeout(setMasonryRowSpans, 100); });
 window.addEventListener('resize', function() {
   clearTimeout(window.__rsTimer);
   window.__rsTimer = setTimeout(setMasonryRowSpans, 150);
@@ -2000,7 +2031,7 @@ document.addEventListener('load', function(e) {
       attachCardEvents();
       setTimeout(setMasonryRowSpans, 100);
     })
-    .catch(() => { setHeroVideo(); buildGrid(); attachCardEvents(); setTimeout(setMasonryRowSpans, 100); });
+    .catch(() => { setHeroVideo(); buildGrid(); attachCardEvents(); applyMobileLoadMore(); setTimeout(setMasonryRowSpans, 100); });
 })();
 </script>
 </body>
