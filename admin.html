@@ -202,6 +202,27 @@
 }
 
 
+
+/* Editable brand/agency credits */
+.card-credits {
+  font-size: 0.7rem; color: rgba(245,242,237,0.55);
+  display: flex; gap: 0.3rem; align-items: center; flex-wrap: wrap; margin-bottom: 3px;
+}
+.card-client[contenteditable], .card-agency[contenteditable] {
+  cursor: text; border-radius: 2px; padding: 0 3px; transition: background 0.15s;
+  min-width: 20px; display: inline-block;
+}
+.card-client[contenteditable]:hover, .card-agency[contenteditable]:hover {
+  background: rgba(232,88,26,0.12);
+}
+.card-client[contenteditable]:focus, .card-agency[contenteditable]:focus {
+  outline: 1px solid #E8581A; background: rgba(0,0,0,0.5); color: #F5F2ED;
+}
+.card-client:empty::before, .card-agency:empty::before {
+  content: attr(data-placeholder); color: rgba(245,242,237,0.3);
+}
+.credit-sep { color: rgba(245,242,237,0.3); font-size: 0.65rem; }
+
 /* Editable title styling */
 .card-title[contenteditable="true"] {
   cursor: text;
@@ -327,7 +348,8 @@
     <div class="add-form">
       <input type="text" id="newUrl" placeholder="Vimeo URL or ID (e.g. 887475467)">
       <input type="text" id="newTitle" placeholder="Title">
-      <input type="text" id="newClient" placeholder="Client (optional)">
+      <input type="text" id="newClient" placeholder="Brand (optional)">
+      <input type="text" id="newAgency" placeholder="Agency (optional)">
       <select id="newCat">
         <option value="production">Video Production</option>
         <option value="animation">Motion & Animation</option>
@@ -597,8 +619,12 @@ function createCard(v) {
     </div>
     <div class="card-info">
       <div class="card-title" contenteditable="true" spellcheck="false" data-id="${v.id}-${v.category}">${v.title || '(no title)'}</div>
+      <div class="card-credits">
+        <span class="card-client" contenteditable="true" spellcheck="false" data-cfield="client" title="Brand / client">${v.client || '+ brand'}</span>
+        <span class="credit-sep">· via</span>
+        <span class="card-agency" contenteditable="true" spellcheck="false" data-cfield="agency" title="Agency (optional)">${v.agency || '+ agency'}</span>
+      </div>
       <div class="card-meta">
-        ${v.client ? `<span>${v.client}</span><span>·</span>` : ''}
         <select class="ratio-select">
           <option value="16:9" ${v.ratio==='16:9'?'selected':''}>16:9</option>
           <option value="9:16" ${v.ratio==='9:16'?'selected':''}>9:16</option>
@@ -668,6 +694,27 @@ function createCard(v) {
       titleEl.textContent = v.title;
     }
   });
+  // Client + Agency edit
+  ['client','agency'].forEach(function(field){
+    var el = card.querySelector('.card-' + field);
+    if (!el) return;
+    var placeholder = field === 'client' ? '+ brand' : '+ agency';
+    el.addEventListener('focus', () => {
+      if (el.textContent.trim() === placeholder) { el.textContent = ''; }
+    });
+    el.addEventListener('blur', () => {
+      var val = el.textContent.trim();
+      if (val === placeholder) val = '';
+      v[field] = val;
+      saveVideos();
+      if (!val) { el.textContent = placeholder; }
+      else { toast((field==='client'?'Brand':'Agency') + ' updated'); }
+    });
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
+      if (e.key === 'Escape') { el.textContent = v[field] || placeholder; el.blur(); }
+    });
+  });
   titleEl.addEventListener('keydown', e => {
     if (e.key === 'Enter') { e.preventDefault(); titleEl.blur(); }
     if (e.key === 'Escape') { titleEl.textContent = v.title; titleEl.blur(); }
@@ -720,6 +767,7 @@ document.getElementById('btnAdd').addEventListener('click', async () => {
   videos.push({
     id, title,
     client: document.getElementById('newClient').value.trim(),
+    agency: document.getElementById('newAgency').value.trim(),
     category: newCat,
     featured: true,
     ratio: document.getElementById('newRatio').value,
