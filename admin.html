@@ -256,13 +256,7 @@
   margin-bottom: 0.5rem;
 }
 .bucket.all-work-bucket .bucket-title { color: #E8581A; }
-.bucket-note {
-  font-size: 0.72rem;
-  color: rgba(245,242,237,0.55);
-  font-style: italic;
-  margin-bottom: 0.85rem;
-  line-height: 1.4;
-}
+.bucket-note { font-size: 0.72rem; color: #E8581A; margin: 0.5rem 0 0.75rem; line-height: 1.4; font-weight: 500; }
 .all-work-strip {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -497,7 +491,7 @@ function render() {
       <div class="bucket-title">All Work View Order</div>
       <div class="bucket-count">${workVideos.length}</div>
     </div>
-    <div class="bucket-note">Drag to reorder how videos appear when "All Work" filter is active on the live site. Category-specific orderings are managed in the buckets below.</div>
+    <div class="bucket-note">↕ Drag these thumbnails ONLY to reorder the "All Work" view. To EDIT titles, brands, and agencies, use the full cards in the category buckets below ↓</div>
     <div class="all-work-strip"></div>`;
   container.appendChild(allBucket);
   const strip = allBucket.querySelector('.all-work-strip');
