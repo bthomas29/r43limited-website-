@@ -1763,41 +1763,54 @@ document.querySelectorAll('.fbtn').forEach(btn => {
 // ═══ Load More — show limited cards initially, button reveals the rest ═══
 var MOBILE_INITIAL_COUNT = 7;
 var DESKTOP_INITIAL_COUNT = 13;
-function applyMobileLoadMore() {
+var LOAD_MORE_BATCH = 6;
+var __shownCount = 0;
+function getInitialCount() {
+  return window.innerWidth <= 900 ? MOBILE_INITIAL_COUNT : DESKTOP_INITIAL_COUNT;
+}
+function renderVisibleCards() {
   var grid = document.getElementById('workGrid');
   var btn = document.getElementById('loadMore');
   if (!grid || !btn) return;
   var cards = Array.from(grid.children);
-  var isMobile = window.innerWidth <= 900;
-  var limit = isMobile ? MOBILE_INITIAL_COUNT : DESKTOP_INITIAL_COUNT;
-  // Reset state
-  cards.forEach(function(c) {
-    c.classList.remove('hidden-work');
-    c.style.display = '';
-  });
-  if (cards.length > limit) {
-    cards.slice(limit).forEach(function(c) {
+  cards.forEach(function(c, i) {
+    if (i < __shownCount) {
+      c.classList.remove('hidden-work');
+      c.style.display = '';
+    } else {
       c.classList.add('hidden-work');
-    });
-    btn.style.display = 'inline-block';
-    btn.textContent = 'Load More Work (' + (cards.length - limit) + ')';
+    }
+  });
+  var remaining = cards.length - __shownCount;
+  if (remaining > 0) {
+    btn.style.display = 'inline-flex';
+    btn.textContent = 'Load More Work (' + remaining + ')';
   } else {
     btn.style.display = 'none';
   }
   if (typeof setMasonryRowSpans === 'function') setTimeout(setMasonryRowSpans, 100);
 }
+function applyMobileLoadMore() {
+  var grid = document.getElementById('workGrid');
+  if (!grid) return;
+  __shownCount = Math.min(getInitialCount(), grid.children.length);
+  renderVisibleCards();
+}
 window.addEventListener('resize', function() {
   clearTimeout(window.__loadMoreTimer);
-  window.__loadMoreTimer = setTimeout(applyMobileLoadMore, 200);
+  window.__loadMoreTimer = setTimeout(function() {
+    // Keep at least the initial count for the new viewport, but don't collapse
+    // what the user already expanded
+    __shownCount = Math.max(__shownCount, getInitialCount());
+    renderVisibleCards();
+  }, 200);
 });
 
 document.getElementById('loadMore').addEventListener('click', () => {
-  document.querySelectorAll('.hidden-work').forEach(c => {
-    c.classList.remove('hidden-work');
-    c.style.display = '';
-  });
-  document.getElementById('loadMore').style.display = 'none';
-  if (typeof setMasonryRowSpans === 'function') setTimeout(setMasonryRowSpans, 100);
+  var grid = document.getElementById('workGrid');
+  var total = grid ? grid.children.length : 0;
+  __shownCount = Math.min(__shownCount + LOAD_MORE_BATCH, total);
+  renderVisibleCards();
 });
 
 // ── Video modal ──────────────────────────────────────────────
