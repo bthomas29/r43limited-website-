@@ -86,6 +86,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99999;display:flex;align-items:c
 
 .hero h1{font-size:clamp(5rem,11vw,9.5rem);font-weight:700;line-height:0.92;letter-spacing:-0.01em;max-width:860px}
 .hero h1 .outline{-webkit-text-stroke:1px rgba(245,242,237,0.85);color:transparent}
+
+.hero-text { display: flex; flex-direction: column; align-items: flex-start; }
+.hero-text .hero-capability { margin: 1.25rem 0 0; }
 .hero-sub{margin-top:2.5rem;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem}
 .hero-desc{font-size:1rem;font-weight: 400 !important;color:var(--muted);max-width:420px;line-height:1.8}
 .hero-actions{display:flex;gap:1rem;flex-shrink:0}
@@ -797,12 +800,12 @@ section#home {
 
 /* Hero capability signature line */
 .hero-capability {
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(245,242,237,0.5);
-  margin: 1.25rem 0 1.75rem;
+  color: #E8581A;
+  margin: 1.5rem 0 1.75rem;
 }
 
 .hero-eyebrow {
@@ -1398,8 +1401,10 @@ body.menu-open #navHamburger {
       <div class="hero-eyebrow"><span class="eb-line"></span><span class="eb-text">A CALM IN THE CREATIVE CHAOS</span><span class="eb-line"></span></div>
       <h1>We <span class="solid">Make</span><br><span class="outline">Brands</span><br>Move.</h1>
       <div class="hero-sub">
-        <p class="hero-desc">The complicated projects are the ones we love. We&rsquo;ll turn a rough idea, a tight timeline, or a blank page into content with real emotion, and handle the details so you don&rsquo;t have to. The kind of partner that makes your job easier, and your work better.</p>
-        <p class="hero-capability">Write &middot; Shoot &middot; Edit &middot; Animate &middot; Effect.</p>
+        <div class="hero-text">
+          <p class="hero-desc">The complicated projects are the ones we love. We&rsquo;ll turn a rough idea, a tight timeline, or a blank page into content with real emotion, and handle the details so you don&rsquo;t have to. The kind of partner that makes your job easier, and your work better.</p>
+          <p class="hero-capability">Write &middot; Shoot &middot; Edit &middot; Animate &middot; Effect.</p>
+        </div>
         <div class="hero-actions">
           <a href="#work" class="btn-primary">View Our Work</a>
           
