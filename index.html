@@ -811,12 +811,23 @@ section#home {
 }
 
 .hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #E8581A;
   margin-bottom: 1.5rem;
+}
+.hero-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: #E8581A;
+  flex-shrink: 0;
 }
 .eb-text { flex-shrink: 0; }
 .eb-line {
