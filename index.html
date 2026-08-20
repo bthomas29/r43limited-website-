@@ -1727,7 +1727,7 @@ function buildGrid() {
     const catLabel = CAT_LABELS[v.category] || v.category;
     const creditParts = [];
     if (v.client) creditParts.push(v.client);
-    if (v.agency) creditParts.push('via ' + v.agency);
+    if (v.agency) creditParts.push('Agency: ' + v.agency);
     const clientHtml = creditParts.length ? `<div class="wc-client">${creditParts.join(' · ')}</div>` : '';
     const ratio = v.ratio || '16:9';
     const ratioClass = ratio === '9:16' ? 'ratio-vertical' :
