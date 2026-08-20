@@ -84,11 +84,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99999;display:flex;align-items:c
 }
 .hero-body{position:relative;z-index:2;}
 
-.hero h1{font-size:clamp(3.6rem,8vw,7rem);font-weight:700;line-height:0.9;letter-spacing:-0.02em;max-width:900px;margin-bottom:1.75rem}.hero h1 .outline{display:inline-block}
+.hero h1{font-size:clamp(2.6rem,6.5vw,6rem);font-weight:700;line-height:0.95;letter-spacing:-0.02em;max-width:none;margin-bottom:1.75rem}.hero h1 .outline{display:inline-block}.hero h1 .solid,.hero h1 .outline{white-space:nowrap}
 .hero h1 .outline{-webkit-text-stroke:1px rgba(245,242,237,0.85);color:transparent}
 .hero-sub{margin-top:2.5rem;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem}
 
 
+
+.hero-desc .nobr-line { display: inline-block; }
 .hero-desc{font-size:0.95rem;font-weight:400 !important;color:var(--muted);max-width:600px;line-height:1.75}
 .hero-actions{display:flex;gap:1rem;flex-shrink:0}
 .btn-primary{font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--black);background:var(--orange);padding:1rem 2rem;text-decoration:none;display:inline-block;transition:background 0.2s}
@@ -810,16 +812,19 @@ section#home {
 }
 
 .hero-eyebrow {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #E8581A;
   margin-bottom: 1.5rem;
   white-space: nowrap;
+  width: fit-content;
+  max-width: 100%;
 }
 .eb-text { flex-shrink: 0; }
 .eb-line {
@@ -1402,7 +1407,7 @@ body.menu-open #navHamburger {
       <div class="hero-eyebrow"><span class="eb-line"></span><span class="eb-text">WRITE &middot; SHOOT &middot; EDIT &middot; ANIMATE &middot; EFFECT</span><span class="eb-line"></span></div>
       <h1><span class="outline">Complicated Work.</span><br><span class="solid">Beautifully Done.</span></h1>
       <div class="hero-sub">
-        <p class="hero-desc">Big ideas never arrive neatly. They come with tight timelines, shifting scopes, and a hundred moving pieces. Perfect. For decades, we&rsquo;ve taken on the complicated and turned it into thoughtful, polished work. For agencies and brands that expect more.</p>
+        <p class="hero-desc">Big ideas never arrive neatly. They come with tight timelines, shifting scopes, and a hundred moving pieces. Perfect. For decades, we&rsquo;ve taken on the complicated and turned it into thoughtful, polished work. <span class="nobr-line">For agencies and brands that expect more.</span></p>
         
         <div class="hero-actions">
           <a href="#work" class="btn-primary">View Our Work</a>
@@ -1858,7 +1863,7 @@ document.getElementById('fsubmit').addEventListener('click', () => {
   alert('Thanks ' + n + "! We\'ll be in touch shortly.");
 });
 
-// ═══ Eyebrow line widths = "We Make" width ═══
+// ═══ Eyebrow lines flank the text, whole thing centered over headline first line ═══
 (function() {
   function setEyebrowLines() {
     var h1 = document.querySelector('.hero h1');
@@ -1866,18 +1871,11 @@ document.getElementById('fsubmit').addEventListener('click', () => {
     var ebText = document.querySelector('.eb-text');
     var lines = document.querySelectorAll('.eb-line');
     if (!h1 || !eb || !ebText || !lines.length) return;
-    var cs = getComputedStyle(h1);
-    var test = document.createElement('span');
-    test.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;font-size:'+cs.fontSize+';font-weight:'+cs.fontWeight+';letter-spacing:'+cs.letterSpacing+';font-family:'+cs.fontFamily;
-    test.textContent = 'We Make';
-    document.body.appendChild(test);
-    var weMakeW = Math.round(test.getBoundingClientRect().width);
-    document.body.removeChild(test);
-    var textW = Math.round(ebText.getBoundingClientRect().width);
-    var gap = 16;
-    var lineW = Math.max(0, Math.floor((weMakeW - textW - gap*2) / 2));
-    eb.style.width = weMakeW + 'px';
-    lines.forEach(function(l){ l.style.width = lineW+'px'; });
+    // Fixed line length flanking the text — clean and predictable
+    var lineW = 40;
+    lines.forEach(function(l){ l.style.width = lineW + 'px'; l.style.display = 'block'; });
+    // Match eyebrow total width to the headline's widest rendered line, then it centers via align-self
+    eb.style.width = '';
   }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(setEyebrowLines);
   else window.addEventListener('load', setEyebrowLines);
