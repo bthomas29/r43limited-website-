@@ -277,15 +277,6 @@
   },
   {
     "ratio": "16:9",
-    "id": "738408262",
-    "title": "R43 FX Demo",
-    "client": "",
-    "category": "vfx",
-    "featured": false,
-    "catRank": 7
-  },
-  {
-    "ratio": "16:9",
     "id": "527945047",
     "title": "Reopen",
     "client": "Cleveland Museum of Art",
@@ -420,7 +411,7 @@
     "title": "R43 Demo",
     "client": "",
     "category": "reel",
-    "featured": true,
+    "featured": false,
     "ratio": "16:9",
     "catRank": 1,
     "thumbnail_url": "https://i.vimeocdn.com/video/1758013016-373451ff6eb1394376941d48f420281da66c6bf1cb92208801f18826830e0ead-d_1280x720?region=us"
@@ -464,5 +455,14 @@
     "featured": true,
     "ratio": "16:9",
     "catRank": 10
+  },
+  {
+    "ratio": "16:9",
+    "id": "738408262",
+    "title": "R43 FX Demo",
+    "client": "",
+    "category": "vfx",
+    "featured": false,
+    "catRank": 7
   }
 ]
