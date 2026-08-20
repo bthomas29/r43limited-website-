@@ -1,49 +1,45 @@
 [
   {
     "id": "1199106231",
-    "title": "Holidaze - Multiply",
-    "client": "Ohio Lottery",
+    "title": "Ohio Lottery Holidaze Multiply",
+    "client": "Marcus Thomas",
     "category": "finishing",
     "featured": true,
     "ratio": "16:9",
     "catRank": 1,
-    "thumbnail_url": "https://i.vimeocdn.com/video/2165871030-c2d4453493114375cbe597783c6a9901d34020e58ed9d1421706930b15975994-d_1280x720?region=us",
-    "agency": "Marcus-Thomas, LLC"
+    "thumbnail_url": "https://i.vimeocdn.com/video/2165871030-c2d4453493114375cbe597783c6a9901d34020e58ed9d1421706930b15975994-d_1280x720?region=us"
   },
   {
     "ratio": "16:9",
     "id": "240694961",
-    "title": "Flying Blind",
-    "client": "Interwoven",
+    "title": "Interwoven — Flying Blind",
+    "client": "Stern Advertising",
     "category": "editorial",
     "featured": true,
-    "catRank": 1,
-    "agency": "Stern Advertising"
+    "catRank": 1
   },
   {
     "id": "1199107999",
     "title": "Fusion Palette",
-    "client": "Krylon",
+    "client": "Marcus Thomas",
     "category": "animation",
     "featured": true,
     "ratio": "9:16",
-    "catRank": 7,
-    "thumbnail_url": "https://i.vimeocdn.com/video/2166818752-40d1f6a1b1317fbebb009f5332ecb8f3b9b025d277e189aed53943938e45867d-d_719x1280?region=us",
-    "agency": "Marcus-Thomas, LLC"
+    "catRank": 5,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2166818752-40d1f6a1b1317fbebb009f5332ecb8f3b9b025d277e189aed53943938e45867d-d_719x1280?region=us"
   },
   {
     "ratio": "16:9",
     "id": "736238478",
     "title": "DeWalt Pro Handheld",
-    "client": "DeWalt Pro",
+    "client": "Marcus Thomas",
     "category": "animation",
     "featured": true,
-    "catRank": 5,
-    "agency": "Marcus-Thomas, LLC"
+    "catRank": 3
   },
   {
     "id": "736956198",
-    "title": "The Difference - Testing",
+    "title": "Testing",
     "client": "La-Z-Boy",
     "category": "production",
     "featured": true,
@@ -52,19 +48,18 @@
   },
   {
     "id": "1199753319",
-    "title": "Multi-Point Inspection",
-    "client": "Volkswagon",
+    "title": "VW 10-Point Inspection",
+    "client": "VML",
     "category": "animation",
     "featured": true,
     "ratio": "1:1",
-    "catRank": 9,
-    "thumbnail_url": "https://i.vimeocdn.com/video/2166686598-0b7f276e51ee73aaf0221654146c101f1b821fd5fd2925bd58663effda86acb2-d_1280x1280?region=us",
-    "agency": "VML, LLC"
+    "catRank": 7,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2166686598-0b7f276e51ee73aaf0221654146c101f1b821fd5fd2925bd58663effda86acb2-d_1280x1280?region=us"
   },
   {
     "ratio": "16:9",
     "id": "240881109",
-    "title": "Modern Fire Pit",
+    "title": "Lowe's — Modern Fire Pit",
     "client": "Lowe's Companies",
     "category": "production",
     "featured": true,
@@ -77,57 +72,26 @@
     "category": "animation",
     "featured": true,
     "ratio": "9:16",
-    "catRank": 11,
+    "catRank": 9,
     "thumbnail_url": "https://i.vimeocdn.com/video/2165866619-d857ddf6e469857927619d82981c272418da50b696272bb1222a22f9781f361d-d_719x1280?region=us"
-  },
-  {
-    "id": "1217731955",
-    "title": "Market",
-    "client": "Phesgo",
-    "agency": "VML, LLC",
-    "category": "production",
-    "featured": true,
-    "ratio": "16:9",
-    "catRank": 8
-  },
-  {
-    "id": "1217730946",
-    "title": "More Than Paint Deep",
-    "client": "John Deere",
-    "agency": "VML, LLC",
-    "category": "finishing",
-    "featured": true,
-    "ratio": "16:9",
-    "catRank": 7
   },
   {
     "ratio": "16:9",
     "id": "528399589",
-    "title": "Lead Time",
-    "client": "La-Z-Boy",
+    "title": "La-Z-Boy Lead Time",
+    "client": "",
     "category": "animation",
     "featured": true,
-    "catRank": 4
-  },
-  {
-    "id": "1200578140",
-    "title": "Takashi Murakami TV",
-    "client": "Cleveland Museum of Art",
-    "agency": "",
-    "category": "animation",
-    "featured": true,
-    "ratio": "16:9",
-    "catRank": 1
+    "catRank": 2
   },
   {
     "ratio": "16:9",
     "id": "287509323",
-    "title": "Only Her",
-    "client": "Jared The Galleria of Jewelry",
+    "title": "Kay",
+    "client": "",
     "category": "editorial",
     "featured": true,
-    "catRank": 4,
-    "agency": "Stern Advertising"
+    "catRank": 4
   },
   {
     "ratio": "16:9",
@@ -141,7 +105,7 @@
   {
     "ratio": "16:9",
     "id": "240872974",
-    "title": "In Ground Fire Pit",
+    "title": "Lowe's — In Ground Fire Pit",
     "client": "Lowe's Companies",
     "category": "production",
     "featured": true,
@@ -150,85 +114,89 @@
   {
     "ratio": "16:9",
     "id": "527488880",
-    "title": "Navigating a Pandemic",
-    "client": "University Hospitals Geauga",
+    "title": "UH Geauga — Navigating a Pandemic",
+    "client": "University Hospitals",
     "category": "production",
     "featured": true,
     "catRank": 5
   },
   {
     "ratio": "16:9",
-    "id": "291154142",
-    "title": "Unconditional Love",
-    "client": "Kay Jewelers",
+    "id": "527945047",
+    "title": "Cleveland Museum of Art - Reopen",
+    "client": "Lowe's Companies",
     "category": "editorial",
     "featured": true,
-    "catRank": 5,
-    "agency": "Stern Advertising"
+    "catRank": 3,
+    "thumbnail_url": "https://i.vimeocdn.com/video/1092810419-a1fcdf86983bda8c7ac2d2fb5a9ab0e3e258ffaf9ac4c894f37c230ca15d5d74-d_1280x720?region=us"
+  },
+  {
+    "ratio": "16:9",
+    "id": "291154142",
+    "title": "Kay-Unconditional Love",
+    "client": "VMLY&R Commerce",
+    "category": "editorial",
+    "featured": true,
+    "catRank": 5
   },
   {
     "ratio": "16:9",
     "id": "287508878",
-    "title": "Dude Perfect",
-    "client": "Peoples",
+    "title": "Peoples — Dude Perfect",
+    "client": "Stern Advertising",
     "category": "vfx",
     "featured": true,
-    "catRank": 1,
-    "agency": "Stern Advertising"
+    "catRank": 1
   },
   {
     "ratio": "16:9",
     "id": "58403606",
-    "title": "3-4-5",
-    "client": "McDonald's",
+    "title": "McDonald's  3-4-5",
+    "client": "Stern Advertising",
     "category": "editorial",
     "featured": true,
-    "catRank": 6,
-    "agency": "Stern Advertising"
-  },
-  {
-    "id": "289757329",
-    "title": "Mamma Mia",
-    "client": "Great Lakes Theater",
-    "category": "animation",
-    "featured": true,
-    "ratio": "16:9",
     "catRank": 6
   },
   {
+    "id": "289757329",
+    "title": "Great Lakes Theater - Mamma Mia",
+    "client": "",
+    "category": "animation",
+    "featured": true,
+    "ratio": "16:9",
+    "catRank": 4
+  },
+  {
     "id": "177597143",
-    "title": "Gallery One",
-    "client": "Cleveland Museum of Art",
+    "title": "Cleveland Museum of Art",
+    "client": "",
     "category": "editorial",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 7,
-    "agency": "Stern Advertising"
+    "catRank": 7
   },
   {
     "id": "528392778",
-    "title": "Dexcom",
-    "client": "",
+    "title": "Ddexcom",
+    "client": "Marcus Thomas",
     "category": "vfx",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 2,
-    "agency": "Marcus Thomas"
+    "catRank": 2
   },
   {
     "id": "240674232",
-    "title": "Rock Box",
-    "client": "McDonald's",
+    "title": "McD's Rock Box",
+    "client": "",
     "category": "finishing",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 3,
-    "agency": "Stern Advertising"
+    "catRank": 3
   },
   {
     "id": "207345944",
-    "title": "Levy",
-    "client": "Chagrin Falls Exempted Village Schools",
+    "title": "Chagrin Falls Exempted Village Schools - Levy",
+    "client": "",
     "category": "production",
     "featured": true,
     "ratio": "16:9",
@@ -237,23 +205,21 @@
   },
   {
     "id": "736213385",
-    "title": "Brewed in Ohio - Columbus Crew",
-    "client": "Miller Lite",
+    "title": "Miller Lite Home Grown",
+    "client": "VML",
     "category": "editorial",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 8,
-    "agency": "VML, LLC"
+    "catRank": 8
   },
   {
     "id": "736255732",
-    "title": "MB1 Gaming - Lamelo",
-    "client": "One Up",
+    "title": "One Up",
+    "client": "",
     "category": "finishing",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 2,
-    "agency": ""
+    "catRank": 2
   },
   {
     "id": "528379616",
@@ -272,30 +238,26 @@
     "category": "finishing",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 4,
-    "agency": "Stern Advertising"
+    "catRank": 4
   },
   {
     "ratio": "16:9",
-    "id": "527945047",
-    "title": "Reopen",
-    "client": "Cleveland Museum of Art",
-    "category": "editorial",
-    "featured": true,
-    "catRank": 3,
-    "thumbnail_url": "https://i.vimeocdn.com/video/1092810419-a1fcdf86983bda8c7ac2d2fb5a9ab0e3e258ffaf9ac4c894f37c230ca15d5d74-d_1280x720?region=us",
-    "agency": ""
+    "id": "738408262",
+    "title": "R43 FX Demo",
+    "client": "",
+    "category": "vfx",
+    "featured": false,
+    "catRank": 7
   },
   {
     "id": "1199107203",
-    "title": "Jacked Up",
-    "client": "APGE",
+    "title": "APGE Jacked Up",
+    "client": "",
     "category": "animation",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 3,
-    "thumbnail_url": "https://i.vimeocdn.com/video/2165866048-227fd12ec2fc3034c7723def54c4f5eb5e27ee1b52117f571decdece0ed3672b-d_1280x720?region=us",
-    "agency": "Marcus-Thomas, LLC"
+    "catRank": 1,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2165866048-227fd12ec2fc3034c7723def54c4f5eb5e27ee1b52117f571decdece0ed3672b-d_1280x720?region=us"
   },
   {
     "id": "736285788",
@@ -304,8 +266,7 @@
     "category": "animation",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 8,
-    "agency": "Stern Advertising"
+    "catRank": 6
   },
   {
     "id": "226222470",
@@ -314,7 +275,7 @@
     "category": "animation",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 10
+    "catRank": 8
   },
   {
     "id": "177570911",
@@ -323,12 +284,11 @@
     "category": "vfx",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 4,
-    "agency": "Stern Advertising"
+    "catRank": 4
   },
   {
     "id": "1199106156",
-    "title": "ESO Waves 2026",
+    "title": "ESO waves 2026 FINAL",
     "client": "ESO",
     "category": "editorial",
     "featured": true,
@@ -340,43 +300,39 @@
     "ratio": "16:9",
     "id": "177570436",
     "title": "Hall of Fame",
-    "client": "Kay Jewelers",
+    "client": "",
     "category": "vfx",
     "featured": true,
-    "catRank": 3,
-    "agency": "Stern Advertising"
+    "catRank": 3
   },
   {
     "id": "1199754922",
-    "title": "More Than Paint Deep - Maneuverability",
-    "client": "John Deere",
+    "title": "More Than Paint Deep Maneuverability",
+    "client": "VML",
     "category": "vfx",
     "featured": true,
     "ratio": "9:16",
     "catRank": 5,
-    "thumbnail_url": "https://i.vimeocdn.com/video/2166663213-e11236160cb9cc0bcd4bd298cd6876a08c136ccb422a11eb51252c21cbe0105d-d_719x1280?region=us",
-    "agency": "VML, LLC"
+    "thumbnail_url": "https://i.vimeocdn.com/video/2166663213-e11236160cb9cc0bcd4bd298cd6876a08c136ccb422a11eb51252c21cbe0105d-d_719x1280?region=us"
   },
   {
     "id": "1199753690",
-    "title": "Realverse",
-    "client": "John Deere",
+    "title": "John DeereRealverse",
+    "client": "VML",
     "category": "animation",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 12,
-    "thumbnail_url": "https://i.vimeocdn.com/video/2166664394-afcd4ad4d062dbe9de1bc8f764b4746a42d8f04802ebe411c9a6077922d4e152-d_1280x720?region=us",
-    "agency": "VML, LLC"
+    "catRank": 10,
+    "thumbnail_url": "https://i.vimeocdn.com/video/2166664394-afcd4ad4d062dbe9de1bc8f764b4746a42d8f04802ebe411c9a6077922d4e152-d_1280x720?region=us"
   },
   {
     "id": "736214921",
-    "title": "VW - LA Galaxy",
-    "client": "Volkswagon",
+    "title": "VW LA Galaxy",
+    "client": "VML",
     "category": "finishing",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 5,
-    "agency": "VML, LLC"
+    "catRank": 5
   },
   {
     "id": "362305842",
@@ -385,7 +341,17 @@
     "category": "animation",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 13
+    "catRank": 11
+  },
+  {
+    "id": "320005557",
+    "title": "CoffeeMate",
+    "client": "VML",
+    "category": "animation",
+    "featured": true,
+    "ratio": "16:9",
+    "catRank": 12,
+    "thumbnail_url": "https://i.vimeocdn.com/video/762457225-3d54947512a7fe3d4a602147415bc67c059629b61c32dff3e09bfb94af6ff536-d_640?region=us"
   },
   {
     "id": "229351838",
@@ -398,20 +364,19 @@
   },
   {
     "id": "177580064",
-    "title": "Pandora Holiday",
+    "title": "Pandora Holiday Promo",
     "client": "Jared",
     "category": "vfx",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 6,
-    "agency": "Stern Advertising"
+    "catRank": 6
   },
   {
     "id": "887475467",
-    "title": "R43 Demo",
+    "title": "R43 2023 Demo",
     "client": "",
     "category": "reel",
-    "featured": false,
+    "featured": true,
     "ratio": "16:9",
     "catRank": 1,
     "thumbnail_url": "https://i.vimeocdn.com/video/1758013016-373451ff6eb1394376941d48f420281da66c6bf1cb92208801f18826830e0ead-d_1280x720?region=us"
@@ -425,74 +390,5 @@
     "ratio": "16:9",
     "catRank": 2,
     "thumbnail_url": "https://i.vimeocdn.com/video/1758013016-373451ff6eb1394376941d48f420281da66c6bf1cb92208801f18826830e0ead-d_1280x720?region=us"
-  },
-  {
-    "id": "1217727209",
-    "title": "Lemi Shine Magic",
-    "client": "Lemi Shine",
-    "agency": "VML, LLC",
-    "category": "animation",
-    "featured": true,
-    "ratio": "1:1",
-    "catRank": 2
-  },
-  {
-    "id": "1067907084",
-    "title": "The Invictus Observatory",
-    "client": "Invictus Bakery",
-    "agency": "",
-    "category": "editorial",
-    "featured": true,
-    "ratio": "16:9",
-    "catRank": 10
-  },
-  {
-    "id": "1200579461",
-    "title": "Species Overview",
-    "client": "Sparrow Peak",
-    "agency": "",
-    "category": "production",
-    "featured": true,
-    "ratio": "16:9",
-    "catRank": 10
-  },
-  {
-    "ratio": "16:9",
-    "id": "738408262",
-    "title": "R43 FX Demo",
-    "client": "",
-    "category": "vfx",
-    "featured": false,
-    "catRank": 7
-  },
-  {
-    "id": "1199106157",
-    "title": "Summer LL Cool J",
-    "client": "Coors",
-    "agency": "VML, LLC",
-    "category": "animation",
-    "featured": true,
-    "ratio": "1:1",
-    "catRank": 14
-  },
-  {
-    "id": "335890580",
-    "title": "Space Logo",
-    "client": "R43",
-    "agency": "",
-    "category": "animation",
-    "featured": true,
-    "ratio": "16:9",
-    "catRank": 15
-  },
-  {
-    "id": "375446837",
-    "title": "Flashes Of Hope",
-    "client": "",
-    "agency": "",
-    "category": "editorial",
-    "featured": true,
-    "ratio": "16:9",
-    "catRank": 11
   }
 ]
