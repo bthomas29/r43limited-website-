@@ -9,9 +9,9 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="R43 Limited — Commercial Video Production & Animation">
   <meta property="og:description" content="Cleveland production studio for agencies and brands. The complicated projects are the ones we love — content with real emotion, handled end to end. Production, post, animation, and VFX under one roof.">
-  <meta property="og:url" content="https://r43limited.com/">
+  <meta property="og:url" content="https://r43ltd.com/">
   <meta property="og:site_name" content="R43 Limited">
-  <meta property="og:image" content="https://r43limited.com/og-image.jpg">
+  <meta property="og:image" content="https://r43ltd.com/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_US">
@@ -19,15 +19,15 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="R43 Limited — Commercial Video Production">
   <meta name="twitter:description" content="Cleveland video production for ad agencies and brand teams. Full-service shooting, editing, animation, and VFX.">
-  <meta name="twitter:image" content="https://r43limited.com/og-image.jpg">
+  <meta name="twitter:image" content="https://r43ltd.com/og-image.jpg">
 
   <meta name="author" content="R43 Limited">
   <meta name="keywords" content="video production Cleveland, commercial video production, motion graphics, animation, VFX, post production, agency video partner, broadcast video, brand video, Ohio video production">
 <meta name="keywords" content="commercial video production Cleveland, video production agency Ohio, motion graphics Cleveland, 3D animation Ohio, VFX studio Cleveland, post production Ohio, ad agency video production northeast ohio">
 <meta property="og:title" content="R43 Limited | Commercial Video Production & Animation | Cleveland, OH">
 <meta property="og:description" content="Shoot. Edit. Animate. Effect. Cleveland's premier commercial production studio for ad agencies and national brands.">
-<meta property="og:url" content="https://r43limited.com">
-<link rel="canonical" href="https://r43limited.com">
+<meta property="og:url" content="https://r43ltd.com">
+<link rel="canonical" href="https://r43ltd.com">
 
 <style>
 *,*::before,*::after{box-sizing:border-box;overflow:visible;margin:0;padding:0}
@@ -126,7 +126,7 @@ section{padding:7rem 3rem}
 
 .wc-cat{font-size:0.58rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--orange);margin-bottom:0.3rem}
 .wc-title{font-size:1rem;font-weight:700;line-height:1.2}
-.wc-client{font-size:0.78rem;font-weight: 400;color:var(--muted);margin-top:0.25rem}
+.wc-client{font-size:0.78rem;font-weight: 400;color:var(--muted);margin-top:0.25rem}.wc-agency-label{font-size:0.68rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--orange)}
 
 .load-more{display:block;margin:3rem auto 0;font-size:0.7rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);background:transparent;border:1px solid var(--border-h);padding:0.9rem 2.5rem;cursor:pointer;transition:border-color 0.2s,color 0.2s;font-family:var(--f)}
 .load-more:hover{border-color:var(--orange);color:var(--orange)}
@@ -1327,9 +1327,9 @@ body.menu-open #navHamburger {
     "name": "R43 Limited",
     "alternateName": "R43",
     "description": "Cleveland production studio for agencies and brands. The complicated projects are the ones we love — content with real emotion, handled end to end. Production, post, animation, and VFX under one roof.",
-    "url": "https://r43limited.com/",
+    "url": "https://r43ltd.com/",
     "telephone": "+1-440-247-4343",
-    "email": "billy@r43limited.com",
+    "email": "info@r43ltd.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "7185 Chagrin Road, Unit A",
@@ -1498,7 +1498,7 @@ body.menu-open #navHamburger {
       </div>
       <div class="form-col contact-info">
         <div class="cinfo-block"><div class="cinfo-label">Phone</div><a href="tel:+14402474343" class="cinfo-value">440-247-4343</a></div>
-        <div class="cinfo-block"><div class="cinfo-label">Email</div><a href="mailto:billy@r43limited.com" class="cinfo-value">billy@r43limited.com</a></div>
+        <div class="cinfo-block"><div class="cinfo-label">Email</div><a href="mailto:info@r43ltd.com" class="cinfo-value">info@r43ltd.com</a></div>
         <div class="cinfo-block"><div class="cinfo-label">Studio</div><div class="cinfo-value">7185 Chagrin Road, Unit A<br>Chagrin Falls, OH 44023</div></div>
       </div>
     </div>
@@ -1727,7 +1727,7 @@ function buildGrid() {
     const catLabel = CAT_LABELS[v.category] || v.category;
     const creditParts = [];
     if (v.client) creditParts.push(v.client);
-    if (v.agency) creditParts.push('Agency: ' + v.agency);
+    if (v.agency) creditParts.push('<span class="wc-agency-label">Agency:</span> ' + v.agency);
     const clientHtml = creditParts.length ? `<div class="wc-client">${creditParts.join(' · ')}</div>` : '';
     const ratio = v.ratio || '16:9';
     const ratioClass = ratio === '9:16' ? 'ratio-vertical' :
