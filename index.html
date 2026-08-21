@@ -1765,10 +1765,16 @@ document.querySelectorAll('.fbtn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const f = btn.dataset.filter;
+    // Mark cards in/out of this filter, then let the render system handle visibility + load-more
+    var f = btn.dataset.filter;
     document.querySelectorAll('.work-card').forEach(c => {
-      c.style.display = (f === 'all' || c.dataset.cat === f) ? 'block' : 'none';
+      if (f === 'all' || c.dataset.cat === f) {
+        c.classList.remove('filtered-out');
+      } else {
+        c.classList.add('filtered-out');
+      }
     });
+    applyMobileLoadMore();
   });
 });
 
@@ -1786,13 +1792,19 @@ function renderVisibleCards() {
   var grid = document.getElementById('workGrid');
   var btn = document.getElementById('loadMore');
   if (!grid || !btn) return;
-  var cards = Array.from(grid.children);
+  // Only consider cards that pass the current filter
+  var cards = Array.from(grid.children).filter(function(c){ return !c.classList.contains('filtered-out'); });
+  // Hide filtered-out cards entirely
+  Array.from(grid.children).forEach(function(c){
+    if (c.classList.contains('filtered-out')) { c.style.display = 'none'; c.classList.add('hidden-work'); }
+  });
   cards.forEach(function(c, i) {
     if (i < __shownCount) {
       c.classList.remove('hidden-work');
       c.style.display = '';
     } else {
       c.classList.add('hidden-work');
+      c.style.display = '';
     }
   });
   var remaining = cards.length - __shownCount;
@@ -1811,11 +1823,11 @@ function isFilterActive() {
 function applyMobileLoadMore() {
   var grid = document.getElementById('workGrid');
   if (!grid) return;
+  var eligible = Array.from(grid.children).filter(function(c){ return !c.classList.contains('filtered-out'); }).length;
   if (isFilterActive()) {
-    // Category filter active — show everything in that category, no Load More
-    __shownCount = grid.children.length;
+    __shownCount = eligible;   // show all in the category
   } else {
-    __shownCount = Math.min(getInitialCount(), grid.children.length);
+    __shownCount = Math.min(getInitialCount(), eligible);
   }
   renderVisibleCards();
 }
