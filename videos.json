@@ -116,7 +116,7 @@
     "client": "Kay",
     "category": "editorial",
     "featured": true,
-    "catRank": 4,
+    "catRank": 2,
     "agency": "Stern Advertising"
   },
   {
@@ -163,8 +163,9 @@
     "client": "Cleveland Museum of Art",
     "category": "editorial",
     "featured": true,
-    "catRank": 3,
-    "thumbnail_url": "https://i.vimeocdn.com/video/1092810419-a1fcdf86983bda8c7ac2d2fb5a9ab0e3e258ffaf9ac4c894f37c230ca15d5d74-d_1280x720?region=us"
+    "catRank": 6,
+    "thumbnail_url": "https://i.vimeocdn.com/video/1092810419-a1fcdf86983bda8c7ac2d2fb5a9ab0e3e258ffaf9ac4c894f37c230ca15d5d74-d_1280x720?region=us",
+    "agency": ""
   },
   {
     "ratio": "16:9",
@@ -173,7 +174,7 @@
     "client": "Kay",
     "category": "editorial",
     "featured": true,
-    "catRank": 5,
+    "catRank": 3,
     "agency": "Stern Advertising"
   },
   {
@@ -197,16 +198,6 @@
     "agency": "Stern Advertising"
   },
   {
-    "ratio": "16:9",
-    "id": "58403606",
-    "title": "McDonald's  3-4-5",
-    "client": "McDonalds",
-    "category": "editorial",
-    "featured": true,
-    "catRank": 6,
-    "agency": "Stern Advertising"
-  },
-  {
     "id": "289757329",
     "title": "Great Lakes Theater - Mamma Mia",
     "client": "",
@@ -214,15 +205,6 @@
     "featured": true,
     "ratio": "16:9",
     "catRank": 4
-  },
-  {
-    "id": "177597143",
-    "title": "Cleveland Museum of Art",
-    "client": "",
-    "category": "editorial",
-    "featured": true,
-    "ratio": "16:9",
-    "catRank": 7
   },
   {
     "id": "528392778",
@@ -261,7 +243,7 @@
     "category": "editorial",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 8,
+    "catRank": 7,
     "agency": "VML, LLC"
   },
   {
@@ -328,7 +310,7 @@
     "category": "editorial",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 9,
+    "catRank": 8,
     "thumbnail_url": "https://i.vimeocdn.com/video/2166658555-8d53c648b7ad9e806c19f7eda233f4124cecb8b7c1aedcea11fb0792a3768abb-d_1280x720?region=us"
   },
   {
@@ -459,7 +441,7 @@
     "category": "editorial",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 10
+    "catRank": 9
   },
   {
     "id": "1217730946",
@@ -489,7 +471,7 @@
     "category": "editorial",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 11
+    "catRank": 10
   },
   {
     "id": "177608512",
@@ -499,7 +481,7 @@
     "category": "editorial",
     "featured": true,
     "ratio": "16:9",
-    "catRank": 12
+    "catRank": 11
   },
   {
     "id": "527368036",
@@ -510,5 +492,15 @@
     "featured": true,
     "ratio": "16:9",
     "catRank": 9
+  },
+  {
+    "id": "58403606",
+    "title": "Gallery One",
+    "client": "Cleveland Museum of Art",
+    "agency": "Stern Advertising",
+    "category": "editorial",
+    "featured": true,
+    "ratio": "16:9",
+    "catRank": 12
   }
 ]
