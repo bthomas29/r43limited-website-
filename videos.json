@@ -12,8 +12,8 @@
   },
   {
     "id": "1199107203",
-    "title": "APGE Jacked Up",
-    "client": "",
+    "title": "Jacked Up",
+    "client": "APG&E",
     "category": "animation",
     "featured": true,
     "ratio": "16:9",
@@ -46,10 +46,11 @@
     "ratio": "16:9",
     "id": "736238478",
     "title": "DeWalt Pro Handheld",
-    "client": "Marcus Thomas",
+    "client": "Dewalt",
     "category": "animation",
     "featured": true,
-    "catRank": 3
+    "catRank": 3,
+    "agency": "Marcus-Thomas, LLC"
   },
   {
     "id": "736956198",
@@ -62,7 +63,7 @@
   },
   {
     "id": "1199753319",
-    "title": "Multi 10-Point Inspection",
+    "title": "Multi - Point Inspection",
     "client": "Volkswagon",
     "category": "animation",
     "featured": true,
@@ -74,7 +75,7 @@
   {
     "ratio": "16:9",
     "id": "240881109",
-    "title": "Lowe's — Modern Fire Pit",
+    "title": "Modern Fire Pit",
     "client": "Lowe's Companies",
     "category": "production",
     "featured": true,
@@ -94,7 +95,7 @@
     "ratio": "16:9",
     "id": "528399589",
     "title": "La-Z-Boy Lead Time",
-    "client": "",
+    "client": "La-Z-Boy",
     "category": "animation",
     "featured": true,
     "catRank": 2
@@ -141,7 +142,7 @@
   {
     "ratio": "16:9",
     "id": "240872974",
-    "title": "Lowe's — In Ground Fire Pit",
+    "title": "In Ground Fire Pit",
     "client": "Lowe's Companies",
     "category": "production",
     "featured": true,
@@ -150,8 +151,8 @@
   {
     "ratio": "16:9",
     "id": "527488880",
-    "title": "UH Geauga — Navigating a Pandemic",
-    "client": "University Hospitals",
+    "title": "Navigating a Pandemic",
+    "client": "University Hospitals Geauga",
     "category": "production",
     "featured": true,
     "catRank": 5
@@ -374,7 +375,7 @@
   },
   {
     "id": "887475467",
-    "title": "R43 2023 Demo",
+    "title": "R43 Demo",
     "client": "",
     "category": "reel",
     "featured": true,
