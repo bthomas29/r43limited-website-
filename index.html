@@ -1796,7 +1796,7 @@ function renderVisibleCards() {
     }
   });
   var remaining = cards.length - __shownCount;
-  if (remaining > 0) {
+  if (remaining > 0 && !isFilterActive()) {
     btn.style.display = 'inline-flex';
     btn.textContent = 'Load More Work';
   } else {
@@ -1804,10 +1804,19 @@ function renderVisibleCards() {
   }
   if (typeof setMasonryRowSpans === 'function') setTimeout(setMasonryRowSpans, 100);
 }
+function isFilterActive() {
+  var activeBtn = document.querySelector('.fbtn.active');
+  return activeBtn && activeBtn.dataset.filter && activeBtn.dataset.filter !== 'all';
+}
 function applyMobileLoadMore() {
   var grid = document.getElementById('workGrid');
   if (!grid) return;
-  __shownCount = Math.min(getInitialCount(), grid.children.length);
+  if (isFilterActive()) {
+    // Category filter active — show everything in that category, no Load More
+    __shownCount = grid.children.length;
+  } else {
+    __shownCount = Math.min(getInitialCount(), grid.children.length);
+  }
   renderVisibleCards();
 }
 window.addEventListener('resize', function() {
