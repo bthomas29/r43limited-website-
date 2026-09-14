@@ -320,6 +320,7 @@
 .team-admin-row .t-name { width: 110px; font-weight: 600; }
 .team-admin-row .t-role { width: 150px; }
 .team-admin-row .t-vimeo { width: 110px; }
+.team-admin-row .t-still { width: 70px; }
 .team-admin-row .t-blurb { flex: 1; }
 .team-admin-row .t-del { margin-left: auto; background: none; border: none; color: rgba(245,242,237,0.4); cursor: pointer; font-size: 1rem; }
 .team-admin-row .t-del:hover { color: #ff5a5a; }
@@ -384,6 +385,7 @@
       <input type="text" id="newTeamName" placeholder="Name">
       <input type="text" id="newTeamRole" placeholder="Role (e.g. Art Director)">
       <input type="text" id="newTeamVimeo" placeholder="Vimeo URL or ID">
+      <input type="number" step="0.1" min="0" id="newTeamStill" placeholder="Still (s)" style="width:90px;">
       <input type="text" id="newTeamBlurb" placeholder="Short blurb" style="flex:2;">
       <button class="btn btn-primary" id="btnAddTeam">Add</button>
     </div>
@@ -1084,12 +1086,14 @@ function renderTeam() {
       '<input class="tfield t-name" value="' + (m.name||'').replace(/"/g,'&quot;') + '" placeholder="Name">' +
       '<input class="tfield t-role" value="' + (m.role||'').replace(/"/g,'&quot;') + '" placeholder="Role">' +
       '<input class="tfield t-vimeo" value="' + (m.vimeo||'').replace(/"/g,'&quot;') + '" placeholder="Vimeo ID">' +
+      '<input class="tfield t-still" type="number" step="0.1" min="0" value="' + (m.stillTime != null ? m.stillTime : '') + '" placeholder="Still s" title="Paused-frame time in seconds">' +
       '<input class="tfield t-blurb" value="' + (m.blurb||'').replace(/"/g,'&quot;') + '" placeholder="Blurb">' +
       '<button class="t-del" title="Remove">✕</button>';
     // field edits
     row.querySelector('.t-name').addEventListener('change', function(e){ team[i].name = e.target.value.trim(); saveTeam(); });
     row.querySelector('.t-role').addEventListener('change', function(e){ team[i].role = e.target.value.trim(); saveTeam(); });
     row.querySelector('.t-vimeo').addEventListener('change', function(e){ team[i].vimeo = parseVimeoId(e.target.value); e.target.value = team[i].vimeo; saveTeam(); });
+    row.querySelector('.t-still').addEventListener('change', function(e){ var v = parseFloat(e.target.value); team[i].stillTime = isNaN(v) ? null : v; saveTeam(); });
     row.querySelector('.t-blurb').addEventListener('change', function(e){ team[i].blurb = e.target.value.trim(); saveTeam(); });
     row.querySelector('.t-del').addEventListener('click', function(){ if(confirm('Remove ' + (m.name||'this member') + '?')){ team.splice(i,1); saveTeam(); renderTeam(); } });
     // drag reorder
@@ -1108,12 +1112,14 @@ document.addEventListener('DOMContentLoaded', function(){
     var role = document.getElementById('newTeamRole').value.trim();
     var vimeo = parseVimeoId(document.getElementById('newTeamVimeo').value);
     var blurb = document.getElementById('newTeamBlurb').value.trim();
+    var stillV = parseFloat(document.getElementById('newTeamStill').value); var stillTime = isNaN(stillV) ? null : stillV;
     if (!name) { toast('Name required', 'error'); return; }
-    team.push({ name:name, role:role, blurb:blurb, vimeo:vimeo });
+    team.push({ name:name, role:role, blurb:blurb, vimeo:vimeo, stillTime:stillTime });
     saveTeam(); renderTeam();
     document.getElementById('newTeamName').value='';
     document.getElementById('newTeamRole').value='';
     document.getElementById('newTeamVimeo').value='';
+    document.getElementById('newTeamStill').value='';
     document.getElementById('newTeamBlurb').value='';
     toast('Member added');
   });
