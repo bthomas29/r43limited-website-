@@ -310,6 +310,20 @@
   margin-top: 1px;
 }
 
+
+.team-admin-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+.team-admin-row { display: flex; align-items: center; gap: 0.75rem; background: #1a1a1a; border: 1px solid rgba(245,242,237,0.12); border-radius: 4px; padding: 0.6rem 0.8rem; }
+.team-admin-row .drag { cursor: grab; color: rgba(245,242,237,0.4); font-size: 1.1rem; }
+.team-admin-row .tfield { background: transparent; border: 1px solid transparent; color: #F5F2ED; padding: 3px 6px; border-radius: 3px; font-size: 0.85rem; }
+.team-admin-row .tfield:hover { border-color: rgba(245,242,237,0.15); }
+.team-admin-row .tfield:focus { outline: none; border-color: #E8581A; background: rgba(0,0,0,0.4); }
+.team-admin-row .t-name { width: 110px; font-weight: 600; }
+.team-admin-row .t-role { width: 150px; }
+.team-admin-row .t-vimeo { width: 110px; }
+.team-admin-row .t-blurb { flex: 1; }
+.team-admin-row .t-del { margin-left: auto; background: none; border: none; color: rgba(245,242,237,0.4); cursor: pointer; font-size: 1rem; }
+.team-admin-row .t-del:hover { color: #ff5a5a; }
+.team-admin-row.dragging { opacity: 0.5; }
 </style>
 </head>
 <body>
@@ -363,6 +377,19 @@
   </div>
 
   <div class="buckets" id="buckets"></div>
+
+  <div class="toolbar" style="margin-top:2.5rem;">
+    <h2>Team Members</h2>
+    <div class="add-form">
+      <input type="text" id="newTeamName" placeholder="Name">
+      <input type="text" id="newTeamRole" placeholder="Role (e.g. Art Director)">
+      <input type="text" id="newTeamVimeo" placeholder="Vimeo URL or ID">
+      <input type="text" id="newTeamBlurb" placeholder="Short blurb" style="flex:2;">
+      <button class="btn btn-primary" id="btnAddTeam">Add</button>
+    </div>
+    <div id="teamList" class="team-admin-list"></div>
+    <button class="btn btn-publish" id="btnPublishTeam" style="margin-top:1rem;">↑ Publish Team to Live Site</button>
+  </div>
 </main>
 
 <!-- Settings Modal -->
@@ -1023,8 +1050,96 @@ document.getElementById('btnPublish').addEventListener('click', async () => {
   }
 });
 
+
+// ═══════════ TEAM MANAGEMENT ═══════════
+let team = [];
+function loadTeam() {
+  try { const t = localStorage.getItem('r43_team'); if (t) team = JSON.parse(t); } catch(e) {}
+  if (!team.length) {
+    team = [
+      { name:'Billy', role:'Editor · Lead Creative', blurb:'Will cut the same scene 50 ways until it lands.', vimeo:'' },
+      { name:'Stacy', role:'Executive Producer', blurb:'Keeps the schedule sacred and the clients sane.', vimeo:'' },
+      { name:'Alex', role:'Art Director', blurb:'Speaks frame, color, and composition fluently.', vimeo:'' },
+      { name:'Brandon', role:'Producer · Director · Writer', blurb:'Can pitch a treatment Monday and shoot it Thursday.', vimeo:'' }
+    ];
+  }
+}
+function saveTeam() { localStorage.setItem('r43_team', JSON.stringify(team)); }
+function parseVimeoId(v) {
+  if (!v) return '';
+  var m = String(v).match(/(\d{6,})/);
+  return m ? m[1] : '';
+}
+function renderTeam() {
+  const list = document.getElementById('teamList');
+  if (!list) return;
+  list.innerHTML = '';
+  team.forEach(function(m, i){
+    const row = document.createElement('div');
+    row.className = 'team-admin-row';
+    row.draggable = true;
+    row.dataset.index = i;
+    row.innerHTML =
+      '<span class="drag">⠿</span>' +
+      '<input class="tfield t-name" value="' + (m.name||'').replace(/"/g,'&quot;') + '" placeholder="Name">' +
+      '<input class="tfield t-role" value="' + (m.role||'').replace(/"/g,'&quot;') + '" placeholder="Role">' +
+      '<input class="tfield t-vimeo" value="' + (m.vimeo||'').replace(/"/g,'&quot;') + '" placeholder="Vimeo ID">' +
+      '<input class="tfield t-blurb" value="' + (m.blurb||'').replace(/"/g,'&quot;') + '" placeholder="Blurb">' +
+      '<button class="t-del" title="Remove">✕</button>';
+    // field edits
+    row.querySelector('.t-name').addEventListener('change', function(e){ team[i].name = e.target.value.trim(); saveTeam(); });
+    row.querySelector('.t-role').addEventListener('change', function(e){ team[i].role = e.target.value.trim(); saveTeam(); });
+    row.querySelector('.t-vimeo').addEventListener('change', function(e){ team[i].vimeo = parseVimeoId(e.target.value); e.target.value = team[i].vimeo; saveTeam(); });
+    row.querySelector('.t-blurb').addEventListener('change', function(e){ team[i].blurb = e.target.value.trim(); saveTeam(); });
+    row.querySelector('.t-del').addEventListener('click', function(){ if(confirm('Remove ' + (m.name||'this member') + '?')){ team.splice(i,1); saveTeam(); renderTeam(); } });
+    // drag reorder
+    row.addEventListener('dragstart', function(){ row.classList.add('dragging'); window.__dragIdx = i; });
+    row.addEventListener('dragend', function(){ row.classList.remove('dragging'); });
+    row.addEventListener('dragover', function(e){ e.preventDefault(); });
+    row.addEventListener('drop', function(e){ e.preventDefault(); var from = window.__dragIdx, to = i; if(from===to)return; var moved = team.splice(from,1)[0]; team.splice(to,0,moved); saveTeam(); renderTeam(); });
+    list.appendChild(row);
+  });
+}
+// Add member
+document.addEventListener('DOMContentLoaded', function(){
+  var addBtn = document.getElementById('btnAddTeam');
+  if (addBtn) addBtn.addEventListener('click', function(){
+    var name = document.getElementById('newTeamName').value.trim();
+    var role = document.getElementById('newTeamRole').value.trim();
+    var vimeo = parseVimeoId(document.getElementById('newTeamVimeo').value);
+    var blurb = document.getElementById('newTeamBlurb').value.trim();
+    if (!name) { toast('Name required', 'error'); return; }
+    team.push({ name:name, role:role, blurb:blurb, vimeo:vimeo });
+    saveTeam(); renderTeam();
+    document.getElementById('newTeamName').value='';
+    document.getElementById('newTeamRole').value='';
+    document.getElementById('newTeamVimeo').value='';
+    document.getElementById('newTeamBlurb').value='';
+    toast('Member added');
+  });
+  // Publish team.json (independent of videos)
+  var pubBtn = document.getElementById('btnPublishTeam');
+  if (pubBtn) pubBtn.addEventListener('click', async function(){
+    if (!settings.token) { toast('Add GitHub token in Settings first', 'error'); document.getElementById('settingsModal').classList.add('open'); return; }
+    if (!confirm('Publish ' + team.length + ' team members to live site?')) return;
+    pubBtn.disabled = true; pubBtn.textContent = 'Publishing...';
+    const api = `https://api.github.com/repos/${settings.owner}/${settings.repo}/contents/team.json`;
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(team, null, 2))));
+    try {
+      let sha = null;
+      try { const g = await fetch(api, { headers:{ 'Authorization':`Bearer ${settings.token}`, 'Accept':'application/vnd.github+json' } }); if (g.ok) sha = (await g.json()).sha; } catch(e){}
+      const put = await fetch(api, { method:'PUT', headers:{ 'Authorization':`Bearer ${settings.token}`, 'Accept':'application/vnd.github+json', 'Content-Type':'application/json' }, body: JSON.stringify({ message:`Update team.json (${team.length} members)`, content:content, sha: sha||undefined }) });
+      if (put.ok) toast('Team published! Live in ~60 sec 🚀', 'success');
+      else { const err = await put.json(); console.error(err); toast(`Team publish failed: ${err.message||put.status}`, 'error'); }
+    } catch(e){ console.error(e); toast('Team publish failed — check console', 'error'); }
+    finally { pubBtn.disabled = false; pubBtn.textContent = '↑ Publish Team to Live Site'; }
+  });
+});
+
 // Init
 loadState();
+loadTeam();
+renderTeam();
 render();
 
 // Auto-load from live site on first open (when nothing in localStorage)
