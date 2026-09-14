@@ -174,6 +174,13 @@ section{padding:7rem 3rem}
 .team-card{background:var(--black);transition:background 0.3s;overflow:hidden}
 .team-card:hover{background:var(--surface)}
 .team-photo{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;filter:grayscale(20%)}
+/* Team hover-to-play portraits */
+.team-media { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #111; }
+.team-media .team-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); transition: opacity 0.4s ease; z-index: 1; }
+.team-media .team-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease; z-index: 2; }
+.team-card.playing .team-media .team-photo { opacity: 0; }
+.team-card.playing .team-media .team-video { opacity: 1; }
+
 .team-photo-placeholder{width:100%;aspect-ratio:1/1;background:var(--surface-2);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border)}
 .team-photo-placeholder span{font-size:3rem;font-weight:700;color:var(--orange);opacity:0.4}
 .team-info{padding:1.5rem}
@@ -1444,10 +1451,34 @@ body.menu-open #navHamburger {
     <h2 class="stitle">The Team.</h2>
     <p class="ssub">A small, seasoned crew who&rsquo;ve worked together long enough that nothing rattles us. We move fast and sweat the details so you don&rsquo;t have to.</p>
     <div class="team-grid fade-up">
-      <div class="team-card"><div class="team-photo">B</div><div class="team-info"><div class="team-name">Billy</div><div class="team-role">Editor &middot; Lead Creative</div><div class="team-blurb">Will cut the same scene 50 ways until it lands.</div></div></div>
-      <div class="team-card"><div class="team-photo">S</div><div class="team-info"><div class="team-name">Stacy</div><div class="team-role">Executive Producer</div><div class="team-blurb">Keeps the schedule sacred and the clients sane.</div></div></div>
-      <div class="team-card"><div class="team-photo">A</div><div class="team-info"><div class="team-name">Alex</div><div class="team-role">Art Director</div><div class="team-blurb">Speaks frame, color, and composition fluently.</div></div></div>
-      <div class="team-card"><div class="team-photo">Br</div><div class="team-info"><div class="team-name">Brandon</div><div class="team-role">Producer &middot; Director &middot; Writer</div><div class="team-blurb">Can pitch a treatment Monday and shoot it Thursday.</div></div></div>
+      <div class="team-card" data-video="https://www.r43limited.com/files/users/billy.mp4">
+        <div class="team-media">
+          <img class="team-photo" src="https://www.r43limited.com/files/users/display/billy.jpg" alt="Billy" loading="lazy">
+          <video class="team-video" muted loop playsinline preload="none"></video>
+        </div>
+        <div class="team-info"><div class="team-name">Billy</div><div class="team-role">Editor &middot; Lead Creative</div><div class="team-blurb">Will cut the same scene 50 ways until it lands.</div></div>
+      </div>
+      <div class="team-card" data-video="https://www.r43limited.com/files/users/sqstacy.mp4">
+        <div class="team-media">
+          <img class="team-photo" src="https://www.r43limited.com/files/users/display/sqstacy.jpg" alt="Stacy" loading="lazy">
+          <video class="team-video" muted loop playsinline preload="none"></video>
+        </div>
+        <div class="team-info"><div class="team-name">Stacy</div><div class="team-role">Executive Producer</div><div class="team-blurb">Keeps the schedule sacred and the clients sane.</div></div>
+      </div>
+      <div class="team-card" data-video="https://www.r43limited.com/files/users/alex.mp4">
+        <div class="team-media">
+          <img class="team-photo" src="https://www.r43limited.com/files/users/display/alex.jpg" alt="Alex" loading="lazy">
+          <video class="team-video" muted loop playsinline preload="none"></video>
+        </div>
+        <div class="team-info"><div class="team-name">Alex</div><div class="team-role">Art Director</div><div class="team-blurb">Speaks frame, color, and composition fluently.</div></div>
+      </div>
+      <div class="team-card" data-video="https://www.r43limited.com/files/users/brandon.mp4">
+        <div class="team-media">
+          <img class="team-photo" src="https://www.r43limited.com/files/users/display/brandon.jpg" alt="Brandon" loading="lazy">
+          <video class="team-video" muted loop playsinline preload="none"></video>
+        </div>
+        <div class="team-info"><div class="team-name">Brandon</div><div class="team-role">Producer &middot; Director &middot; Writer</div><div class="team-blurb">Can pitch a treatment Monday and shoot it Thursday.</div></div>
+      </div>
     </div>
   </section>
 
@@ -2072,6 +2103,30 @@ document.addEventListener('load', function(e) {
       setTimeout(setMasonryRowSpans, 150);
     })
     .catch(() => { setHeroVideo(); buildGrid(); attachCardEvents(); applyMobileLoadMore(); setTimeout(setMasonryRowSpans, 100); });
+})();
+</script>
+<script>
+// ═══ Team portraits: still ↔ video on hover (desktop) / tap (mobile) ═══
+(function(){
+  var cards = document.querySelectorAll('.team-card[data-video]');
+  var canHover = window.matchMedia('(hover: hover)').matches;
+  cards.forEach(function(card){
+    var video = card.querySelector('.team-video');
+    var url = card.getAttribute('data-video');
+    if (!video || !url) return;
+    function ensureSrc(){ if (!video.src) video.src = url; }
+    function play(){ ensureSrc(); card.classList.add('playing'); var p = video.play(); if (p && p.catch) p.catch(function(){}); }
+    function stop(){ card.classList.remove('playing'); try { video.pause(); video.currentTime = 0; } catch(e){} }
+    if (canHover) {
+      card.addEventListener('mouseenter', play);
+      card.addEventListener('mouseleave', stop);
+    } else {
+      card.addEventListener('click', function(){
+        if (card.classList.contains('playing')) { stop(); }
+        else { cards.forEach(function(c){ if(c!==card){c.classList.remove('playing'); var v=c.querySelector('.team-video'); if(v){try{v.pause();}catch(e){}}} }); play(); }
+      });
+    }
+  });
 })();
 </script>
 </body>
