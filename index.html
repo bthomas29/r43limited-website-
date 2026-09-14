@@ -178,18 +178,19 @@ section{padding:7rem 3rem}
 .team-media { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #111; }
 .team-media .team-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(20%); transition: filter 0.4s ease; z-index: 1; }
 .team-card.playing .team-media .team-video { filter: grayscale(0%); }
-/* Team (Vimeo, data-driven — thumbnail still, API play on hover) */
-.team-media-empty { position: relative; width: 100%; aspect-ratio: 1/1; background: linear-gradient(135deg,#1a1a1a,#0a0a0a); display: flex; align-items: center; justify-content: center; }
+/* Team (Vimeo, data-driven — single player, paused frame = still) */
+.team-media { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #111; }
+.team-media-empty { background: linear-gradient(135deg,#1a1a1a,#0a0a0a); display: flex; align-items: center; justify-content: center; }
 .team-media-empty span { font-size: 3rem; font-weight: 900; color: rgba(232,88,26,0.6); font-family: Georgia, serif; font-style: italic; }
-.team-vimeo-wrap { position: absolute; inset: 0; overflow: hidden; z-index: 1; }
-.team-vimeo-wrap { position: absolute; inset: 0; overflow: hidden; z-index: 1; }
+.team-vimeo-wrap { position: absolute; inset: 0; overflow: hidden; }
 .team-vimeo-wrap .team-player, .team-vimeo-wrap iframe {
   position: absolute; top: 50%; left: 50%;
   height: 100%; width: calc(100% * 16 / 9);
   transform: translate(-50%, -50%);
   pointer-events: none; border: 0;
-}.team-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; filter: grayscale(20%); z-index: 2; transition: opacity 0.45s ease; }
-.team-card.playing .team-thumb { opacity: 0; }
+  filter: grayscale(20%); transition: filter 0.4s ease;
+}
+.team-card.playing .team-vimeo-wrap .team-player, .team-card.playing .team-vimeo-wrap iframe { filter: grayscale(0%); }
 
 
 .team-photo-placeholder{width:100%;aspect-ratio:1/1;background:var(--surface-2);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border)}
@@ -2075,11 +2076,7 @@ function buildTeam() {
     if (m.vimeo) {
       card.setAttribute('data-vimeo', m.vimeo);
       var pid = 'teamvid_' + i;
-      // Thumbnail (from vumbnail) sits on top as the "still"; iframe underneath plays on hover
-      media = '<div class="team-media">' +
-                '<div class="team-vimeo-wrap"><div class="team-player" id="' + pid + '" data-vimeo-id="' + m.vimeo + '"></div></div>' +
-                '<img class="team-thumb" src="https://vumbnail.com/' + m.vimeo + '.jpg" alt="' + (m.name||'') + '" loading="lazy">' +
-              '</div>';
+      media = '<div class="team-media"><div class="team-vimeo-wrap"><div class="team-player" id="' + pid + '" data-vimeo-id="' + m.vimeo + '"></div></div></div>';
     } else {
       media = '<div class="team-media team-media-empty"><span>' + (m.name ? m.name.charAt(0) : '?') + '</span></div>';
     }
@@ -2094,19 +2091,24 @@ function buildTeam() {
 
 var __teamPlayers = {};
 function initTeamPlayers() {
-  if (typeof Vimeo === 'undefined' || !Vimeo.Player) return; // API not ready yet
+  if (typeof Vimeo === 'undefined' || !Vimeo.Player) return;
   var canHover = window.matchMedia('(hover: hover)').matches;
   document.querySelectorAll('.team-player').forEach(function(el){
     var id = el.getAttribute('data-vimeo-id');
     if (!id || el.__inited) return;
     el.__inited = true;
     var player = new Vimeo.Player(el, {
-      id: id, background: true, muted: true, loop: true, autoplay: false, controls: false
+      id: id, background: true, muted: true, loop: true, autoplay: true, controls: false
     });
-    player.ready().then(function(){ player.pause().catch(function(){}); });
     __teamPlayers[id] = player;
     var card = el.closest('.team-card');
-    function play(){ card.classList.add('playing'); player.setCurrentTime(0).catch(function(){}); player.play().catch(function(){}); }
+    // In background mode Vimeo autoplays; we let it play briefly then pause on frame 0 as the "still".
+    player.ready().then(function(){
+      // seek to a representative frame, then pause so paused image == a real video frame
+      player.setCurrentTime(0.1).then(function(){ player.pause().catch(function(){}); }).catch(function(){ player.pause().catch(function(){}); });
+      card.classList.add('ready');
+    });
+    function play(){ card.classList.add('playing'); player.play().catch(function(){}); }
     function stop(){ card.classList.remove('playing'); player.pause().catch(function(){}); }
     if (canHover) {
       card.addEventListener('mouseenter', play);
