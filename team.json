@@ -3,24 +3,28 @@
     "name": "Billy",
     "role": "Editor · Lead Creative",
     "blurb": "Will cut the same scene 50 ways until it lands.",
-    "vimeo": "165200863"
+    "vimeo": "165200863",
+    "stillTime": 0.1
   },
   {
     "name": "Stacy",
     "role": "Executive Producer",
     "blurb": "Keeps the schedule sacred and the clients sane.",
-    "vimeo": "165200864"
+    "vimeo": "165200864",
+    "stillTime": 0.1
   },
   {
     "name": "Alex",
     "role": "Art Director",
     "blurb": "Speaks frame, color, and composition fluently.",
-    "vimeo": "165200861"
+    "vimeo": "165200861",
+    "stillTime": 0.1
   },
   {
     "name": "Brandon",
     "role": "Producer · Director · Writer",
     "blurb": "Can pitch a treatment Monday and shoot it Thursday.",
-    "vimeo": "165200859"
+    "vimeo": "165200859",
+    "stillTime": 0.1
   }
 ]
