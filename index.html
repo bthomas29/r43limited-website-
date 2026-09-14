@@ -188,9 +188,8 @@ section{padding:7rem 3rem}
   height: 100%; width: calc(100% * 16 / 9);
   transform: translate(-50%, -50%);
   pointer-events: none; border: 0;
-  filter: grayscale(20%); transition: filter 0.4s ease;
 }
-.team-card.playing .team-vimeo-wrap .team-player, .team-card.playing .team-vimeo-wrap iframe { filter: grayscale(0%); }
+
 
 
 .team-photo-placeholder{width:100%;aspect-ratio:1/1;background:var(--surface-2);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border)}
@@ -2076,7 +2075,7 @@ function buildTeam() {
     if (m.vimeo) {
       card.setAttribute('data-vimeo', m.vimeo);
       var pid = 'teamvid_' + i;
-      media = '<div class="team-media"><div class="team-vimeo-wrap"><div class="team-player" id="' + pid + '" data-vimeo-id="' + m.vimeo + '"></div></div></div>';
+      media = '<div class="team-media"><div class="team-vimeo-wrap"><div class="team-player" id="' + pid + '" data-vimeo-id="' + m.vimeo + '" data-still="' + (m.stillTime != null ? m.stillTime : 1.5) + '"></div></div></div>';
     } else {
       media = '<div class="team-media team-media-empty"><span>' + (m.name ? m.name.charAt(0) : '?') + '</span></div>';
     }
@@ -2105,11 +2104,11 @@ function initTeamPlayers() {
     // In background mode Vimeo autoplays; we let it play briefly then pause on frame 0 as the "still".
     player.ready().then(function(){
       // seek to a representative frame, then pause so paused image == a real video frame
-      player.setCurrentTime(0.1).then(function(){ player.pause().catch(function(){}); }).catch(function(){ player.pause().catch(function(){}); });
+      var stillT = parseFloat(el.getAttribute('data-still')); if (isNaN(stillT)) stillT = 1.5; player.setCurrentTime(stillT).then(function(){ player.pause().catch(function(){}); }).catch(function(){ player.pause().catch(function(){}); });
       card.classList.add('ready');
     });
     function play(){ card.classList.add('playing'); player.play().catch(function(){}); }
-    function stop(){ card.classList.remove('playing'); player.pause().catch(function(){}); }
+    function stop(){ card.classList.remove('playing'); player.pause().catch(function(){}); var st = parseFloat(el.getAttribute('data-still')); if(!isNaN(st)) player.setCurrentTime(st).catch(function(){}); }
     if (canHover) {
       card.addEventListener('mouseenter', play);
       card.addEventListener('mouseleave', stop);
