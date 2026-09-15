@@ -1316,6 +1316,24 @@ body.menu-open #navHamburger {
   height: 100%;
 }
 
+
+/* contact form status message */
+.fstatus {
+  min-height: 1.4em;
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(245, 242, 237, 0.7);
+}
+.fstatus.is-error { color: #E06C5A; }
+.fstatus.is-ok    { color: var(--orange, #E8743B); }
+.forminput[aria-invalid="true"] {
+  border-color: #E06C5A !important;
+}
+.btn-primary[disabled] {
+  opacity: 0.45;
+  cursor: default;
+}
 </style>
 
   <!-- Schema.org structured data -->
@@ -1478,16 +1496,16 @@ body.menu-open #navHamburger {
     <p class="ssub">Got a project? A timeline? An RFP? Send a note and we'll get back to you within one business day.</p>
     <div class="form-grid">
       <div class="form-col">
-        <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" style="display:contents;">
-          <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY_HERE">
-          <input type="hidden" name="subject" value="New inquiry from R43Limited.com">
-          <input type="hidden" name="from_name" value="R43 Limited Website">
-          <input type="checkbox" name="botcheck" style="display:none">
-          <input type="text" id="fname" name="name" placeholder="Your Name" class="forminput" required>
-          <input type="email" id="femail" name="email" placeholder="Email" class="forminput" required>
-          <input type="text" id="fcompany" name="company" placeholder="Company / Agency" class="forminput">
+        <form action="https://formspree.io/f/mbglrowj" method="POST" id="contactForm" style="display:contents;">
+          <input type="hidden" name="_subject" value="New inquiry from r43ltd.com">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;">
+          <input type="text" id="fname" name="name" placeholder="Your Name" class="forminput" autocomplete="name" required>
+          <input type="email" id="femail" name="email" placeholder="Email" class="forminput" autocomplete="email" required>
+          <input type="text" id="fcompany" name="company" placeholder="Company / Agency" class="forminput" autocomplete="organization">
+          <input type="tel" id="fphone" name="phone" placeholder="Phone (optional)" class="forminput" autocomplete="tel">
           <textarea id="fmessage" name="message" placeholder="Tell us about your project" rows="5" class="forminput" required></textarea>
           <button id="fsubmit" type="submit" class="btn-primary">Send Message</button>
+          <p class="fstatus" id="formStatus" role="status" aria-live="polite"></p>
         </form>
       </div>
       <div class="form-col contact-info">
@@ -2147,5 +2165,64 @@ fetch('videos.json?v=' + Date.now(), { cache: 'no-store' })
 // (team hover handled by Vimeo background mode)
 </script>
   <script src="https://player.vimeo.com/api/player.js"></script>
+
+<script>
+/* Formspree contact form: submit over fetch so the visitor stays on the page */
+(function () {
+  var form   = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  var button = document.getElementById('fsubmit');
+  if (!form || !status || !button) return;
+
+  function setStatus(msg, kind) {
+    status.textContent = msg;
+    status.className = 'fstatus' + (kind ? ' is-' + kind : '');
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    Array.prototype.forEach.call(
+      form.querySelectorAll('[aria-invalid]'),
+      function (el) { el.removeAttribute('aria-invalid'); }
+    );
+
+    button.disabled = true;
+    setStatus('Sending...');
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' }
+    })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; })
+          .then(function (data) { return { ok: res.ok, data: data }; });
+      })
+      .then(function (r) {
+        if (r.ok) {
+          form.reset();
+          setStatus("Thanks. We'll be in touch within one business day.", 'ok');
+          return;
+        }
+        var errors = (r.data && r.data.errors) || [];
+        errors.forEach(function (err) {
+          var input = err.field && form.querySelector('[name="' + err.field + '"]');
+          if (input) input.setAttribute('aria-invalid', 'true');
+        });
+        setStatus(
+          errors.length
+            ? errors.map(function (e) { return e.message; }).join('. ')
+            : 'Something went wrong. Please email info@r43ltd.com or call 440-247-4343.',
+          'error'
+        );
+      })
+      .catch(function () {
+        setStatus('Something went wrong. Please email info@r43ltd.com or call 440-247-4343.', 'error');
+      })
+      .then(function () { button.disabled = false; });
+  });
+})();
+</script>
 </body>
 </html>
