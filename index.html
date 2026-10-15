@@ -2072,11 +2072,9 @@ function buildTeam() {
     grid.appendChild(card);
   });
 }
-// Load team.json (falls back to seed)
-fetch('team.json?v=' + Date.now(), { cache: 'no-store' })
-  .then(function(r){ if (!r.ok) throw 0; return r.json(); })
-  .then(function(data){ if (Array.isArray(data) && data.length) window.TEAM = data; buildTeam(); })
-  .catch(function(){ buildTeam(); });
+// Team data (with photos) is embedded above. We intentionally do NOT fetch
+// team.json here — it holds the old video-era fields and has no photos.
+buildTeam();
 
 fetch('videos.json?v=' + Date.now(), { cache: 'no-store' })
     .then(r => { if (!r.ok) throw 0; return r.json(); })
